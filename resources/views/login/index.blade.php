@@ -3,7 +3,6 @@
     <title>Login Page</title>
     @endsection
 
-  <body class="bg-gradient-primary">
     <div class="container">
       <!-- Outer Row -->
       <div class="row justify-content-center">
@@ -22,7 +21,7 @@
                         <input
                           type="email"
                           class="form-control form-control-user"
-                          id="exampleInputEmail"
+                          id="InputEmail"
                           aria-describedby="emailHelp"
                           placeholder="Enter Email Address..."
                         />
@@ -31,7 +30,7 @@
                         <input
                           type="password"
                           class="form-control form-control-user"
-                          id="exampleInputPassword"
+                          id="InputPassword"
                           placeholder="Password"
                         />
                       </div>
@@ -49,7 +48,7 @@
                       >
                     </div>
                     <div class="text-center">
-                      <a class="small" href="#"
+                      <a class="small" href="{{ route('register') }}"
                         >Create an Account!</a
                       >
                     </div>
@@ -60,4 +59,5 @@
         </div>
       </div>
     </div>
+  </body>
 </x-layout>

@@ -32,7 +32,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" class="bg-gradient-primary">
 
     <!-- Begin Page Content -->
     <div class="container-fluid">
