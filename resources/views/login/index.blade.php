@@ -3,6 +3,7 @@
     <title>Login Page</title>
     @endsection
 
+    
     <div class="container">
       <!-- Outer Row -->
       <div class="row justify-content-center">
@@ -12,6 +13,11 @@
               <!-- Nested Row within Card Body -->
               <div class="row">
                 <div class="col">
+                  @session('success')
+                  <div class="alert alert-success col-lg-12" role="alert">
+                      {{ $value }}
+                  </div>
+                  @endsession
                   <div class="p-5">
                     <div class="text-center">
                       <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
