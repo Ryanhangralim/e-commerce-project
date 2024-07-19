@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\RegisterController;
+use GuzzleHttp\Psr7\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,11 +20,16 @@ use App\Http\Controllers\RegisterController;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('homepage');
+})->middleware('auth')->name('home');
 
-Route::get('/login', function (){
-    return view('login.index');
-})->name('login');
+Route::get('/login', [LoginController::class, 'index'])
+->name('login');
+
+Route::post('/login', [LoginController::class, 'authenticate'])
+->name('authenticate');
+
+Route::post('/logout', [LogoutController::class, 'logout'])
+->name('logout');
 
 // Register related routes
 Route::get('/register', [RegisterController::class, 'index'])

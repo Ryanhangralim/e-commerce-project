@@ -18,11 +18,17 @@
                       {{ $value }}
                   </div>
                   @endsession
+                  @session('failed')
+                  <div class="alert alert-danger col-lg-12" role="alert">
+                      {{ $value }}
+                  </div>
+                  @endsession
                   <div class="p-5">
                     <div class="text-center">
                       <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                     </div>
-                    <form class="user">
+                    <form class="user" action="{{ route('authenticate') }}" method="POST">
+                      @csrf
                       <div class="form-group">
                         <input
                           type="email"
@@ -30,6 +36,8 @@
                           id="InputEmail"
                           aria-describedby="emailHelp"
                           placeholder="Enter Email Address..."
+                          name="email"
+                          required
                         />
                       </div>
                       <div class="form-group">
@@ -38,14 +46,15 @@
                           class="form-control form-control-user"
                           id="InputPassword"
                           placeholder="Password"
+                          name="password"
+                          required
                         />
                       </div>
-                      <a
-                        href="#"
+                      <button
                         class="btn btn-primary btn-user btn-block"
                       >
                         Login
-                      </a>
+                      </button>
                     </form>
                     <hr />
                     <div class="text-center">
@@ -65,5 +74,7 @@
         </div>
       </div>
     </div>
-  </body>
+
+    @section('script')
+    @endsection
 </x-layout>
