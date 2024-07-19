@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -22,9 +25,18 @@ class RegisterController extends Controller
             'phone_number' => ['required', 'numeric']
         ]);
 
-        //masukkan data ke database
-        User::create($validatedData);
+        // Hash password
+        $validatedData['password'] = Hash::make($validatedData['password']);
 
-        return redirect(route('login'))->with('success', 'Successfully Registered!');
+        // Insert data to database
+        $user = User::create($validatedData);
+
+        // Log the user in
+        Auth::login($user);
+
+        // Send email verification notification
+        event(new Registered($user));
+
+        return redirect()->route('verification.notice');
     }
 }
