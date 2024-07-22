@@ -21,7 +21,8 @@ use GuzzleHttp\Psr7\Request;
 
 Route::get('/', function () {
     return view('welcome');
-})->middleware('auth')->name('home');
+})->middleware('role:customer,admin,seller')->name('home');
+
 
 Route::middleware('guest')->group(function (){
     // Login related routes
@@ -48,6 +49,7 @@ Route::middleware('guest')->group(function (){
 });
 
 Route::post('/logout', [LogoutController::class, 'logout'])
+->middleware('auth')
 ->name('logout');
 // Email Verification related routes
 Route::get('/email/verify', [MailController::class, 'verificationNotice'])
