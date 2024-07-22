@@ -25,6 +25,6 @@ class CheckRole
         }
 
         // Redirect to home page if user is not authenticated or does not have the required role
-        return redirect('/')->with('error', 'You do not have access to this page.');
+        return redirect('/login')->with('error', 'You do not have access to this page.');
     }
 }
