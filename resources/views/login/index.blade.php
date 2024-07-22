@@ -58,7 +58,7 @@
                     </form>
                     <hr />
                     <div class="text-center">
-                      <a class="small" href="#"
+                      <a class="small" href="{{ route('password.request') }}"
                         >Forgot Password?</a
                       >
                     </div>

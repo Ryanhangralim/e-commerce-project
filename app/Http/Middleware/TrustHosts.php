@@ -14,6 +14,7 @@ class TrustHosts extends Middleware
     public function hosts(): array
     {
         return [
+            'e-commerce-project.test',
             $this->allSubdomainsOfApplicationUrl(),
         ];
     }

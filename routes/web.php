@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
 use GuzzleHttp\Psr7\Request;
 
@@ -22,21 +23,34 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('auth')->name('home');
 
-Route::get('/login', [LoginController::class, 'index'])
-->name('login');
+Route::middleware('guest')->group(function (){
+    // Login related routes
+    Route::get('/login', [LoginController::class, 'index'])
+    ->name('login');
+    Route::post('/login', [LoginController::class, 'authenticate'])
+    ->name('authenticate');
 
-Route::post('/login', [LoginController::class, 'authenticate'])
-->name('authenticate');
+    // Register related routes
+    Route::get('/register', [RegisterController::class, 'index'])
+    ->name('register');
+    Route::post('/register', [RegisterController::class, 'store'])
+    ->name('add_new_user');
+
+    // Password reset related routes
+    Route::get('/forgot-password', [PasswordController::class, 'forgotPasswordForm'])
+    ->name('password.request');
+    Route::post('/forgot-password', [PasswordController::class, 'validateEmail'])
+    ->name('password.email');
+    Route::get('/reset-password/{token}', [PasswordController::class, 'resetPasswordForm'])
+    ->name('password.reset');
+    Route::post('/reset-password', [PasswordController::class, 'resetPassword'])
+    ->name('password.update');
+});
+
+
 
 Route::post('/logout', [LogoutController::class, 'logout'])
 ->name('logout');
-
-// Register related routes
-Route::get('/register', [RegisterController::class, 'index'])
-->name('register');
-Route::post('/register', [RegisterController::class, 'store'])
-->name('add_new_user');
-
 // Email Verification related routes
 Route::get('/email/verify', [MailController::class, 'verificationNotice'])
 ->middleware('auth')
@@ -49,3 +63,4 @@ Route::get('/email/verify/{id}/{hash}', [MailController::class, 'verificationHan
 Route::post('/email/verification-notification', [MailController::class, 'resendVerificationEmail'])
 ->middleware(['auth', 'throttle:6,1'])
 ->name('verification.send');
+
