@@ -1,9 +1,4 @@
-<x-layout>
-    @section('title')
-        <title>Email Verification</title>
-    @endsection
-
-<body>
+<x-auth-layout title="Email Verification">
     <div class="container">
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
@@ -35,5 +30,4 @@
                 </div>
             </div>
         </div>
-</body>
-</x-layout>
+</x-auth-layout>

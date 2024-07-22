@@ -1,10 +1,5 @@
-<x-layout>
-    @section('title')
-    <title>Login Page</title>
-    @endsection
-
-    
-    <div class="container">
+<x-auth-layout title="Login Page">
+  <div class="container">
       <!-- Outer Row -->
       <div class="row justify-content-center">
         <div class="col-xl-10 col-lg-12 col-md-9">
@@ -74,7 +69,4 @@
         </div>
       </div>
     </div>
-
-    @section('script')
-    @endsection
-</x-layout>
+</x--auth-layout>

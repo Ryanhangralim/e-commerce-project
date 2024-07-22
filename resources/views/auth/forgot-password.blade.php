@@ -1,8 +1,4 @@
-<x-layout>
-    @section('title')
-    <title>Forgot Password</title>
-    @endsection
-
+<x-auth-layout title="Forgot password">
     <div class="container">
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
@@ -40,5 +36,4 @@
             </div>
         </div>
     </div>
-
-</x-layout>
+</x-auth-layout>

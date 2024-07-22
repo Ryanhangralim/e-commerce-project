@@ -1,8 +1,4 @@
-<x-layout>
-    @section('title')
-    <title>Register Page</title>
-    @endsection
-
+<x-auth-layout title="Register Page">
     <div class="container">
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
@@ -84,4 +80,4 @@
 
     </div>
 
-</x-layout>
+</x-auth-layout>

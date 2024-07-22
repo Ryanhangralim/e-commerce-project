@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     {{-- Custom title for every page --}}
-    @yield('title')
+    <title>{{ $title ?? 'Auth Page' }}</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -37,7 +37,7 @@
     <!-- Begin Page Content -->
     <div class="container-fluid">
 
-        @yield('container')
+        {{ $slot }}
 
     </div>
     
