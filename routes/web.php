@@ -47,8 +47,6 @@ Route::middleware('guest')->group(function (){
     ->name('password.update');
 });
 
-
-
 Route::post('/logout', [LogoutController::class, 'logout'])
 ->name('logout');
 // Email Verification related routes
