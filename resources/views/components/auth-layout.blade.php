@@ -7,8 +7,6 @@
 
     @include('includes.head')
 
-    @yield('css')
-
 </head>
 
 <body id="page-top" class="bg-gradient-primary">
@@ -21,9 +19,6 @@
     </div>
     
     @include('includes.script')
-
-    {{-- Custom scripts --}}
-    @yield('script')
 </body>
 
 </html>
