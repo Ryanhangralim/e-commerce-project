@@ -1,4 +1,4 @@
-<x-form-layout title="Register Page">
+<x-auth-layout title="Register Page">
     <div class="container">
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
@@ -80,4 +80,4 @@
 
     </div>
 
-</x-form-layout>
+</x-auth-layout>

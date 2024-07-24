@@ -7,6 +7,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SellerApplicationController;
+use App\Models\SellerApplication;
 use GuzzleHttp\Psr7\Request;
 
 /*
@@ -77,4 +78,6 @@ Route::middleware('auth')->group(function (){
 Route::middleware('role:customer')->group(function (){
     Route::get('/seller-application', [SellerApplicationController::class, 'index'])
     ->name('apply-seller');
+    Route::post('/seller-application', [SellerApplicationController::class, 'store'])
+    ->name('application-form');
 });
