@@ -42,7 +42,11 @@
                             <td>{{ $application->business_description }}</td>
                             <td>{{ $application->created_at }}</td>
                             <td>{{ $application->application_status }}</td>
-                            <td>Future Button</td>
+                            <td>                                
+                                <button type="button" id="viewDetailsBtn" class="btn btn-primary view-details" data-id="" data-title="">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i> Details
+                                </button>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
