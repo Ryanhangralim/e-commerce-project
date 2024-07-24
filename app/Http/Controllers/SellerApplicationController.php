@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SellerApplication;
 use Illuminate\Http\Request;
+use App\Models\SellerApplication;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SellerApplicationReceived;
 
 class SellerApplicationController extends Controller
 {
@@ -25,8 +27,9 @@ class SellerApplicationController extends Controller
     // store application data
     public function store(Request $request)
     {
+        $user = Auth::user();
         $validatedData = $request->validate([
-            'business_name' => ['required', 'min:3'],
+            'business_name' => ['required', 'min:3', 'max:50'],
             'business_description' => ['required', 'min:10', 'unique:seller_applications']
         ]);
 
@@ -34,7 +37,8 @@ class SellerApplicationController extends Controller
         $validatedData['user_id'] = Auth::id();
 
         // Insert data to database
-        SellerApplication::create($validatedData);
+        $application = SellerApplication::create($validatedData);
+        Mail::to($user->email)->send(new SellerApplicationReceived($user, $application));
 
         return redirect()->intended(route('home'))->with('status', 'Successfully applied');
     }

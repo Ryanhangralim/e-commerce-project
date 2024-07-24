@@ -30,7 +30,7 @@ class LoginController extends Controller
             $request->session()->regenerate();
             return redirect()->intended(route('home'));
         } else {
-            return back()->with('failed', 'Wrong email or password!');
+            return back()->withErrors('failed', 'Wrong email or password!');
         }
     }
 }
