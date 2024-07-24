@@ -3,6 +3,27 @@
         <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     @endsection
 
+    <!-- View Details Modal -->
+    <div class="modal fade" id="viewDetailsModal" tabindex="-1" aria-labelledby="viewDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewDetailsModalLabel">Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="userName">User Name: </p>
+                    <p id="businessName">Business Name: </p>
+                    <p id="businessDescription">Business Description: </p>
+                    <p id="applicationDate">Date: </p>
+                    <p id="applicationStatus">Status: </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -16,7 +37,6 @@
                             <th>No</th>
                             <th>User Name</th>
                             <th>Business Name</th>
-                            <th>Business Description</th>
                             <th>Date</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -27,7 +47,6 @@
                             <th>No</th>
                             <th>User Name</th>
                             <th>Business Name</th>
-                            <th>Business Description</th>
                             <th>Date</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -39,11 +58,10 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $application->user->first_name }} {{ $application->user->last_name }}</td>
                             <td>{{ $application->business_name }}</td>
-                            <td>{{ $application->business_description }}</td>
                             <td>{{ $application->created_at }}</td>
                             <td>{{ $application->application_status }}</td>
                             <td>                                
-                                <button type="button" id="viewDetailsBtn" class="btn btn-primary view-details" data-id="" data-title="">
+                                <button type="button" id="viewDetailsBtn" class="btn btn-primary view-details" data-detail="{{ $application }}">
                                     <i class="fa fa-info-circle" aria-hidden="true"></i> Details
                                 </button>
                             </td>
@@ -59,6 +77,28 @@
     <!-- Page level plugins -->
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
+    {{-- Script for detail modal --}}
+    <script>
+        $(document).ready(function() {
+            $('.view-details').on('click', function(){
+                var data = $(this).data('detail');
+
+                var date = new Date(data.created_at);
+                var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+
+                $('#userName').text('User Name: ' + data.user.first_name + ' ' + data.user.last_name);
+                $('#businessName').text('Business Name: ' + data.business_name);
+                $('#businessDescription').text('Business Description: ' + data.business_description);
+                $('#applicationDate').text('Date: ' + formattedDate);
+                $('#applicationStatus').text('Status: ' + data.application_status);
+
+                $('#viewDetailsModal').modal('show');
+            });
+        });
+    </script>
+
+    {{-- Table for script --}}
     <script type="text/javascript">
         $('document').ready(function(){
             $('#sellerApplicationTable').DataTable();
