@@ -42,4 +42,13 @@ class SellerApplicationController extends Controller
 
         return redirect()->intended(route('home'))->with('status', 'Successfully applied');
     }
+
+    // view application data
+    public function view()
+    {
+        $applicationData = [
+            'applications' => SellerApplication::all()
+        ];
+        return view('dashboard.seller-application', $applicationData);
+    }
 }

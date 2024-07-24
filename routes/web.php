@@ -24,12 +24,7 @@ use GuzzleHttp\Psr7\Request;
 Route::get('/', function () {
     return view('welcome');
 })->middleware('role:customer,admin,seller')->name('home');
-Route::get('/dashboard', function () {
-    return view('dashboard.index');
-})->middleware('role:admin,seller')->name('dashboard');
-Route::get('/dashboard/user', function () {
-    return view('dashboard.user');
-})->middleware('role:admin,seller')->name('dashboard.user');
+
 
 // Guest middleware
 Route::middleware('guest')->group(function (){
@@ -80,4 +75,18 @@ Route::middleware('role:customer')->group(function (){
     ->name('apply-seller');
     Route::post('/seller-application', [SellerApplicationController::class, 'store'])
     ->name('application-form');
+});
+
+// Admin middleware
+Route::middleware('role:admin')->group(function (){
+    Route::get('/dashboard', function () {
+        return view('dashboard.index');
+    })
+    ->name('dashboard');
+    Route::get('/dashboard/user', function () {
+        return view('dashboard.user');
+    })
+    ->name('dashboard.user');
+    Route::get('/dashboard/seller-application', [SellerApplicationController::class, 'view'])
+    ->name('dashboard.seller-application');
 });

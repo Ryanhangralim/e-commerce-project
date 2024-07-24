@@ -61,6 +61,23 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
+                    aria-expanded="true" aria-controls="collapseUser">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>User</span>
+                </a>
+                <div id="collapseUser" class="collapse" aria-labelledby="headingUser"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">User Utilities:</h6>
+                        <a class="collapse-item" href="{{ route('dashboard.user') }}">View User List</a>
+                        <a class="collapse-item" href="{{ route('dashboard.seller-application') }}">View Seller Application</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
@@ -112,13 +129,6 @@
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.user') }}">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>User</span></a>
             </li>
 
             <!-- Divider -->
