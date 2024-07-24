@@ -1,4 +1,4 @@
-<x-auth-layout title="Login Page">
+<x-form-layout title="Login Page">
   <div class="container">
       <!-- Outer Row -->
       <div class="row justify-content-center">
@@ -69,4 +69,4 @@
         </div>
       </div>
     </div>
-</x--auth-layout>
+</x-form-layout>

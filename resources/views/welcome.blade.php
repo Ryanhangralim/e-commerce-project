@@ -2,7 +2,9 @@
 <p>Welcome to project, {{ Auth()->user()->first_name }} {{ Auth()->user()->last_name }} !</p>
 @role('customer')
     <p>THIS IS ONLY VISIBLE FOR CUSTOMER</p>
+    <a href="{{ route('apply-seller') }}"><button>Apply Seller</button></a>
 @endrole
+<p></p>
 @role('seller')
     <p>THIS IS ONLY VISIBLE FOR SELLER</p>
 @endrole

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SellerApplicationController;
 use GuzzleHttp\Psr7\Request;
 
 /*
@@ -29,7 +30,7 @@ Route::get('/dashboard/user', function () {
     return view('dashboard.user');
 })->middleware('role:admin,seller')->name('dashboard.user');
 
-
+// Guest middleware
 Route::middleware('guest')->group(function (){
     // Login related routes
     Route::get('/login', [LoginController::class, 'index'])
@@ -54,19 +55,26 @@ Route::middleware('guest')->group(function (){
     ->name('password.update');
 });
 
-Route::post('/logout', [LogoutController::class, 'logout'])
-->middleware('auth')
-->name('logout');
-// Email Verification related routes
-Route::get('/email/verify', [MailController::class, 'verificationNotice'])
-->middleware('auth')
-->name('verification.notice');
 
-Route::get('/email/verify/{id}/{hash}', [MailController::class, 'verificationHandler'])
-->middleware(['auth', 'signed'])
-->name('verification.verify');
+// Auth middleware
+Route::middleware('auth')->group(function (){
+    Route::post('/logout', [LogoutController::class, 'logout'])
+    ->name('logout');
+    // Email Verification related routes
+    Route::get('/email/verify', [MailController::class, 'verificationNotice'])
+    ->name('verification.notice');
+    
+    Route::get('/email/verify/{id}/{hash}', [MailController::class, 'verificationHandler'])
+    ->middleware('signed')
+    ->name('verification.verify');
+    
+    Route::post('/email/verification-notification', [MailController::class, 'resendVerificationEmail'])
+    ->middleware('throttle:6,1')
+    ->name('verification.send');
+});
 
-Route::post('/email/verification-notification', [MailController::class, 'resendVerificationEmail'])
-->middleware(['auth', 'throttle:6,1'])
-->name('verification.send');
-
+// Customer middleware
+Route::middleware('role:customer')->group(function (){
+    Route::get('/seller-application', [SellerApplicationController::class, 'index'])
+    ->name('apply-seller');
+});

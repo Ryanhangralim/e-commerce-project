@@ -1,4 +1,4 @@
-<x-auth-layout title="Reset Password">
+<x-form-layout title="Reset Password">
     <div class="container">
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
@@ -44,4 +44,4 @@
             </div>
         </div>
     </div>
-</x-auth-layout>
+</x-form-layout>

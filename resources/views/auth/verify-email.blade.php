@@ -1,4 +1,4 @@
-<x-auth-layout title="Email Verification">
+<x-form-layout title="Email Verification">
     <div class="container">
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
@@ -30,4 +30,4 @@
                 </div>
             </div>
         </div>
-</x-auth-layout>
+</x-form-layout>
