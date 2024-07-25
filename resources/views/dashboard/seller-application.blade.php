@@ -3,6 +3,7 @@
         <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     @endsection
 
+
     <!-- View Details Modal -->
     <div class="modal fade" id="viewDetailsModal" tabindex="-1" aria-labelledby="viewDetailsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -15,14 +16,35 @@
                 </div>
                 <div class="modal-body">
                     <p id="userName">User Name: </p>
+                    <p id="userEmail">Email: </p>
+                    <p id="phoneNumber">Phone Number: </p>
                     <p id="businessName">Business Name: </p>
                     <p id="businessDescription">Business Description: </p>
                     <p id="applicationDate">Date: </p>
                     <p id="applicationStatus">Status: </p>
+                    <div class="d-flex justify-content-end">
+                        <form method="POST" id="verifyForm">
+                            @csrf
+                            <input type="hidden" id="verifyApplicationID" name="applicationID">
+                            <button type="submit" class="btn btn-primary">Verify</button>
+                        </form>
+                        <form method="POST" id="rejectForm">
+                            @csrf
+                            <input type="hidden" id="rejectApplicationID" name="applicationID">
+                            <button type="submit" class="btn btn-danger ml-2">Reject</button>
+                        </form>
+                    </div>
+                    
                 </div>
             </div>
         </div>
     </div>
+
+    @if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+    @endif
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -35,6 +57,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Application ID</th>
                             <th>User Name</th>
                             <th>Business Name</th>
                             <th>Date</th>
@@ -45,6 +68,7 @@
                     <tfoot>
                         <tr>
                             <th>No</th>
+                            <th>Application ID</th>
                             <th>User Name</th>
                             <th>Business Name</th>
                             <th>Date</th>
@@ -56,12 +80,13 @@
                         @foreach($applications as $application)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $application->id }}</td>
                             <td>{{ $application->user->first_name }} {{ $application->user->last_name }}</td>
                             <td>{{ $application->business_name }}</td>
                             <td>{{ $application->created_at }}</td>
                             <td>{{ $application->application_status }}</td>
                             <td>                                
-                                <button type="button" id="viewDetailsBtn" class="btn btn-primary view-details" data-detail="{{ $application }}">
+                                <button type="button" id="viewDetailsBtn" class="btn btn-primary view-details" data-detail="{{ $application }}" data-verify-route={{ route('dashboard.verify-seller') }} data-reject-route={{ route('dashboard.reject-seller') }}>
                                     <i class="fa fa-info-circle" aria-hidden="true"></i> Details
                                 </button>
                             </td>
@@ -83,17 +108,25 @@
         $(document).ready(function() {
             $('.view-details').on('click', function(){
                 var data = $(this).data('detail');
+                var verifyRoute = $(this).data('verify-route');
+                var rejectRoute = $(this).data('reject-route');
 
                 var date = new Date(data.created_at);
                 var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
 
                 $('#userName').text('User Name: ' + data.user.first_name + ' ' + data.user.last_name);
+                $('#userEmail').text('Email: ' + data.user.email);
+                $('#phoneNumber').text('Phone Number: ' + data.user.phone_number);
                 $('#businessName').text('Business Name: ' + data.business_name);
                 $('#businessDescription').text('Business Description: ' + data.business_description);
                 $('#applicationDate').text('Date: ' + formattedDate);
                 $('#applicationStatus').text('Status: ' + data.application_status);
-
+                
                 $('#viewDetailsModal').modal('show');
+                $('#verifyApplicationID').val(data.id);
+                $('#rejectApplicationID').val(data.id);
+                $('#verifyForm').attr('action', verifyRoute);
+                $('#rejectForm').attr('action', rejectRoute);
             });
         });
     </script>

@@ -7,7 +7,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SellerApplicationController;
-use App\Models\SellerApplication;
+use Database\Seeders\SellerApplicationSeeder;
 use GuzzleHttp\Psr7\Request;
 
 /*
@@ -83,10 +83,18 @@ Route::middleware('role:admin')->group(function (){
         return view('dashboard.index');
     })
     ->name('dashboard');
+
     Route::get('/dashboard/user', function () {
         return view('dashboard.user');
     })
     ->name('dashboard.user');
+
     Route::get('/dashboard/seller-application', [SellerApplicationController::class, 'view'])
     ->name('dashboard.seller-application');
+
+    Route::post('/dashboard/verify-seller-application', [SellerApplicationController::class, 'verify'])
+    ->name('dashboard.verify-seller');
+
+    Route::post('/dashboard/reject-seller-application', [SellerApplicationController::class, 'reject'])
+    ->name('dashboard.reject-seller');
 });
