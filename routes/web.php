@@ -7,6 +7,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SellerApplicationController;
+use App\Http\Controllers\UserController;
 use Database\Seeders\SellerApplicationSeeder;
 use GuzzleHttp\Psr7\Request;
 
@@ -84,9 +85,7 @@ Route::middleware('role:admin')->group(function (){
     })
     ->name('dashboard');
 
-    Route::get('/dashboard/user', function () {
-        return view('dashboard.user');
-    })
+    Route::get('/dashboard/user', [UserController::class, 'index'])
     ->name('dashboard.user');
 
     // Seller application related routes
