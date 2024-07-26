@@ -2,7 +2,7 @@
     @section('css')
         <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
         <style>
-                        .nav-tabs {
+            .nav-tabs {
                 border-bottom: 2px solid #dee2e6;
             }
 

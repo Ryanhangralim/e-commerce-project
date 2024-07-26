@@ -3,6 +3,11 @@
         <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     @endsection
 
+    <div class="row justify-content-end">
+        <a href="{{ route('dashboard.generate-user-report') }}" class="btn btn-primary mb-3"><i
+            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    </div>
+
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">

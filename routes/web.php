@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GenerateReportController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
@@ -87,6 +88,9 @@ Route::middleware('role:admin')->group(function (){
 
     Route::get('/dashboard/user', [UserController::class, 'index'])
     ->name('dashboard.user');
+
+    Route::get('/dashboard/user/generate-user-report', [GenerateReportController::class, 'generateUserReport'])
+    ->name('dashboard.generate-user-report');
 
     // Seller application related routes
     Route::get('/dashboard/seller-application', [SellerApplicationController::class, 'view'])
