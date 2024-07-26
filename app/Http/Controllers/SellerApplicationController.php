@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SellerApplicationApproved;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\SellerApplication;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SellerApplicationReceived;
+use App\Mail\SellerApplicationRejected;
 
 class SellerApplicationController extends Controller
 {
@@ -71,8 +73,11 @@ class SellerApplicationController extends Controller
         $application = SellerApplication::find($applicationID);
         $userID = $application->user_id;
 
+        $user = User::find($userID);
+
         // Update user role
         User::where('id', $userID)->update(['role_id' => 2]);
+        Mail::to($user->email)->send(new SellerApplicationApproved($user, $application));
 
         // Redirect
         return redirect()->route('dashboard.seller-application')->with('status', 'Successfully verified');
@@ -86,6 +91,13 @@ class SellerApplicationController extends Controller
         
         // Update status and role
         SellerApplication::where('id', $applicationID)->update(['application_status' => 'rejected']);
+
+        // Get application information
+        $application = SellerApplication::find($applicationID);
+        $userID = $application->user_id;
+
+        $user = User::find($userID);
+        Mail::to($user->email)->send(new SellerApplicationRejected($user, $application));
 
         // Redirect
         return redirect()->route('dashboard.seller-application')->with('status', 'Successfully rejected');

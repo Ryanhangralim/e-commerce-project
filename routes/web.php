@@ -89,6 +89,7 @@ Route::middleware('role:admin')->group(function (){
     })
     ->name('dashboard.user');
 
+    // Seller application related routes
     Route::get('/dashboard/seller-application', [SellerApplicationController::class, 'view'])
     ->name('dashboard.seller-application');
 
