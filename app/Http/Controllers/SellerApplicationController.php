@@ -44,13 +44,18 @@ class SellerApplicationController extends Controller
         return redirect()->route('home')->with('status', 'Successfully applied');
     }
 
-    // view application data
+    // view application data in dashboard table
     public function view()
     {
-        $applicationData = [
-            'applications' => SellerApplication::all()
-        ];
-        return view('dashboard.seller-application', $applicationData);
+        return view('dashboard.seller-application');
+    }
+
+    // return application fetched
+    public function fetchApplication(Request $request)
+    {
+        $status = $request->get('status');
+        $applications = SellerApplication::with('user')->where('application_status', $status)->get();
+        return response()->json(['applications' => $applications]);
     }
 
     // update application status

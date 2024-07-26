@@ -97,4 +97,7 @@ Route::middleware('role:admin')->group(function (){
 
     Route::post('/dashboard/reject-seller-application', [SellerApplicationController::class, 'reject'])
     ->name('dashboard.reject-seller');
+
+    Route::get('/dashboard/fetch-application',  [SellerApplicationController::class, 'fetchApplication'])
+    ->name('dashboard.fetch-application');
 });
