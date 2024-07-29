@@ -1,17 +1,18 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\GenerateReportController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\LogoutController;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\SellerApplicationController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 use Database\Seeders\SellerApplicationSeeder;
-use GuzzleHttp\Psr7\Request;
+use App\Http\Controllers\GenerateReportController;
+use App\Http\Controllers\SellerApplicationController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -93,6 +94,7 @@ Route::prefix('/admin')->middleware('role:admin')->group(function (){
     Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])
     ->name('admin-dashboard');
 
+    // User related routes
     Route::get('/dashboard/user', [UserController::class, 'index'])
     ->name('dashboard.user');
 
@@ -118,4 +120,8 @@ Route::prefix('/admin')->middleware('role:admin')->group(function (){
 
     Route::get('/dashboard/seller-application/fetch-application',  [SellerApplicationController::class, 'fetchApplications'])
     ->name('dashboard.fetch-applications');
+
+    // Business related routes
+    Route::get('/dashboard/business', [BusinessController::class, 'view'])
+    ->name('dashboard.business');
 });

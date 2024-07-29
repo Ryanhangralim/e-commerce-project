@@ -59,7 +59,7 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
+            <!-- Nav Item - User Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
                     aria-expanded="true" aria-controls="collapseUser">
@@ -74,6 +74,14 @@
                         <a class="collapse-item" href="{{ route('dashboard.seller-application') }}">Seller Application</a>
                     </div>
                 </div>
+            </li>
+
+            <!-- Nav Item - User Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('dashboard.business') }}">
+                    <i class="fa fa-building"></i>
+                    <span>Business</span>
+                </a>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
