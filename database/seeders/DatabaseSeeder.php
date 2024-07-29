@@ -6,7 +6,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
-use App\Models\SellerApplication;
 use Database\Seeders\SellerApplicationSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,7 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             UserSeeder::class,
-            SellerApplicationSeeder::class
+            SellerApplicationSeeder::class,
         ]);
     }
 }

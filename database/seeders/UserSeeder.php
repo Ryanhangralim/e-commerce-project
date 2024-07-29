@@ -59,6 +59,7 @@ class UserSeeder extends Seeder
             'phone_number' => '081808083811',
             'role_id' => 3
         ]);
-        }
-    
+            
+        User::factory(55)->create();
+    }
 }
