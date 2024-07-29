@@ -7,5 +7,11 @@
     -   Register email verification
 -   Forgot Password (Front-end & Back-end)
     -   Email verification for password reset
+-   Admin Dashboard
+    -   User list
+    -   Seller Application list
 
 ### TODO Features
+
+-   Admin dashboard
+    -   Update role
