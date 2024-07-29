@@ -50,6 +50,7 @@
         <div class="section-title">Generated on : {{ $date }}</div>             
             <div class="section">
                 <div class="section-title">User List</div>
+                <div class="section-title">Role: {{ $role }}</div>
                 <div class="section-content">
                     <table class="table">
                         <thead>

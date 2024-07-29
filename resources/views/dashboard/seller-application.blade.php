@@ -187,6 +187,7 @@
                     url: '{{ route('dashboard.fetch-applications') }}',
                     type: 'GET',
                     data: { status: status },
+                    timeout: 5000,
                     success: function(data) {
                         table.clear().draw();
                         if(data.applications && data.applications.length > 0){

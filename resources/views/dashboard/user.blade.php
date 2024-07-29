@@ -39,8 +39,9 @@
     @endsection
 
     <div class="row justify-content-end">
-        <a href="{{ route('dashboard.generate-user-report') }}" class="btn btn-primary mb-3"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        <a id="generateReportButton" href="{{ route('dashboard.generate-user-report', ['role' => 'all']) }}" class="btn btn-primary mb-1">
+            <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+        </a>
     </div>
 
     {{-- Navigation Buttons --}}
@@ -100,20 +101,25 @@
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <script type="text/javascript">
-        $('document').ready(function(){
+        $(document).ready(function(){
             var table = $('#userTable').DataTable();
-
-            // Script for populating data
+    
+            // Function to update role sent to generate report controller
+            function updateGenerateReportButton(role) {
+                $('#generateReportButton').attr('href', '{{ route('dashboard.generate-user-report', ['role' => '']) }}' + role);
+            }
+    
+            // Function to load table data
             function loadTableData(role) {
                 $.ajax({
-                    url: '{{ route('dashboard.fetch-users')}}',
+                    url: '{{ route('dashboard.fetch-users') }}',
                     type: 'GET',
                     data: { role: role },
+                    timeout: 5000,
                     success: function(data) {
                         table.clear().draw();
-                        if(data.users && data.users.length > 0){
-                            $.each(data.users, function(index, user){
-                                // add row 
+                        if (data.users && data.users.length > 0) {
+                            $.each(data.users, function(index, user) {
                                 table.row.add([
                                     index + 1,
                                     user.id,
@@ -123,26 +129,30 @@
                                     user.role.title
                                 ]).draw(false);
                             });
-                        }},
+                        }
+                    },
                     error: function(xhr, status, error) {
-                        if (xhr.status === 200 && (!data || !data.users || data.users.length === 0)) {
-                        // Do nothing, it's just empty data
-                        } else {
+                        if (xhr.status !== 200) {
                             alert('Failed to fetch data');
                         }
                     }
                 });
             }
-
+    
+            // Load at start
             loadTableData('all');
-
+            updateGenerateReportButton('all');
+    
+            // Update when clicked
             $('.btn-table').click(function() {
                 $('.btn-table').removeClass('active');
                 $(this).addClass('active');
                 var role = $(this).data('role');
                 loadTableData(role);
+                updateGenerateReportButton(role); 
             });
         });
     </script>
+    
     @endsection
 </x-dashboard-layout>
