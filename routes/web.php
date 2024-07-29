@@ -89,8 +89,12 @@ Route::middleware('role:admin')->group(function (){
     Route::get('/dashboard/user', [UserController::class, 'index'])
     ->name('dashboard.user');
 
+    Route::get('/dashboard/user/fetch-users', [UserController::class, 'fetchUsers'])
+    ->name('dashboard.fetch-users');
+    
     Route::get('/dashboard/user/generate-user-report', [GenerateReportController::class, 'generateUserReport'])
     ->name('dashboard.generate-user-report');
+
 
     // Seller application related routes
     Route::get('/dashboard/seller-application', [SellerApplicationController::class, 'view'])
@@ -102,6 +106,6 @@ Route::middleware('role:admin')->group(function (){
     Route::post('/dashboard/reject-seller-application', [SellerApplicationController::class, 'reject'])
     ->name('dashboard.reject-seller');
 
-    Route::get('/dashboard/fetch-application',  [SellerApplicationController::class, 'fetchApplication'])
-    ->name('dashboard.fetch-application');
+    Route::get('/dashboard/seller-application/fetch-application',  [SellerApplicationController::class, 'fetchApplications'])
+    ->name('dashboard.fetch-applications');
 });

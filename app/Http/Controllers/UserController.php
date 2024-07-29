@@ -18,4 +18,21 @@ class UserController extends Controller
 
         return view('dashboard.user', $data);
     }
+
+    // Fetch users data for table
+    public function fetchUsers(Request $request)
+    {
+        $role = $request->get('role');
+
+        if($role === "all"){
+            $users = User::with('role')->get();
+        } else {
+            $users = User::join('roles', 'users.role_id', '=', 'roles.id')
+            ->where('roles.title', $role)
+            ->select('users.*') // Select only user columns
+            ->with('role') // Eager load the role relationship
+            ->get();        
+        }
+        return response()->json(['users' => $users]);
+    }
 }

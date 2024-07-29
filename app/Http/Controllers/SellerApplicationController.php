@@ -53,7 +53,7 @@ class SellerApplicationController extends Controller
     }
 
     // return application fetched
-    public function fetchApplication(Request $request)
+    public function fetchApplications(Request $request)
     {
         $status = $request->get('status');
 

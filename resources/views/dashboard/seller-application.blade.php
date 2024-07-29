@@ -184,7 +184,7 @@
             // script for populating data
             function loadTableData(status) {
                 $.ajax({
-                    url: '{{ route('dashboard.fetch-application') }}',
+                    url: '{{ route('dashboard.fetch-applications') }}',
                     type: 'GET',
                     data: { status: status },
                     success: function(data) {
