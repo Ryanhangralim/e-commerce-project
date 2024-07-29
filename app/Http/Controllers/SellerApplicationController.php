@@ -56,7 +56,12 @@ class SellerApplicationController extends Controller
     public function fetchApplication(Request $request)
     {
         $status = $request->get('status');
-        $applications = SellerApplication::with('user')->where('application_status', $status)->get();
+
+        if($status === "all"){
+            $applications = SellerApplication::with('user')->get();
+        } else {
+            $applications = SellerApplication::with('user')->where('application_status', $status)->get();
+        }
         return response()->json(['applications' => $applications]);
     }
 

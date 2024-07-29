@@ -85,7 +85,10 @@
     {{-- Navigation buttons --}}
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active btn-table text-primary" id="showPending" data-status="pending" href="#">Pending</a>
+            <a class="nav-link active btn-table text-primary" id="showAll" data-status="all" href="#">All</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link btn-table text-primary" id="showPending" data-status="pending" href="#">Pending</a>
         </li>
         <li class="nav-item">
             <a class="nav-link btn-table text-primary" id="showApproved" data-status="approved" href="#">Approved</a>
@@ -213,7 +216,7 @@
                 });
             }
 
-            loadTableData('pending');
+            loadTableData('all');
 
             $('.btn-table').click(function() {
                 $('.btn-table').removeClass('active');
