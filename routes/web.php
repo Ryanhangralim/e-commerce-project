@@ -83,15 +83,15 @@ Route::middleware('role:customer')->group(function (){
 
 
 // Seller middleware
-Route::middleware('role:seller')->group(function(){
+Route::prefix('/seller')->middleware('role:seller')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'sellerDashboard'])
-    ->name('sellerDashboard');
+    ->name('seller-dashboard');
 });
 
 // Admin middleware
-Route::middleware('role:admin')->group(function (){
+Route::prefix('/admin')->middleware('role:admin')->group(function (){
     Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])
-    ->name('adminDashboard');
+    ->name('admin-dashboard');
 
     Route::get('/dashboard/user', [UserController::class, 'index'])
     ->name('dashboard.user');

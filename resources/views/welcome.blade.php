@@ -22,10 +22,12 @@
     <p></p>
     @role('seller')
     <p>THIS IS ONLY VISIBLE FOR SELLER</p>
+    <a href="{{ route('seller-dashboard') }}"><button>Dashboard</button></a>
+    <p></p>
     @endrole
     @role('admin')
     <p>THIS IS ONLY VISIBLE FOR ADMIN</p>
-    <a href="{{ route('dashboard') }}"><button>Dashboard</button></a>
+    <a href="{{ route('admin-dashboard') }}"><button>Dashboard</button></a>
     <p></p>
 @endrole
 <form action="{{ route('logout') }}" method="POST">

@@ -12,4 +12,10 @@ class DashboardController extends Controller
     {
         return view('dashboard.admin-dashboard');
     }
+
+    // Admin dashboard
+    public function sellerDashboard()
+    {
+        return view('dashboard.seller-dashboard');
+    }
 }
