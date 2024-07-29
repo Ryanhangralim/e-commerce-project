@@ -70,8 +70,8 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">User Utilities:</h6>
-                        <a class="collapse-item" href="{{ route('dashboard.user') }}">View User List</a>
-                        <a class="collapse-item" href="{{ route('dashboard.seller-application') }}">View Seller Application</a>
+                        <a class="collapse-item" href="{{ route('dashboard.user') }}">User List</a>
+                        <a class="collapse-item" href="{{ route('dashboard.seller-application') }}">Seller Application</a>
                     </div>
                 </div>
             </li>
