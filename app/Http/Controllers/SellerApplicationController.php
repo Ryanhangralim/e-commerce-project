@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SellerApplicationReceived;
 use App\Mail\SellerApplicationRejected;
+use App\Models\Business;
 
 class SellerApplicationController extends Controller
 {
@@ -82,7 +83,17 @@ class SellerApplicationController extends Controller
 
         // Update user role
         User::where('id', $userID)->update(['role_id' => 2]);
+
+        // Send approval email
         Mail::to($user->email)->send(new SellerApplicationApproved($user, $application));
+
+        // Add record to business
+        $businessData = [
+            'user_id' => $userID,
+            'name' => $application->business_name,
+            'description' => $application->business_description
+        ];
+        Business::create($businessData);
 
         // Redirect
         return redirect()->route('dashboard.seller-application')->with('status', 'Successfully verified');
