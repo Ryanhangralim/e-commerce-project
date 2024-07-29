@@ -35,4 +35,18 @@ class UserController extends Controller
         }
         return response()->json(['users' => $users]);
     }
+
+    // Update role method
+    public function updateRole(Request $request)
+    {
+        // Fetch data from request
+        $userID = $request['user_id'];
+        $roleID = $request['role_id'];
+
+        // Update role
+        User::where('id', $userID)->update(['role_id'=> $roleID]);
+
+        // Redirect user back
+        return redirect()->back()->with('success', 'User role has been updated!');
+    }
 }

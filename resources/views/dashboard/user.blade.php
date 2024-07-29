@@ -37,6 +37,44 @@
         </style>
     @endsection
 
+    <!-- Edit role modal -->
+    <div class="modal fade" id="editRoleModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editRoleModalLabel">Edit Role</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editRoleForm" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <h6 id="username"></h6>
+                            <input type="hidden" name="user_id" id="user_id">
+                            <label for="role_id">Role</label>
+                            <select class="form-control col-lg mb-3" name="role_id" id="role_id">
+                                <option value="1">Customer</option>
+                                <option value="2">Seller</option>
+                                <option value="3">Admin</option>
+                        </select>
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary mb-4">Edit Role</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @session('success')
+    <div class="alert alert-success col-lg-12" role="alert">
+        {{ $value }}
+    </div>
+    @endsession
+
     <div class="row justify-content-end">
         <a id="generateReportButton" href="{{ route('dashboard.generate-user-report', ['role' => 'all']) }}" class="btn btn-primary mb-1">
             <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
@@ -75,6 +113,7 @@
                             <th>Email</th>
                             <th>Phone Number</th>
                             <th>Role</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -85,6 +124,7 @@
                             <th>Email</th>
                             <th>Phone Number</th>
                             <th>Role</th>
+                            <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -99,6 +139,23 @@
     <!-- Page level plugins -->
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
+    <script>
+        $(document).ready(function(){
+            $(document).on('click', '.update-role', function(){
+                console.log("users");
+                var data = $(this).data('user');
+                var route = $(this).data('route');
+
+                $('#editRoleModal').modal('show');
+                $('#username').text("User Name: " + data.first_name + ' ' + data.last_name);
+                $('#user_id').val(data.id);
+                $('#role_id').val(data.role_id);
+                $('#editRoleForm').attr('action', route);
+            });
+        });
+    </script>
+
     <script type="text/javascript">
         $(document).ready(function(){
             var table = $('#userTable').DataTable();
@@ -119,13 +176,16 @@
                         table.clear().draw();
                         if (data.users && data.users.length > 0) {
                             $.each(data.users, function(index, user) {
+                                var actions = '<button type="button" class="btn btn-primary update-role" data-route="' + '{{ route("dashboard.update-role") }}' + '" data-user=\'' + JSON.stringify(user) + '\' ><i class="bi bi-person-fill" aria-hidden="true"></i> Update Role</button>';
+
                                 table.row.add([
                                     index + 1,
                                     user.id,
                                     user.first_name + ' ' + user.last_name,
                                     user.email,
                                     user.phone_number,
-                                    user.role.title
+                                    user.role.title,
+                                    actions
                                 ]).draw(false);
                             });
                         }

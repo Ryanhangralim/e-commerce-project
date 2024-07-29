@@ -89,6 +89,9 @@ Route::middleware('role:admin')->group(function (){
     Route::get('/dashboard/user', [UserController::class, 'index'])
     ->name('dashboard.user');
 
+    Route::post('/dashboard/user', [UserController::class, 'updateRole'])
+    ->name('dashboard.update-role');
+
     Route::get('/dashboard/user/fetch-users', [UserController::class, 'fetchUsers'])
     ->name('dashboard.fetch-users');
     
