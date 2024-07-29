@@ -1,4 +1,4 @@
-<x-dashboard-layout>
+<x-admin-dashboard-layout>
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -325,4 +325,4 @@
         </div>
     </div>
 
-</x-dashboard-layout>
+</x-admin-dashboard-layout>

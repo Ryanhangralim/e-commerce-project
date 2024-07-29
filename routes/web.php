@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenerateReportController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\SellerApplicationController;
 use App\Http\Controllers\UserController;
 use Database\Seeders\SellerApplicationSeeder;
 use GuzzleHttp\Psr7\Request;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,12 +81,17 @@ Route::middleware('role:customer')->group(function (){
     ->name('application-form');
 });
 
+
+// Seller middleware
+Route::middleware('role:seller')->group(function(){
+    Route::get('/dashboard', [DashboardController::class, 'sellerDashboard'])
+    ->name('sellerDashboard');
+});
+
 // Admin middleware
 Route::middleware('role:admin')->group(function (){
-    Route::get('/dashboard', function () {
-        return view('dashboard.index');
-    })
-    ->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])
+    ->name('adminDashboard');
 
     Route::get('/dashboard/user', [UserController::class, 'index'])
     ->name('dashboard.user');
