@@ -25,6 +25,7 @@
                             <th>User Name</th>
                             <th>Name</th>
                             <th>Description</th>
+                            <th>Created At</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -34,6 +35,7 @@
                             <th>User Name</th>
                             <th>Name</th>
                             <th>Description</th>
+                            <th>Created At</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -44,6 +46,7 @@
                                 <td>{{ $business->user->first_name }} {{ $business->user->last_name }}</td>
                                 <td>{{ $business->name }}</td>
                                 <td>{{ $business->description }}</td>
+                                <td>{{ $business->created_at }}</td>
                             </tr>
                         @endforeach
                     </tbody>
