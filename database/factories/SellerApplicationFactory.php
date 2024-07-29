@@ -20,7 +20,7 @@ class SellerApplicationFactory extends Factory
         return [
             //
             'user_id' => fake()->unique()->randomElement($user_id),
-            'business_name' => fake()->firstName(),
+            'business_name' => implode(' ', fake()->unique()->words(mt_rand(1, 4))),
             'business_description' => fake()->sentence(mt_rand(3, 9)),
             'application_status' => 'pending'
         ];

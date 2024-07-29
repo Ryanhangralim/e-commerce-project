@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('seller_applications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->string('business_name');
+            $table->string('business_name')->unique();
             $table->text('business_description');
             $table->enum('application_status',['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();

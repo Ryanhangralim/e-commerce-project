@@ -91,6 +91,7 @@ class SellerApplicationController extends Controller
         $businessData = [
             'user_id' => $userID,
             'name' => $application->business_name,
+            'slug' => create_slug($application->business_name),
             'description' => $application->business_description
         ];
         Business::create($businessData);
