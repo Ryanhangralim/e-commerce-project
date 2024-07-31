@@ -38,26 +38,20 @@
                     <p class="col-md-4 col-form-label text-md-end">{{ $user->business->name }}</p>
                 </div>
                 @endrole
-                {{-- <div class="row mb-3">
-                    <label for="shop_name" class="col-md-4 col-form-label text-md-end">Business Name</label>
-                    <div class="col-md-6">
-                        <input type="text" id="shop_name" class="form-control" name="shop_name" value="{{ $user->business->name }}">
-                    </div>
-                </div> --}}
-                {{-- <div class="row mb-3">
-                    <label for="profile_picture" class="col-md-4 col-form-label text-md-end">Profil Gambar</label>
+                <div class="row mb-3">
+                    <label for="profile_picture" class="col-md-4 col-form-label text-md-end">Profile Picture</label>
                     <div class="col-md-6">
                         <input type="file" id="profile_picture" class="form-control" name="profile_picture">
-                        <div class="mt-3"> --}}
-                            {{-- @if ($user->profile_picture)
-                                <img src="{{ asset('images/profile/' . $user->profile_picture) }}" alt="Profile Picture" class="img-thumbnail" width="100">
+                        <div class="mt-3">
+                            @if ( Auth()->user()->profile_picture )
+                                <img src="{{ asset('images/profile/' . $user->profile_picture) }}" alt="Profile Picture" class="img-profile rounded-circle" width="100">
                             @else
-                                <img src="{{ asset('images/profile/default.png') }}" alt="Profile Picture" class="img-thumbnail" width="100">
-                            @endif --}}
-                        {{-- </div>
-                        <small class="form-text text-muted">Ukuran gambar: maks. 1 MB, Format gambar: .JPEG, .PNG</small>
+                                <img src="{{ asset('images/profile/default.jpg') }}" alt="Profile Picture" class="img-profile rounded-circle" width="100">
+                            @endif 
+                        </div>
+                        <small class="form-text text-muted">File size: max. 1 MB, Image format: .JPEG, .PNG</small>
                     </div>
-                </div> --}}
+                </div>
                 <div class="row mb-3">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" class="btn btn-primary">Save</button>
