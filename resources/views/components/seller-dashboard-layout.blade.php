@@ -312,7 +312,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth()->user()->username }}</span>
                                 @if( Auth()->user()->profile_picture )
-                                    <img class="img-profile rounded-circle" src="{{ asset('images/profile/' . $user->profile_picture ) }}" alt="Profile Picture">
+                                    <img class="img-profile rounded-circle" src="{{ asset('images/profile/' . Auth()->user()->profile_picture ) }}" alt="Profile Picture">
                                 @else 
                                     <img class="img-profile rounded-circle" src="{{ asset('images/profile/default.jpg') }}" alt="Default profile picture">
                                 @endif
@@ -320,7 +320,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ route('seller.profile') }}">
+                                <a class="dropdown-item" href="{{ route('view-profile') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>

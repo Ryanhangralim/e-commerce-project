@@ -1,11 +1,15 @@
 <x-admin-dashboard-layout>
+    @session('success')
+    <div class="alert alert-success col-lg-12" role="alert">
+        {{ $value }}
+    </div>
+    @endsession
+
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold">User Profile</h6>
         </div>
         <div class="card-body">
-            {{-- <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data"> --}}
-                @csrf
                 <div class="row mb-3">
                     <label for="username" class="col-md-4 col-form-label text-md-end">Username</label>
                     <div class="col-md-6">
@@ -38,13 +42,15 @@
                     <p class="col-md-4 col-form-label text-md-end">{{ $user->business->name }}</p>
                 </div>
                 @endrole
+            <form action="{{ route('profile.update-profile-picture') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="row mb-3">
                     <label for="profile_picture" class="col-md-4 col-form-label text-md-end">Profile Picture</label>
                     <div class="col-md-6">
                         <input type="file" id="profile_picture" class="form-control" name="profile_picture">
                         <div class="mt-3">
                             @if ( Auth()->user()->profile_picture )
-                                <img src="{{ asset('images/profile/' . $user->profile_picture) }}" alt="Profile Picture" class="img-profile rounded-circle" width="100">
+                                <img src="{{ asset('images/profile/' . Auth()->user()->profile_picture) }}" alt="Profile Picture" class="img-profile rounded-circle" width="100">
                             @else
                                 <img src="{{ asset('images/profile/default.jpg') }}" alt="Profile Picture" class="img-profile rounded-circle" width="100">
                             @endif 
@@ -54,7 +60,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Save Profile Picture</button>
                     </div>
                 </div>
             </form>

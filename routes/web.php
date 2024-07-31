@@ -73,6 +73,13 @@ Route::middleware('auth')->group(function (){
     Route::post('/email/verification-notification', [MailController::class, 'resendVerificationEmail'])
     ->middleware('throttle:6,1')
     ->name('verification.send');
+
+    // Profile related routes
+    Route::get('/profile', [ProfileController::class, 'viewProfile'])
+    ->name('view-profile');
+
+    Route::post('/profile/update-profile-picture', [ProfileController::class, 'updateProfilePicture'])
+    ->name('profile.update-profile-picture');
 });
 
 // Customer middleware
@@ -88,10 +95,6 @@ Route::middleware('role:customer')->group(function (){
 Route::prefix('/seller')->middleware('role:seller')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'sellerDashboard'])
     ->name('seller-dashboard');
-
-    // Profile related routes
-    Route::get('/profile', [ProfileController::class, 'viewProfile'])
-    ->name('seller.profile');
 });
 
 // Admin middleware
@@ -129,10 +132,6 @@ Route::prefix('/admin')->middleware('role:admin')->group(function (){
     // Business related routes
     Route::get('/dashboard/business', [BusinessController::class, 'view'])
     ->name('dashboard.business');
-
-    // Profile related routes
-    Route::get('/profile', [ProfileController::class, 'viewProfile'])
-    ->name('admin.profile');
 });
 
 // Business related routes
