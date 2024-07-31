@@ -43,7 +43,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $business->user->id }}</td>
-                                <td>{{ $business->user->first_name }} {{ $business->user->last_name }}</td>
+                                <td>{{ $business->user->username }}</td>
                                 <td>{{ $business->name }}</td>
                                 <td>{{ $business->description }}</td>
                                 <td>{{ $business->created_at }}</td>

@@ -109,7 +109,7 @@
                         <tr>
                             <th>No.</th>
                             <th>ID</th>
-                            <th>Name</th>
+                            <th>User Name</th>
                             <th>Email</th>
                             <th>Phone Number</th>
                             <th>Role</th>
@@ -120,7 +120,7 @@
                         <tr>
                             <th>No.</th>
                             <th>ID</th>
-                            <th>Name</th>
+                            <th>User Name</th>
                             <th>Email</th>
                             <th>Phone Number</th>
                             <th>Role</th>
@@ -181,7 +181,7 @@
                                 table.row.add([
                                     index + 1,
                                     user.id,
-                                    user.first_name + ' ' + user.last_name,
+                                    user.username,
                                     user.email,
                                     user.phone_number,
                                     user.role.title,

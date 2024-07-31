@@ -150,7 +150,7 @@
 
                 var date = new Date(data.created_at);
 
-                $('#userName').text('User Name: ' + data.user.first_name + ' ' + data.user.last_name);
+                $('#userName').text('User Name: ' + data.user.username);
                 $('#userEmail').text('Email: ' + data.user.email);
                 $('#phoneNumber').text('Phone Number: ' + data.user.phone_number);
                 $('#businessName').text('Business Name: ' + data.business_name);
@@ -198,7 +198,7 @@
                                 table.row.add([
                                     index + 1,
                                     application.id,
-                                    application.user.first_name + ' ' + application.user.last_name,
+                                    application.user.username,
                                     application.business_name,
                                     formattedDate,
                                     application.application_status,

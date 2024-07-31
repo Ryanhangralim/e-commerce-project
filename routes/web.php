@@ -12,6 +12,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use Database\Seeders\SellerApplicationSeeder;
 use App\Http\Controllers\GenerateReportController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SellerApplicationController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -124,6 +125,10 @@ Route::prefix('/admin')->middleware('role:admin')->group(function (){
     // Business related routes
     Route::get('/dashboard/business', [BusinessController::class, 'view'])
     ->name('dashboard.business');
+
+    // Profiler related routes
+    Route::get('/profile', [ProfileController::class, 'adminProfile'])
+    ->name('admin.profile');
 });
 
 // Business related routes
