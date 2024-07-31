@@ -88,6 +88,10 @@ Route::middleware('role:customer')->group(function (){
 Route::prefix('/seller')->middleware('role:seller')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'sellerDashboard'])
     ->name('seller-dashboard');
+
+    // Profile related routes
+    Route::get('/profile', [ProfileController::class, 'viewProfile'])
+    ->name('seller.profile');
 });
 
 // Admin middleware
@@ -126,8 +130,8 @@ Route::prefix('/admin')->middleware('role:admin')->group(function (){
     Route::get('/dashboard/business', [BusinessController::class, 'view'])
     ->name('dashboard.business');
 
-    // Profiler related routes
-    Route::get('/profile', [ProfileController::class, 'adminProfile'])
+    // Profile related routes
+    Route::get('/profile', [ProfileController::class, 'viewProfile'])
     ->name('admin.profile');
 });
 

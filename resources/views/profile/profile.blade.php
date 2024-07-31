@@ -32,6 +32,12 @@
                     <label for="phone" class="col-md-4 col-form-label text-md-end">Phone Number</label>
                     <p class="col-md-4 col-form-label text-md-end">{{ $user->phone_number }}</p>
                 </div>
+                @role('seller')
+                <div class="row mb-3">
+                    <label for="phone" class="col-md-4 col-form-label text-md-end">Business Name</label>
+                    <p class="col-md-4 col-form-label text-md-end">{{ $user->business->name }}</p>
+                </div>
+                @endrole
                 {{-- <div class="row mb-3">
                     <label for="shop_name" class="col-md-4 col-form-label text-md-end">Business Name</label>
                     <div class="col-md-6">

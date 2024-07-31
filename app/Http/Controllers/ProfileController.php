@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
     // Return profile page for admin
-    public function adminProfile()
+    public function viewProfile()
     {
         $user = Auth::user();
 
@@ -16,6 +16,6 @@ class ProfileController extends Controller
             'user' => $user
         ];
 
-        return view('profile.admin-profile', $data);
+        return view('profile.profile', $data);
     }
 }
