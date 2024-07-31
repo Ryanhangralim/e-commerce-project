@@ -1,4 +1,4 @@
-<x-admin-dashboard-layout>
+<x-user-layout>
     @session('success')
     <div class="alert alert-success col-lg-12" role="alert">
         {{ $value }}
@@ -66,4 +66,4 @@
             </form>
         </div>
     </div>
-</x-admin-dashboard-layout>
+</x-user-layout>

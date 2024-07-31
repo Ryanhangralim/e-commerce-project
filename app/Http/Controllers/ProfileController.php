@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use Intervention\Image\ImageManager;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Drivers\Gd\Driver;
 use Svg\Gradient\Stop;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class ProfileController extends Controller
 {
@@ -47,20 +47,20 @@ class ProfileController extends Controller
             $path = public_path('images/profile/' . $file_name); 
 
             // Delete old profile picture if exist
-            // dd($oldProfilePicturePath);
-            if($oldProfilePicture && Storage::exists($oldProfilePicturePath)){
-                Storage::delete($oldProfilePicturePath);
+            if($oldProfilePicture && File::exists($oldProfilePicturePath)){
+                File::delete($oldProfilePicturePath);
             }
 
             // Save new profile picture
             $manager->read($image->getPathname())->resize(300, 300)->save($path);
     
-            // Auth::user()->profile_picture = $file_name;
             // Update profile picture
             $user->update(['profile_picture' => $file_name]);
+
+            return redirect()->route('view-profile')->with('success', 'Profile picture updated');
         }
 
-        return redirect()->route('view-profile')->with('success', 'Profile picture updated');
+        return redirect()->back();
 
     }
 }
