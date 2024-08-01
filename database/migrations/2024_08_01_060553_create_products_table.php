@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('stock')->default(0);
             $table->float('price', 10, 3);
             $table->integer('discount')->default(0);
+            $table->integer('sold')->default(0);
             $table->timestamps();
         });
     }

@@ -24,8 +24,9 @@
                             <th>Category</th>
                             <th>Name</th>
                             <th>Stock</th>
+                            <th>Items Sold</th>
                             <th>Price</th>
-                            <th>Discount</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -34,8 +35,9 @@
                             <th>Category</th>
                             <th>Name</th>
                             <th>Stock</th>
+                            <th>Items Sold</th>
                             <th>Price</th>
-                            <th>Discount</th>
+                            <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -45,8 +47,30 @@
                                 <td>{{ $product->category->name }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->stock }}</td>
-                                <td>{{ $product->price }}</td>
-                                <td>{{ $product->discount }}</td>
+                                <td>{{ $product->sold }}</td>
+                                <td>Rp. {{ number_format($product->price, 0, ',', '.') }}</td>
+                                <td>
+                                    <div class="d-inline-flex flex-wrap" style="gap: 0.25rem">
+                                        <div class="flex-grow-1">
+                                            <a href="{{ route('product-detail', ['product' => $product->id]) }}"
+                                                class="btn btn-primary"><i class="bi bi-info-circle"></i>
+                                                Detail</a>
+                                        </div>
+                                        {{-- <div class="flex-grow-1">
+                                            <a href="#"
+                                                class="btn btn-warning"><i class="bi bi-pencil-square"></i> Edit</span></a>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <form action="#" method="POST"
+                                                class="d-inline">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button class="btn btn-danger" onclick="return confirm('Are you sure')"><i
+                                                        class="bi bi-trash3"></i> Delete</button>
+                                            </form>
+                                        </div> --}}
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

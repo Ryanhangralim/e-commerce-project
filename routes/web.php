@@ -98,8 +98,17 @@ Route::prefix('/seller/dashboard')->middleware('role:seller')->group(function(){
     ->name('seller-dashboard');
 
     // Product related routes
-    Route::get('/products', [ProductController::class, 'viewProduct'])
+    Route::get('/product', [ProductController::class, 'viewProduct'])
     ->name('view-product');
+
+    Route::get('/product/{product:id}', [ProductController::class, 'productDetail'])
+    ->name('product-detail');
+
+    Route::post('/product/{product:id}/add-stock', [ProductController::class, 'addStock'])
+    ->name('product.add-stock');
+
+    Route::post('/product/{product:id}/set-discount', [ProductController::class, 'setDiscount'])
+    ->name('product.set-discount');
 });
 
 // Admin middleware
