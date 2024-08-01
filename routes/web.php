@@ -6,13 +6,14 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use Database\Seeders\SellerApplicationSeeder;
 use App\Http\Controllers\GenerateReportController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SellerApplicationController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -35,13 +36,13 @@ Route::get('/', function () {
 // Guest middleware
 Route::middleware('guest')->group(function (){
     // Login related routes
-    Route::get('/login', [LoginController::class, 'index'])
+    Route::get('/login', [LoginController::class, 'loginForm'])
     ->name('login');
     Route::post('/login', [LoginController::class, 'authenticate'])
     ->name('authenticate');
 
     // Register related routes
-    Route::get('/register', [RegisterController::class, 'index'])
+    Route::get('/register', [RegisterController::class, 'registerForm'])
     ->name('register');
     Route::post('/register', [RegisterController::class, 'store'])
     ->name('add_new_user');
@@ -84,7 +85,7 @@ Route::middleware('auth')->group(function (){
 
 // Customer middleware
 Route::middleware('role:customer')->group(function (){
-    Route::get('/seller-application', [SellerApplicationController::class, 'index'])
+    Route::get('/seller-application', [SellerApplicationController::class, 'applicationForm'])
     ->name('apply-seller');
     Route::post('/seller-application', [SellerApplicationController::class, 'store'])
     ->name('application-form');
@@ -92,45 +93,49 @@ Route::middleware('role:customer')->group(function (){
 
 
 // Seller middleware
-Route::prefix('/seller')->middleware('role:seller')->group(function(){
-    Route::get('/dashboard', [DashboardController::class, 'dashboard'])
+Route::prefix('/seller/dashboard')->middleware('role:seller')->group(function(){
+    Route::get('/', [DashboardController::class, 'dashboard'])
     ->name('seller-dashboard');
+
+    // Product related routes
+    Route::get('/products', [ProductController::class, 'viewProduct'])
+    ->name('view-product');
 });
 
 // Admin middleware
-Route::prefix('/admin')->middleware('role:admin')->group(function (){
-    Route::get('/dashboard', [DashboardController::class, 'dashboard'])
+Route::prefix('/admin/dashboard')->middleware('role:admin')->group(function (){
+    Route::get('/', [DashboardController::class, 'dashboard'])
     ->name('admin-dashboard');
 
     // User related routes
-    Route::get('/dashboard/user', [UserController::class, 'index'])
+    Route::get('/user', [UserController::class, 'viewUser'])
     ->name('dashboard.user');
 
-    Route::post('/dashboard/user', [UserController::class, 'updateRole'])
+    Route::post('/user', [UserController::class, 'updateRole'])
     ->name('dashboard.update-role');
 
-    Route::get('/dashboard/user/fetch-users', [UserController::class, 'fetchUsers'])
+    Route::get('/user/fetch-users', [UserController::class, 'fetchUsers'])
     ->name('dashboard.fetch-users');
     
-    Route::get('/dashboard/user/generate-user-report', [GenerateReportController::class, 'generateUserReport'])
+    Route::get('/user/generate-user-report', [GenerateReportController::class, 'generateUserReport'])
     ->name('dashboard.generate-user-report');
 
 
     // Seller application related routes
-    Route::get('/dashboard/seller-application', [SellerApplicationController::class, 'view'])
+    Route::get('/seller-application', [SellerApplicationController::class, 'viewSellerApplication'])
     ->name('dashboard.seller-application');
 
-    Route::post('/dashboard/verify-seller-application', [SellerApplicationController::class, 'verify'])
+    Route::post('/verify-seller-application', [SellerApplicationController::class, 'verify'])
     ->name('dashboard.verify-seller');
 
-    Route::post('/dashboard/reject-seller-application', [SellerApplicationController::class, 'reject'])
+    Route::post('/reject-seller-application', [SellerApplicationController::class, 'reject'])
     ->name('dashboard.reject-seller');
 
-    Route::get('/dashboard/seller-application/fetch-application',  [SellerApplicationController::class, 'fetchApplications'])
+    Route::get('/seller-application/fetch-application',  [SellerApplicationController::class, 'fetchApplications'])
     ->name('dashboard.fetch-applications');
 
     // Business related routes
-    Route::get('/dashboard/business', [BusinessController::class, 'view'])
+    Route::get('/business', [BusinessController::class, 'viewBusiness'])
     ->name('dashboard.business');
 });
 

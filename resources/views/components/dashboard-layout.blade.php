@@ -98,9 +98,9 @@
             @role('seller')
                 <!-- Nav Item - User Collapse Menu -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#">
-                        <i class="fa fa-building"></i>
-                        <span>Seller only</span>
+                    <a class="nav-link collapsed" href="{{ route('view-product') }}">
+                        <i class="fa fa-store"></i>
+                        <span>Products</span>
                     </a>
                 </li>
             @endrole

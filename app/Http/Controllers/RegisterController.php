@@ -10,16 +10,17 @@ use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
-    public function index()
+    public function registerForm()
     {
-        return view('register.index');
+        return view('register.form');
     }
 
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'first_name' => ['required'],
-            'last_name' => ['required'],
+            'first_name' => ['required', 'string', 'min:1'],
+            'last_name' => ['required', 'string', 'min:1'],
+            'username' => ['required', 'string', 'min:4', 'max:255', 'regex:/^\S*$/u'],
             'email' => ['required', 'unique:users', 'email'],
             'password' => ['required', 'min:5', 'confirmed'],
             'phone_number' => ['required', 'numeric']
@@ -27,6 +28,7 @@ class RegisterController extends Controller
 
         // Hash password
         $validatedData['password'] = Hash::make($validatedData['password']);
+        $validatedData['role_id'] = 1;
 
         // Insert data to database
         $user = User::create($validatedData);

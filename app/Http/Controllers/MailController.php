@@ -17,7 +17,7 @@ class MailController extends Controller
         // call markEmailAsVerified method 
         $request->fulfill();
 
-        return redirect()->route('homepage');
+        return redirect()->route('home');
     }
 
     // Resend email verification

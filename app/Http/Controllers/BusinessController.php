@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class BusinessController extends Controller
 {
     //Admin view
-    public function view()
+    public function viewBusiness()
     {
         $businesses = Business::all();
 
@@ -16,7 +16,7 @@ class BusinessController extends Controller
             'businesses' => $businesses,
         ];
 
-        return view('dashboard.business', $data);
+        return view('dashboard.admin.business', $data);
     }
 
     // business home page

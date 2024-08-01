@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     // User table page
-    public function index()
+    public function viewUser()
     {
         $users = User::all();
 
@@ -16,7 +16,7 @@ class UserController extends Controller
             'users' => $users
         ];
 
-        return view('dashboard.user', $data);
+        return view('dashboard.admin.user', $data);
     }
 
     // Fetch users data for table

@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     // login page
-    public function index(){
-        return view('login.index');
+    public function loginForm(){
+        return view('login.form');
     }
 
     // Authenticate 

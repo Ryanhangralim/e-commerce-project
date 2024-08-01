@@ -1,4 +1,4 @@
-<x-user-layout>
+<x-user-layout title="Profile">
     @session('success')
     <div class="alert alert-success col-lg-12" role="alert">
         {{ $value }}
@@ -29,12 +29,16 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
+                    <label class="col-md-4 col-form-label text-md-end">Email</label>
                     <p class="col-md-4 col-form-label text-md-end">{{ $user->email }}</p>
                 </div>
                 <div class="row mb-3">
-                    <label for="phone" class="col-md-4 col-form-label text-md-end">Phone Number</label>
+                    <label class="col-md-4 col-form-label text-md-end">Phone Number</label>
                     <p class="col-md-4 col-form-label text-md-end">{{ $user->phone_number }}</p>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-form-label text-md-end">Role</label>
+                    <p class="col-md-4 col-form-label text-md-end">{{ $user->role->title }}</p>
                 </div>
                 @role('seller')
                 <div class="row mb-3">

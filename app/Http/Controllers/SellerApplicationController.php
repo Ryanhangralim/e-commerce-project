@@ -15,7 +15,7 @@ use App\Models\Business;
 class SellerApplicationController extends Controller
 {
     // application form
-    public function index()
+    public function applicationForm()
     {
         // Check if there is existing pending application
         $existingApplication = SellerApplication::where('user_id', Auth::id())
@@ -25,7 +25,7 @@ class SellerApplicationController extends Controller
         if($existingApplication) {
             return redirect()->back()->withErrors(['You already have a pending application']);
         };
-        return view('seller-application.index');
+        return view('seller-application.form');
     }
 
     // store application data
@@ -48,9 +48,9 @@ class SellerApplicationController extends Controller
     }
 
     // view application data in dashboard table
-    public function view()
+    public function viewSellerApplication()
     {
-        return view('dashboard.seller-application');
+        return view('dashboard.admin.seller-application');
     }
 
     // return application fetched

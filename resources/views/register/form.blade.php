@@ -1,4 +1,4 @@
-<x-auth-layout title="Register Page">
+<x-form-layout title="Register Page">
     <div class="container">
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
@@ -30,6 +30,15 @@
                                         </div>
                                         @enderror
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="username" class="form-control form-control-user @error('username') is-invalid @enderror" value="{{ old('username') }}" id="InputEmail"
+                                        placeholder="Username" name="username">
+                                        @error('username')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                 </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user @error('email') is-invalid @enderror" value="{{ old('email') }}" id="InputEmail"
@@ -80,4 +89,4 @@
 
     </div>
 
-</x-auth-layout>
+</x-form-layout>
