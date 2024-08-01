@@ -209,6 +209,18 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
+                                @role('admin')
+                                <a class="dropdown-item" href="{{ route('admin-dashboard') }}">
+                                    <i class="fas fa-fw fa-tachometer-alt r-2 text-gray-400"></i>
+                                    Dashboard
+                                </a>
+                                @endrole
+                                @role('seller')
+                                <a class="dropdown-item" href="{{ route('seller-dashboard') }}">
+                                    <i class="fas fa-fw fa-tachometer-alt r-2 text-gray-400"></i>
+                                    Dashboard
+                                </a>
+                                @endrole
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Settings

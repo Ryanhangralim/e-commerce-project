@@ -1,4 +1,4 @@
-<x-admin-dashboard-layout title="User Table">
+<x-dashboard-layout title="User Table">
     @section('css')
         <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
         <style>
@@ -214,4 +214,4 @@
     </script>
     
     @endsection
-</x-admin-dashboard-layout>
+</x-dashboard-layout>

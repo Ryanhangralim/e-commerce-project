@@ -29,11 +29,20 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
+            @role('admin')
             <li class="nav-item active">
                 <a class="nav-link" href="{{ route('admin-dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
+            @endrole
+            @role('seller')
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ route('seller-dashboard') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+            @endrole
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -58,6 +67,43 @@
                     </div>
                 </div>
             </li>
+
+            @role('admin')
+            <!-- Nav Item - User Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
+                    aria-expanded="true" aria-controls="collapseUser">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>User</span>
+                </a>
+                <div id="collapseUser" class="collapse" aria-labelledby="headingUser"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">User Utilities:</h6>
+                        <a class="collapse-item" href="{{ route('dashboard.user') }}">User List</a>
+                        <a class="collapse-item" href="{{ route('dashboard.seller-application') }}">Seller Application</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - User Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('dashboard.business') }}">
+                    <i class="fa fa-building"></i>
+                    <span>Business</span>
+                </a>
+            </li>
+            @endrole
+
+            @role('seller')
+                <!-- Nav Item - User Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#">
+                        <i class="fa fa-building"></i>
+                        <span>Seller only</span>
+                    </a>
+                </li>
+            @endrole
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
@@ -324,6 +370,18 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
+                                @role('admin')
+                                <a class="dropdown-item" href="{{ route('admin-dashboard') }}">
+                                    <i class="fas fa-fw fa-tachometer-alt r-2 text-gray-400"></i>
+                                    Dashboard
+                                </a>
+                                @endrole
+                                @role('seller')
+                                <a class="dropdown-item" href="{{ route('seller-dashboard') }}">
+                                    <i class="fas fa-fw fa-tachometer-alt r-2 text-gray-400"></i>
+                                    Dashboard
+                                </a>
+                                @endrole
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Settings
@@ -399,7 +457,6 @@
             </div>
         </div>
     </div>
-
 
     @include('includes.script')
 </body>

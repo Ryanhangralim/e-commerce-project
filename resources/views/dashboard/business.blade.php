@@ -1,4 +1,4 @@
-<x-admin-dashboard-layout title="Business Table">
+<x-dashboard-layout title="Business Table">
     @section('css')
         <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     @endsection
@@ -67,4 +67,4 @@
     </script>
     
     @endsection
-</x-admin-dashboard-layout>
+</x-dashboard-layout>

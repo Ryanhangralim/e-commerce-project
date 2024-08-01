@@ -7,15 +7,10 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class DashboardController extends Controller
 {
-    // Admin dashboard
-    public function adminDashboard()
+    // view dashboard
+    public function dashboard()
     {
-        return view('dashboard.admin-dashboard');
+        return view('dashboard.dashboard');
     }
 
-    // Admin dashboard
-    public function sellerDashboard()
-    {
-        return view('dashboard.seller-dashboard');
-    }
 }
