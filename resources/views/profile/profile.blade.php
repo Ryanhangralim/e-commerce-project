@@ -51,7 +51,12 @@
                 <div class="row mb-3">
                     <label for="profile_picture" class="col-md-4 col-form-label text-md-end">Profile Picture</label>
                     <div class="col-md-6">
-                        <input type="file" id="profile_picture" class="form-control" name="profile_picture">
+                        <input type="file" id="profile_picture" class="form-control @error('profile_picture') is-invalid @enderror " name="profile_picture">
+                        @error('profile_picture')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                         <div class="mt-3">
                             @if ( Auth()->user()->profile_picture )
                                 <img src="{{ asset('images/profile/' . Auth()->user()->profile_picture) }}" alt="Profile Picture" class="img-profile rounded-circle" width="100">
