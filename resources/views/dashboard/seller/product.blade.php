@@ -21,34 +21,34 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>User ID</th>
-                            <th>User Name</th>
+                            <th>Category</th>
                             <th>Name</th>
-                            <th>Description</th>
-                            <th>Created At</th>
+                            <th>Stock</th>
+                            <th>Price</th>
+                            <th>Discount</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>No.</th>
-                            <th>User ID</th>
-                            <th>User Name</th>
+                            <th>Category</th>
                             <th>Name</th>
-                            <th>Description</th>
-                            <th>Created At</th>
+                            <th>Stock</th>
+                            <th>Price</th>
+                            <th>Discount</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        {{-- @foreach($businesses as $business)
+                        @foreach($products as $product)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $business->user->id }}</td>
-                                <td>{{ $business->user->username }}</td>
-                                <td><a href="{{ route('business', ['business' => $business->slug]) }}">{{ $business->name }}</a></td>
-                                <td>{{ $business->description }}</td>
-                                <td>{{ $business->created_at }}</td>
+                                <td>{{ $product->category->name }}</td>
+                                <td>{{ $product->name }}</td>
+                                <td>{{ $product->stock }}</td>
+                                <td>{{ $product->price }}</td>
+                                <td>{{ $product->discount }}</td>
                             </tr>
-                        @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>

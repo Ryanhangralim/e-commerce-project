@@ -21,5 +21,13 @@ class ProductSeeder extends Seeder
             'category_id' => 2,
             'price' => 199000
         ]);
+        Product::create([
+            'business_id' => 1,
+            'name' => 'Kindle Paperwhite',
+            'description' => 'Kindle paperwhite by amazon, e-reader',
+            'brand' => 'Amazon',
+            'category_id' => 1,
+            'price' => 2499000
+        ]);
     }
 }
