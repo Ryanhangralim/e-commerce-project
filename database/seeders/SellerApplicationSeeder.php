@@ -26,6 +26,12 @@ class SellerApplicationSeeder extends Seeder
             'business_description' => 'dummy description 2',
             'application_status' => 'pending',
         ]);
+        SellerApplication::create([
+            'user_id' => 4,
+            'business_name' => 'Best business',
+            'business_description' => 'Best business description',
+            'application_status' => 'approved',
+        ]);
         SellerApplication::factory(25)->create();
         }
     

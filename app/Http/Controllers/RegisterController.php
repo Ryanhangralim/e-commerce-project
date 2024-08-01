@@ -28,7 +28,6 @@ class RegisterController extends Controller
 
         // Hash password
         $validatedData['password'] = Hash::make($validatedData['password']);
-        $validatedData['role_id'] = 1;
 
         // Insert data to database
         $user = User::create($validatedData);

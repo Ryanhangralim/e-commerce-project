@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone_number');
             $table->string('profile_picture')->nullable();
-            $table->foreignId('role_id')->constrained('roles');
-            $table->timestamps();
+            $table->foreignId('role_id')->default(1)->constrained('roles');
+            $table->timestamps(); 
         });
     }
 
