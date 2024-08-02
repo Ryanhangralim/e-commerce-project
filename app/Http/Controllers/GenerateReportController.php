@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 
 class GenerateReportController extends Controller
 {
@@ -41,6 +42,21 @@ class GenerateReportController extends Controller
         ];
 
         $pdf = Pdf::loadview('report.user-report', $data);
-        return $pdf->stream();
+        return $pdf->stream('User Report');
+    }
+
+    // Generate product report
+    public function generateProductReport()
+    {
+        $today = date("Y-m-d H:i:s");
+
+        $data = [
+            'products' => Auth::user()->products,
+            'business' => Auth::user()->business,
+            'date' => $today
+        ];
+
+        $pdf = Pdf::loadview('report.product-report', $data);
+        return $pdf->stream('Product Report');
     }
 }
