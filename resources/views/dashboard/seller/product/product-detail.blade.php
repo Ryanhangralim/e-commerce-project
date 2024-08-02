@@ -6,6 +6,7 @@
     @endsession
     <div class="mb-2">
         <a href="{{ route('view-product') }}" class="btn btn-primary "><i class="bi bi-arrow-return-left"></i> Back</a>
+        <a href="{{ route('product.edit-product', ['product' => $product->id]) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i> Edit</a>
     </div>
 
         <div class="row">

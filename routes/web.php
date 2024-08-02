@@ -12,7 +12,6 @@ use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
-use Database\Seeders\SellerApplicationSeeder;
 use App\Http\Controllers\GenerateReportController;
 use App\Http\Controllers\SellerApplicationController;
 use GuzzleHttp\Middleware;
@@ -113,7 +112,7 @@ Route::prefix('/seller/dashboard')->middleware(['role:seller', 'check.business.o
     // Product details routes
     Route::get('/product/{product:id}', [ProductController::class, 'productDetail'])
     ->whereNumber('product')
-    ->name('product-detail');
+    ->name('product.detail');
 
     Route::post('/product/{product:id}/add-stock', [ProductController::class, 'addStock'])
     ->whereNumber('product')
@@ -122,6 +121,10 @@ Route::prefix('/seller/dashboard')->middleware(['role:seller', 'check.business.o
     Route::post('/product/{product:id}/set-discount', [ProductController::class, 'setDiscount'])
     ->whereNumber('product')
     ->name('product.set-discount');
+
+    Route::get('/product/{product:id}/edit', [ProductController::class, 'editProductForm'])
+    ->whereNumber('product')
+    ->name('product.edit-product');
 });
 
 // Admin middleware

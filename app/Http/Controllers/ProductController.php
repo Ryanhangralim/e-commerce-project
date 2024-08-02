@@ -116,4 +116,15 @@ class ProductController extends Controller
 
         return redirect()->route('view-product')->with('success', 'Product Added');
     }
+
+    // Edit Product
+    public function editProductForm(Product $product)
+    {
+        $data = [
+            'product' => $product,
+            'categories' => Category::all()
+        ];
+
+        return view('dashboard.seller.product.edit-product-form', $data);
+    }
 }

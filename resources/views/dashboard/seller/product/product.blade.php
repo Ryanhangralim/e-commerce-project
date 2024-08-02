@@ -67,23 +67,10 @@
                                 <td>
                                     <div class="d-inline-flex flex-wrap" style="gap: 0.25rem">
                                         <div class="flex-grow-1">
-                                            <a href="{{ route('product-detail', ['product' => $product->id]) }}"
+                                            <a href="{{ route('product.detail', ['product' => $product->id]) }}"
                                                 class="btn btn-primary"><i class="bi bi-info-circle"></i>
                                                 Detail</a>
                                         </div>
-                                        {{-- <div class="flex-grow-1">
-                                            <a href="#"
-                                                class="btn btn-warning"><i class="bi bi-pencil-square"></i> Edit</span></a>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <form action="#" method="POST"
-                                                class="d-inline">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button class="btn btn-danger" onclick="return confirm('Are you sure')"><i
-                                                        class="bi bi-trash3"></i> Delete</button>
-                                            </form>
-                                        </div> --}}
                                     </div>
                                 </td>
                             </tr>
