@@ -102,13 +102,22 @@ Route::prefix('/seller/dashboard')->middleware('role:seller')->group(function(){
     ->name('view-product');
 
     Route::get('/product/{product:id}', [ProductController::class, 'productDetail'])
+    ->whereNumber('product')
     ->name('product-detail');
 
     Route::post('/product/{product:id}/add-stock', [ProductController::class, 'addStock'])
+    ->whereNumber('product')
     ->name('product.add-stock');
 
     Route::post('/product/{product:id}/set-discount', [ProductController::class, 'setDiscount'])
+    ->whereNumber('product')
     ->name('product.set-discount');
+
+    Route::get('/product/add', [ProductController::class, 'addProductForm'])
+    ->name('product.new-product');
+
+    Route::post('/product/add', [ProductController::class, 'storeProduct'])
+    ->name('product.store-new-product');
 });
 
 // Admin middleware

@@ -47,6 +47,14 @@
                                 <label class="col-md-3 col-form-label text-md-end">Stock</label>
                                 <p class="col-md-9 col-form-label text-md-end">: {{ $product->stock }}</p>
                             </div>
+                            <div class="row mb-2">
+                                <label class="col-md-3 col-form-label text-md-end">Image</label>
+                                @if ( $product->image )
+                                    <img src="{{ asset('images/product/' . $product->image) }}" alt="Profile Picture" class="img-profile" width="100">
+                                @else
+                                    <p class="col-md-9 col-form-label text-md-end">: No Image</p>
+                                @endif                             
+                            </div>
                     </div>
                 </div>
             </div>

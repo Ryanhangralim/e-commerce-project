@@ -3,6 +3,11 @@
         <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     @endsection
 
+    @session('success')
+    <div class="alert alert-success col-lg-12" role="alert">
+        {{ $value }}
+    </div>
+    @endsession
 
     <div class="row justify-content-end">
         <a id="generateReportButton" href="#" class="btn btn-primary mb-1">
@@ -12,8 +17,9 @@
 
     <!-- Table Start -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Product Table</h6>
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold">Product Table</h6>
+            <a href="{{ route('product.new-product') }}" class="btn btn-info"><i class="bi bi-plus"></i> New Product</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -21,22 +27,24 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Category</th>
                             <th>Name</th>
+                            <th>Category</th>
                             <th>Stock</th>
                             <th>Items Sold</th>
                             <th>Price</th>
+                            <th>Data Added</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>No.</th>
-                            <th>Category</th>
                             <th>Name</th>
+                            <th>Category</th>
                             <th>Stock</th>
                             <th>Items Sold</th>
                             <th>Price</th>
+                            <th>Date Added</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
@@ -44,11 +52,12 @@
                         @foreach($products as $product)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $product->category->name }}</td>
                                 <td>{{ $product->name }}</td>
+                                <td>{{ $product->category->name }}</td>
                                 <td>{{ $product->stock }}</td>
                                 <td>{{ $product->sold }}</td>
                                 <td>Rp. {{ number_format($product->price, 0, ',', '.') }}</td>
+                                <td>{{ $product->created_at }}</td>
                                 <td>
                                     <div class="d-inline-flex flex-wrap" style="gap: 0.25rem">
                                         <div class="flex-grow-1">
