@@ -8,7 +8,7 @@
             <h6 class="m-0 font-weight-bold">Edit Product</h6>
         </div>
         <div class="card-body">
-            <form action="{{ route('product.store-new-product') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('product.update-product', ['product' => $product->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                     <label for="name" class="col-md-4 col-form-label text-md-end">Name</label>
@@ -87,7 +87,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-primary">Add Product</button>
+                        <button type="submit" class="btn btn-primary">Edit Product</button>
                     </div>
                 </div>
             </form>

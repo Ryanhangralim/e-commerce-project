@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
@@ -117,7 +118,7 @@ class ProductController extends Controller
         return redirect()->route('view-product')->with('success', 'Product Added');
     }
 
-    // Edit Product
+    // Edit Product form
     public function editProductForm(Product $product)
     {
         $data = [
@@ -126,5 +127,53 @@ class ProductController extends Controller
         ];
 
         return view('dashboard.seller.product.edit-product-form', $data);
+    }
+
+    // Update product form
+    public function updateProduct(Request $request, Product $product)
+    {
+        // Create new image manager
+        $manager = new ImageManager(new Driver());
+
+        // validate user input
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'min:1', 'max:255'],
+            'description' => ['required', 'string', 'min:10'],
+            'brand' => ['required', 'string', 'min:1', 'max:255'],
+            'price' => ['required', 'numeric', 'min:500'],
+            'category_id' => ['required'],
+            'product_image' => ['image', 'mimes:jpeg,png', 'max:1024']
+        ]);
+
+        $validatedData['business_id'] = $product->business_id;
+
+        // get old image path
+        $oldProductPicture = $product->image;
+        $oldProductPicturePath = public_path('images/product/' . $oldProductPicture);
+
+        // Process and save image
+        if ($request->hasFile('product_image')) {
+            $image = $request->file('product_image');
+            $file_name = $product->business->slug . '-' . time() . '.' . $image->getClientOriginalExtension();
+            $path = public_path('images/product/' . $file_name); 
+
+            // Delete old product picture if exist
+            if($oldProductPicture && File::exists($oldProductPicturePath)){
+                File::delete($oldProductPicturePath);
+            }
+
+            // Save new profile picture
+            $manager->read($image->getPathname())->resize(300, 300)->save($path);
+    
+            // Update profile picture
+            $validatedData['image'] = $file_name; 
+        } else {
+            // Use old image path
+            $validatedData['image'] = $oldProductPicture;
+        }
+
+        $product->update($validatedData);
+
+        return redirect()->route('product.detail', ['product' => $product->id])->with('success', 'Product Successfully Updated');
     }
 }

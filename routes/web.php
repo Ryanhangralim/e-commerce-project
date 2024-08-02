@@ -125,6 +125,10 @@ Route::prefix('/seller/dashboard')->middleware(['role:seller', 'check.business.o
     Route::get('/product/{product:id}/edit', [ProductController::class, 'editProductForm'])
     ->whereNumber('product')
     ->name('product.edit-product');
+
+    Route::post('/product/{product:id}/edit', [ProductController::class, 'updateProduct'])
+    ->whereNumber('product')
+    ->name('product.update-product');
 });
 
 // Admin middleware

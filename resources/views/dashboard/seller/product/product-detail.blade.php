@@ -95,7 +95,7 @@
                                 <div class="form-group">
                                     <label for="discount" class="form-label text-right">Total discount:</label>
                                     <input type="number" class="form-control @error('discount') is-invalid @enderror" id="discount"
-                                        name="discount" required value="{{ old('discount', 0) }}">
+                                        name="discount" required value="{{ old('discount', $product->discount) }}">
                                     @error('discount')
                                     <div class="invalid-feedback">
                                         {{ $message }}
