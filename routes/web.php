@@ -15,6 +15,7 @@ use App\Http\Controllers\DashboardController;
 use Database\Seeders\SellerApplicationSeeder;
 use App\Http\Controllers\GenerateReportController;
 use App\Http\Controllers\SellerApplicationController;
+use GuzzleHttp\Middleware;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -101,6 +102,15 @@ Route::prefix('/seller/dashboard')->middleware('role:seller')->group(function(){
     Route::get('/product', [ProductController::class, 'viewProduct'])
     ->name('view-product');
 
+    Route::get('/product/add', [ProductController::class, 'addProductForm'])
+    ->name('product.new-product');
+
+    Route::post('/product/add', [ProductController::class, 'storeProduct'])
+    ->name('product.store-new-product');
+});
+
+Route::prefix('/seller/dashboard')->middleware(['role:seller', 'check.business.owner'])->group(function(){
+    // Product details routes
     Route::get('/product/{product:id}', [ProductController::class, 'productDetail'])
     ->whereNumber('product')
     ->name('product-detail');
@@ -112,12 +122,6 @@ Route::prefix('/seller/dashboard')->middleware('role:seller')->group(function(){
     Route::post('/product/{product:id}/set-discount', [ProductController::class, 'setDiscount'])
     ->whereNumber('product')
     ->name('product.set-discount');
-
-    Route::get('/product/add', [ProductController::class, 'addProductForm'])
-    ->name('product.new-product');
-
-    Route::post('/product/add', [ProductController::class, 'storeProduct'])
-    ->name('product.store-new-product');
 });
 
 // Admin middleware

@@ -15,9 +15,9 @@ class ProductController extends Controller
     public function viewProduct()
     {
         // Ensure the user has a business
-        if ($business = Auth::user()->business) {
+        if (Auth::user()->business) {
             // Retrieve the products of the user's business
-            $products = $business->products;
+            $products = Auth::user()->products;
         } else {
             // Handle the case where the user does not have a business
             $products = collect(); // Empty collection

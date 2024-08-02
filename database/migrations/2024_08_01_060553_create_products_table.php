@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->string('image')->nullable();
             $table->integer('stock')->default(0);
-            $table->float('price', 10, 3);
+            $table->float('price', 13, 3);
             $table->integer('discount')->default(0);
             $table->integer('sold')->default(0);
             $table->timestamps();

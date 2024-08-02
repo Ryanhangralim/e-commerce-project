@@ -66,4 +66,9 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     {
         return $this->hasOne(Business::class, 'user_id');
     }
+
+    public function products()
+    {
+        return $this->hasManyThrough(Product::class, Business::class, 'user_id', 'business_id');
+    }
 }

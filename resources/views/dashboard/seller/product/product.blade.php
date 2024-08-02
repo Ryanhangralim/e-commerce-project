@@ -9,6 +9,12 @@
     </div>
     @endsession
 
+    @session('error')
+    <div class="alert alert-danger col-lg-12" role="alert">
+        {{ $value }}
+    </div>
+    @endsession
+
     <div class="row justify-content-end">
         <a id="generateReportButton" href="#" class="btn btn-primary mb-1">
             <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
