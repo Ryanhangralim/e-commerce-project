@@ -16,6 +16,8 @@
     -   Seller Application list
     -   Business list
     -   Business details (Business data & products)
+    -   Business list generate report
+    -   Business details generate report
 -   Seller Dashboard
     -   Product list & generate report
     -   Add product
@@ -23,6 +25,9 @@
 
 ### TODO Features
 
--   Admin dashboard
-    -   Business list generate report
-    -   Business details generate report
+-   User
+    -   Homepage
+    -   Search products
+    -   Cart
+    -   Order history
+    -   Chat

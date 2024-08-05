@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Business;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -9,11 +10,16 @@ use Illuminate\Support\Facades\Auth;
 
 class GenerateReportController extends Controller
 {
+    protected $today;
+
+    public function __construct()
+    {
+        $this->today = date("Y-m-d H:i:s");
+    }
+
     // Generate user report
     public function generateUserReport(Request $request)
     {
-        $today = date("Y-m-d H:i:s");
-
         $role_number = [
             'customer' => 1,
             'seller' => 2,
@@ -38,7 +44,7 @@ class GenerateReportController extends Controller
         $data = [
             'role' => $role,
             'users' => $users,
-            'date' => $today
+            'date' => $this->today
         ];
 
         $pdf = Pdf::loadview('report.user-report', $data);
@@ -48,15 +54,37 @@ class GenerateReportController extends Controller
     // Generate product report
     public function generateProductReport()
     {
-        $today = date("Y-m-d H:i:s");
-
         $data = [
             'products' => Auth::user()->products,
             'business' => Auth::user()->business,
-            'date' => $today
+            'date' => $this->today
         ];
 
         $pdf = Pdf::loadview('report.product-report', $data);
         return $pdf->stream('Product Report');
+    }
+
+    // Generate business report
+    public function generateBusinessReport()
+    {
+        $data = [
+            'date' => $this->today,
+            'businesses' => Business::all()
+        ];
+
+        $pdf = Pdf::loadview('report.business-report', $data);
+        return $pdf->stream('Business Report');
+    }
+
+    // Generate business report
+    public function generateBusinessDetailReport(Business $business)
+    {
+        $data = [
+            'date' => $this->today,
+            'business' => $business
+        ];
+
+        $pdf = Pdf::loadview('report.business-detail-report', $data);
+        return $pdf->stream('Business Detail Report');
     }
 }

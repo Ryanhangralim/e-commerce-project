@@ -9,7 +9,7 @@
             <a href="{{ route('dashboard.business') }}" class="btn btn-primary "><i class="bi bi-arrow-return-left"></i> Back</a>
         </div>
         <div class="col-auto">
-            <a id="generateReportButton" href="#" class="btn btn-primary">
+            <a id="generateReportButton" href="{{ route('dashboard.generate-business-detail-report', ['business' => $business->slug ]) }}" class="btn btn-primary">
                 <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
             </a>
         </div>
@@ -82,7 +82,7 @@
                             <td>{{ $product->brand }}</td>
                             <td>{{ $product->category->name }}</td>
                             @if ( $product->image )
-                                <td><img src="{{ asset('images/product/' . $product->image) }}" alt="Profile Picture" class="img-profile" width="50"></td>
+                                <td><img src="{{ asset('images/product/' . $product->image) }}" alt="Product Picture" class="img-profile" width="50"></td>
                             @else
                                 <td>No Image</td>
                             @endif 

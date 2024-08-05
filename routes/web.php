@@ -171,8 +171,15 @@ Route::prefix('/admin/dashboard')->middleware('role:admin')->group(function (){
     Route::get('/business', [BusinessController::class, 'viewBusiness'])
     ->name('dashboard.business');
 
+    Route::get('/business/generate-business-report', [GenerateReportController::class, 'generateBusinessReport'])
+    ->name('dashboard.generate-business-report');
+    
     Route::get('/business/{business:slug}', [BusinessController::class, 'viewBusinessDetail'])
     ->name('dashboard.business.detail');
+    
+    Route::get('/business/{business:slug}/generate-business-detail-report', [GenerateReportController::class, 'generateBusinessDetailReport'])
+    ->name('dashboard.generate-business-detail-report');
+
 });
 
 // Business related routes
