@@ -211,14 +211,18 @@
                                 </a>
                                 @role('admin')
                                 <a class="dropdown-item" href="{{ route('admin-dashboard') }}">
-                                    <i class="fas fa-fw fa-tachometer-alt r-2 text-gray-400"></i>
+                                    <i class="fas fa-fw fa-tachometer-alt mr-2 text-gray-400"></i>
                                     Dashboard
                                 </a>
                                 @endrole
                                 @role('seller')
                                 <a class="dropdown-item" href="{{ route('seller-dashboard') }}">
-                                    <i class="fas fa-fw fa-tachometer-alt r-2 text-gray-400"></i>
+                                    <i class="fas fa-fw fa-tachometer-alt mr-2 text-gray-400"></i>
                                     Dashboard
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-shop mr-2 text-gray-400"></i>
+                                    Business Profile
                                 </a>
                                 @endrole
                                 <a class="dropdown-item" href="#">
