@@ -76,9 +76,11 @@
     @endsession
 
     <div class="row justify-content-end">
-        <a id="generateReportButton" href="{{ route('dashboard.generate-user-report', ['role' => 'all']) }}" class="btn btn-primary mb-1">
-            <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
-        </a>
+        <div class="col-auto">
+            <a id="generateReportButton" href="{{ route('dashboard.generate-user-report', ['role' => 'all']) }}" class="btn btn-primary mb-1">
+                <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+            </a>
+        </div>
     </div>
 
     {{-- Navigation Buttons --}}

@@ -15,10 +15,12 @@
     </div>
     @endsession
 
-    <div class="row justify-content-end">
-        <a id="generateReportButton" href="{{ route('product.generate-product-report') }}" class="btn btn-primary mb-1">
-            <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
-        </a>
+    <div class="row justify-content-end mb-3">
+        <div class="col-auto">
+            <a id="generateReportButton" href="{{ route('product.generate-product-report') }}" class="btn btn-primary mb-1">
+                <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+            </a>
+        </div>
     </div>
 
     <!-- Table Start -->

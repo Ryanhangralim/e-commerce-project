@@ -170,6 +170,9 @@ Route::prefix('/admin/dashboard')->middleware('role:admin')->group(function (){
     // Business related routes
     Route::get('/business', [BusinessController::class, 'viewBusiness'])
     ->name('dashboard.business');
+
+    Route::get('/business/{business:slug}', [BusinessController::class, 'viewBusinessDetail'])
+    ->name('dashboard.business.detail');
 });
 
 // Business related routes

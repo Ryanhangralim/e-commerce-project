@@ -4,10 +4,12 @@
     @endsection
 
 
-    <div class="row justify-content-end">
-        <a id="generateReportButton" href="#" class="btn btn-primary mb-1">
-            <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
-        </a>
+    <div class="row justify-content-end mb-3">
+        <div class="col-auto">
+            <a id="generateReportButton" href="#" class="btn btn-primary mb-1">
+                <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+            </a>
+        </div>
     </div>
 
     <!-- Table Start -->
@@ -26,6 +28,7 @@
                             <th>Name</th>
                             <th>Description</th>
                             <th>Created At</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -36,6 +39,7 @@
                             <th>Name</th>
                             <th>Description</th>
                             <th>Created At</th>
+                            <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -47,6 +51,15 @@
                                 <td><a href="{{ route('business', ['business' => $business->slug]) }}">{{ $business->name }}</a></td>
                                 <td>{{ $business->description }}</td>
                                 <td>{{ $business->created_at }}</td>
+                                <td>
+                                    <div class="d-inline-flex flex-wrap" style="gap: 0.25rem">
+                                        <div class="flex-grow-1">
+                                            <a href="{{ route('dashboard.business.detail', ['business' => $business->slug]) }}"
+                                                class="btn btn-primary"><i class="bi bi-info-circle"></i>
+                                                Detail</a>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
