@@ -19,31 +19,44 @@
                 <div class="row mb-3">
                     <label for="first_name" class="col-md-4 col-form-label text-md-end">First Name</label>
                     <div class="col-md-6">
-                        <input type="text" id="first_name" class="form-control" name="first_name" value="{{ $user->first_name }}">
+                        <input type="text" id="first_name" class="form-control" name="first_name" value="{{ $user->first_name }}" disabled>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="last_name" class="col-md-4 col-form-label text-md-end">Last Name</label>
                     <div class="col-md-6">
-                        <input type="text" id="last_name" class="form-control" name="last_name" value="{{ $user->last_name }}">
+                        <input type="text" id="last_name" class="form-control" name="last_name" value="{{ $user->last_name }}" disabled>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-4 col-form-label text-md-end">Email</label>
-                    <p class="col-md-4 col-form-label text-md-end">{{ $user->email }}</p>
+                    <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
+                    <div class="col-md-6">
+                        <input type="text" id="email" class="form-control" name="email" value="{{ $user->email }}" disabled>
+                        @if($user->email_verified_at)
+                            <small class="text-primary">Verified</small>
+                        @else
+                            <small>Not verified! <a href="{{ route('verification.notice') }}">Verify Now</a></small>
+                        @endif
+                    </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-4 col-form-label text-md-end">Phone Number</label>
-                    <p class="col-md-4 col-form-label text-md-end">{{ $user->phone_number }}</p>
+                    <label for="phone_number" class="col-md-4 col-form-label text-md-end">Phone Number</label>
+                    <div class="col-md-6">
+                        <input type="text" id="phone_number" class="form-control" name="phone_number" value="{{ $user->phone_number }}" disabled>
+                    </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-4 col-form-label text-md-end">Role</label>
-                    <p class="col-md-4 col-form-label text-md-end">{{ $user->role->title }}</p>
+                    <label for="role" class="col-md-4 col-form-label text-md-end">Role</label>
+                    <div class="col-md-6">
+                        <input type="text" id="role" class="form-control" name="role" value="{{ $user->role->title }}" disabled>
+                    </div>
                 </div>
                 @role('seller')
                 <div class="row mb-3">
-                    <label for="phone" class="col-md-4 col-form-label text-md-end">Business Name</label>
-                    <p class="col-md-4 col-form-label text-md-end">{{ $user->business->name }}</p>
+                    <label for="business_name" class="col-md-4 col-form-label text-md-end">Business Name</label>
+                    <div class="col-md-6">
+                        <input type="text" id="business_name" class="form-control" name="business_name" value="{{ $user->business->name }}" disabled>
+                    </div>
                 </div>
                 @endrole
             <form action="{{ route('profile.update-profile-picture') }}" method="POST" enctype="multipart/form-data">
