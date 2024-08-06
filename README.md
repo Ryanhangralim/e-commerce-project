@@ -18,6 +18,7 @@
     -   Business details (Business data & products)
     -   Business list generate report
     -   Business details generate report
+    -   Create & update categories
 -   Seller Dashboard
     -   Product list & generate report
     -   Add product
@@ -26,8 +27,6 @@
 
 ### TODO Features
 
--   Admin Dashboard
-    -   Create categories
 -   Seller Dashboard
     -   Update business information
     -   Delete products
