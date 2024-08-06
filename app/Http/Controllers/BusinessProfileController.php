@@ -12,12 +12,12 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 class BusinessProfileController extends Controller
 {
-    protected $directory_path;
+    protected $business_profile_path;
     
     // constructor
     public function __construct()
     {
-        $this->directory_path = 'images/business-profile/';
+        $this->business_profile_path = env('BUSINESS_PROFILE_PATH');
     }
 
     // business profile view
@@ -27,7 +27,7 @@ class BusinessProfileController extends Controller
 
         $data = [
             'business' => $business,
-            'directory_path' => $this->directory_path
+            'business_profile_path' => $this->business_profile_path
         ];
 
         return view('business-profile.business-profile', $data);
@@ -39,7 +39,7 @@ class BusinessProfileController extends Controller
         // Get old business profile picture
         $business = Auth::user()->business;
         $oldProfilePicture = $business->image;
-        $oldProfilePicturePath = public_path($this->directory_path . $oldProfilePicture);
+        $oldProfilePicturePath = public_path($this->business_profile_path . $oldProfilePicture);
 
         // Create new image manager
         $manager = new ImageManager(new Driver());
@@ -53,7 +53,7 @@ class BusinessProfileController extends Controller
         if ($request->hasFile('business_profile_picture')) {
             $image = $request->file('business_profile_picture');
             $file_name = $business->slug . '-' . time() . '.' . $image->getClientOriginalExtension();
-            $path = public_path($this->directory_path . $file_name); 
+            $path = public_path($this->business_profile_path . $file_name); 
 
             // Delete old profile picture if exist
             if($oldProfilePicture && File::exists($oldProfilePicturePath)){

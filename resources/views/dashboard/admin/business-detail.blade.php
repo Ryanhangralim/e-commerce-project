@@ -82,7 +82,7 @@
                             <td>{{ $product->brand }}</td>
                             <td>{{ $product->category->name }}</td>
                             @if ( $product->image )
-                                <td><img src="{{ asset('images/product/' . $product->image) }}" alt="Product Picture" class="img-profile" width="50"></td>
+                                <td><img src="{{ asset($product_picture_path . $product->image) }}" alt="Product Picture" class="img-profile" width="50"></td>
                             @else
                                 <td>No Image</td>
                             @endif 

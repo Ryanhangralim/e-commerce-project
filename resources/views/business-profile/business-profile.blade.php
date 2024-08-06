@@ -41,9 +41,9 @@
                         @enderror
                         <div class="mt-3">
                             @if ( $business->image )
-                                <img src="{{ asset($directory_path . $business->image) }}" alt="Business Profile Picture" class="img-profile rounded-circle" width="100">
+                                <img src="{{ asset($business_profile_path . $business->image) }}" alt="Business Profile Picture" class="img-profile rounded-circle" width="100">
                             @else
-                                <img src="{{ asset($directory_path . 'default.jpg') }}" alt="Business Profile Picture" class="img-profile rounded-circle" width="100">
+                                <img src="{{ asset($business_profile_path . 'default.jpg') }}" alt="Business Profile Picture" class="img-profile rounded-circle" width="100">
                             @endif 
                         </div>
                         <small class="form-text text-muted">File size: max. 1 MB, Image format: .JPEG, .PNG</small>

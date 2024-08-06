@@ -12,13 +12,22 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 class ProfileController extends Controller
 {
-    // Return profile page for admin
+    protected $profile_picture_path;
+    
+    // constructor
+    public function __construct()
+    {
+        $this->profile_picture_path = env('PROFILE_PICTURE_PATH');
+    }
+
+    // Return profile page 
     public function viewProfile()
     {
         $user = Auth::user();
 
         $data = [
-            'user' => $user
+            'user' => $user,
+            'profile_picture_path' => $this->profile_picture_path,
         ];
 
         return view('profile.profile', $data);
@@ -30,7 +39,7 @@ class ProfileController extends Controller
         // Get user
         $user = User::find(Auth::user()->id);
         $oldProfilePicture = $user->profile_picture;
-        $oldProfilePicturePath = public_path('images/profile/' . $oldProfilePicture);
+        $oldProfilePicturePath = public_path($this->profile_picture_path . $oldProfilePicture);
 
         // Create new image manager
         $manager = new ImageManager(new Driver());
@@ -44,7 +53,7 @@ class ProfileController extends Controller
         if ($request->hasFile('profile_picture')) {
             $image = $request->file('profile_picture');
             $file_name = $user->username . '-' . time() . '.' . $image->getClientOriginalExtension();
-            $path = public_path('images/profile/' . $file_name); 
+            $path = public_path($this->profile_picture_path . $file_name); 
 
             // Delete old profile picture if exist
             if($oldProfilePicture && File::exists($oldProfilePicturePath)){

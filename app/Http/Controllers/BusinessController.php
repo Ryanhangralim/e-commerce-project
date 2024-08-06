@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class BusinessController extends Controller
 {
+    protected $business_profile_path, $product_picture_path;
+    
+    // constructor
+    public function __construct()
+    {
+        $this->business_profile_path = env('BUSINESS_PROFILE_PATH');
+        $this->product_picture_path = env('PRODUCT_PICTURE_PATH');
+    }
+
     //Admin view
     public function viewBusiness()
     {
@@ -23,7 +32,8 @@ class BusinessController extends Controller
     public function viewBusinessDetail(Business $business)
     {
         $data = [
-            'business' => $business 
+            'business' => $business,
+            'product_picture_path' => $this->product_picture_path 
         ];
 
         return view('dashboard.admin.business-detail', $data);
@@ -33,7 +43,9 @@ class BusinessController extends Controller
     public function main(Business $business)
     {
         $data = [
-            'business' => $business
+            'business' => $business,
+            'business_profile_path' => $this->business_profile_path,
+            'product_picture_path' => $this->product_picture_path
         ];
 
         return view('business.main', $data);

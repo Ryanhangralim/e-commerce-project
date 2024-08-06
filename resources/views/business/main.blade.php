@@ -84,7 +84,11 @@
         <!-- Store Info -->
         <div class="store-info-container">
             <div class="store-logo">
-                <img src="{{ asset('images/product/default.jpg') }}" alt="Store Logo">
+                @if( $business->image)
+                    <img src="{{ asset($business_profile_path . $business->image) }}" alt="Store Image">
+                @else
+                    <img src="{{ asset($business_profile_path . 'default.jpg') }}" alt="Store Image">
+                @endif
             </div>
             <div class="store-details">
                 <div class="store-name text-primary">{{ $business->name }}</div>
@@ -113,9 +117,9 @@
             @foreach($business->products as $product)
                 <div class="card product-card">
                     @if($product->image)
-                        <img src="{{ asset('images/product/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }} Image">
+                        <img src="{{ asset($product_picture_path . $product->image) }}" class="card-img-top" alt="{{ $product->name }} Image">
                     @else
-                        <img src="{{ asset('images/product/default.jpg') }}" class="card-img-top" alt="No Image Available">
+                        <img src="{{ asset($product_picture_path . 'default.jpg') }}" class="card-img-top" alt="No Image Available">
                     @endif
                     <div class="card-body">
                         <h5 class="card-title">{{ $product->name }}</h5>

@@ -197,9 +197,9 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-white small">{{ Auth()->user()->username }}</span>
                                 @if( Auth()->user()->profile_picture )
-                                    <img class="img-profile rounded-circle" src="{{ asset('images/profile/' . Auth()->user()->profile_picture ) }}" alt="Profile Picture">
+                                    <img class="img-profile rounded-circle" src="{{ asset(env('PROFILE_PICTURE_PATH') . Auth()->user()->profile_picture ) }}" alt="Profile Picture">
                                 @else 
-                                    <img class="img-profile rounded-circle" src="{{ asset('images/profile/default.jpg') }}" alt="Default profile picture">
+                                    <img class="img-profile rounded-circle" src="{{ asset(env('PROFILE_PICTURE_PATH') . 'default.jpg') }}" alt="Default profile picture">
                                 @endif
                             </a>
                             <!-- Dropdown - User Information -->

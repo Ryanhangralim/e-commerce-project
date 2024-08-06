@@ -72,9 +72,9 @@
                         @enderror
                         <div class="mt-3">
                             @if ( Auth()->user()->profile_picture )
-                                <img src="{{ asset('images/profile/' . Auth()->user()->profile_picture) }}" alt="Profile Picture" class="img-profile rounded-circle" width="100">
+                                <img src="{{ asset($profile_picture_path . Auth()->user()->profile_picture) }}" alt="Profile Picture" class="img-profile rounded-circle" width="100">
                             @else
-                                <img src="{{ asset('images/profile/default.jpg') }}" alt="Profile Picture" class="img-profile rounded-circle" width="100">
+                                <img src="{{ asset($profile_picture_path . 'default.jpg') }}" alt="Profile Picture" class="img-profile rounded-circle" width="100">
                             @endif 
                         </div>
                         <small class="form-text text-muted">File size: max. 1 MB, Image format: .JPEG, .PNG</small>

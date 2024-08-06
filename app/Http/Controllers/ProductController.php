@@ -12,6 +12,14 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 class ProductController extends Controller
 {
+    protected $product_picture_path;
+    
+    // constructor
+    public function __construct()
+    {
+        $this->product_picture_path = env('PRODUCT_PICTURE_PATH');
+    }
+
     // View product
     public function viewProduct()
     {
@@ -35,7 +43,8 @@ class ProductController extends Controller
     public function productDetail(Product $product)
     {
         $data = [
-            'product' => $product
+            'product' => $product,
+            'product_picture_path' => $this->product_picture_path
         ];
 
         return view('dashboard.seller.product.product-detail', $data);
@@ -104,7 +113,7 @@ class ProductController extends Controller
         if ($request->hasFile('product_image')) {
             $image = $request->file('product_image');
             $file_name = $business->slug . '-' . time() . '.' . $image->getClientOriginalExtension();
-            $path = public_path('images/product/' . $file_name); 
+            $path = public_path($this->product_picture_path . $file_name); 
 
             // Save new profile picture
             $manager->read($image->getPathname())->resize(300, 300)->save($path);
@@ -123,7 +132,8 @@ class ProductController extends Controller
     {
         $data = [
             'product' => $product,
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'product_picture_path' => $this->product_picture_path
         ];
 
         return view('dashboard.seller.product.edit-product-form', $data);
@@ -149,13 +159,13 @@ class ProductController extends Controller
 
         // get old image path
         $oldProductPicture = $product->image;
-        $oldProductPicturePath = public_path('images/product/' . $oldProductPicture);
+        $oldProductPicturePath = public_path($this->product_picture_path . $oldProductPicture);
 
         // Process and save image
         if ($request->hasFile('product_image')) {
             $image = $request->file('product_image');
             $file_name = $product->business->slug . '-' . time() . '.' . $image->getClientOriginalExtension();
-            $path = public_path('images/product/' . $file_name); 
+            $path = public_path($this->product_picture_path . $file_name); 
 
             // Delete old product picture if exist
             if($oldProductPicture && File::exists($oldProductPicturePath)){

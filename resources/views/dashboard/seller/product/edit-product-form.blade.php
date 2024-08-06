@@ -72,7 +72,7 @@
                     <label for="product_image" class="col-md-4 col-form-label text-md-end">Product Image</label>
                     <div class="col-md-8">
                         @if ( $product->image )
-                            <img src="{{ asset('images/product/' . $product->image) }}" alt="Product Image" class="img-profile" width="100">
+                            <img src="{{ asset($product_picture_path . $product->image) }}" alt="Product Image" class="img-profile" width="100">
                         @else
                             <p class="col-md-9 col-form-label text-md-end">No Image</p>
                         @endif 
