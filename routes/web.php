@@ -9,11 +9,13 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\BusinessProfileController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenerateReportController;
 use App\Http\Controllers\SellerApplicationController;
+use App\Models\Business;
 use GuzzleHttp\Middleware;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -79,7 +81,7 @@ Route::middleware('auth')->group(function (){
     Route::get('/profile', [ProfileController::class, 'viewProfile'])
     ->name('view-profile');
 
-    Route::post('/profile/update-profile-picture', [ProfileController::class, 'updateProfilePicture'])
+    Route::post('/profile', [ProfileController::class, 'updateProfilePicture'])
     ->name('profile.update-profile-picture');
 });
 
@@ -106,6 +108,13 @@ Route::prefix('/seller/dashboard')->middleware('role:seller')->group(function(){
 
     Route::post('/product/add', [ProductController::class, 'storeProduct'])
     ->name('product.store-new-product');
+
+    // Business profile related routes
+    Route::get('/business-profile', [BusinessProfileController::class, 'viewBusinessProfile'])
+    ->name('business-profile.view');
+
+    Route::post('/business-profile', [BusinessProfileController::class, 'updateBusinessProfilePicture'])
+    ->name('business-profile.update-profile-picture');
 });
 
 Route::prefix('/seller/dashboard')->middleware(['role:seller', 'check.business.owner'])->group(function(){

@@ -381,7 +381,7 @@
                                     <i class="fas fa-fw fa-tachometer-alt mr-2 text-gray-400"></i>
                                     Dashboard
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('business-profile.view') }}">
                                     <i class="bi bi-shop mr-2 text-gray-400"></i>
                                     Business Profile
                                 </a>
