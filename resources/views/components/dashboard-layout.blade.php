@@ -93,6 +93,13 @@
                     <span>Business</span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('dashboard.view-category') }}">
+                    <i class="bi bi-tags"></i>
+                    <span>Category</span>
+                </a>
+            </li>
             @endrole
 
             @role('seller')

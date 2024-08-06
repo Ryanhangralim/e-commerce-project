@@ -10,12 +10,14 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\BusinessProfileController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenerateReportController;
 use App\Http\Controllers\SellerApplicationController;
 use App\Models\Business;
+use App\Models\Category;
 use GuzzleHttp\Middleware;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -189,6 +191,15 @@ Route::prefix('/admin/dashboard')->middleware('role:admin')->group(function (){
     Route::get('/business/{business:slug}/generate-business-detail-report', [GenerateReportController::class, 'generateBusinessDetailReport'])
     ->name('dashboard.generate-business-detail-report');
 
+    // Category related routes
+    Route::get('/category', [CategoryController::class, 'viewCategory'])
+    ->name('dashboard.view-category');
+    
+    Route::post('/category', [CategoryController::class, 'storeCategory'])
+    ->name('dashboard.new-category');
+
+    Route::post('/category/update', [CategoryController::class, 'updateCategory'])
+    ->name('dashboard.update-category');
 });
 
 // Business related routes

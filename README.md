@@ -26,6 +26,11 @@
 
 ### TODO Features
 
+-   Admin Dashboard
+    -   Create categories
+-   Seller Dashboard
+    -   Update business information
+    -   Delete products
 -   User
     -   Homepage
     -   Search products
