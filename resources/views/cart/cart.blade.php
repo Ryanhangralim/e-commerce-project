@@ -1,4 +1,35 @@
 <x-user-layout title="Cart">
+    <style>
+        .quantity-input {
+            width: 30px !important; /* Ensure width is small */
+            height: 30px !important; /* Ensure height matches width */
+            text-align: center !important; /* Center text horizontally */
+            padding: 0 !important; /* Remove default padding */
+            font-size: 14px; /* Adjust font size to fit */
+            border-radius: 0; /* Remove border radius to avoid stretching */
+            border: 1px solid #ced4da; /* Optional: Define border for better visibility */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+
+        .input-group .btn {
+            height: 30px; /* Match the height of the input */
+            width: 30px;  /* Make buttons square */
+            padding: 0;
+            font-size: 14px; /* Ensure font size matches input */
+        }
+        
+        .input-group {
+            display: flex; /* Ensure flex display */
+            align-items: center; /* Align items vertically */
+        }
+
+        .input-group .form-control {
+            display: inline-block; /* Prevent stretching */
+            flex: 0 0 auto; /* Prevent growing */
+            width: 30px; /* Match input width */
+        }
+    </style>
+
     <div class="container-lg">
         
         @if(count($carts) > 0)
@@ -18,7 +49,7 @@
             {{-- Product header --}}
             <div class="card mb-3">
                 <div class="card-body py-2">
-                    <h5 class="card-title">{{ $cart[0]->product->business->name }}</h5>
+                    <h6 class="card-title my-0">{{ $cart[0]->product->business->name }}</h6>
                 </div>
                 @foreach($cart as $cart_product)
                     {{-- Product content --}}
@@ -39,7 +70,13 @@
                             </div>
                         </div>
                         <div class="col-6 col-md-2 mb-2 mb-md-0">Rp. {{ number_format($cart_product->product->price, 0, ',', '.') }}</div>
-                        <div class="col-6 col-md-2 mb-2 mb-md-0">{{ $cart_product->quantity }}</div>
+                        <div class="col-6 col-md-2 mb-2 mb-md-0">
+                            <div class="input-group">
+                                <button class="btn bg-primary btn-sm text-white" type="button" onclick="updateQuantity('{{ $cart_product->id }}', -1)">-</button>
+                                <input type="number" class="form-control quantity-input" value="{{ $cart_product->quantity }}" readonly>
+                                <button class="btn bg-primary btn-sm text-white" type="button" onclick="updateQuantity('{{ $cart_product->id }}', 1)">+</button>
+                            </div>
+                        </div>                        
                         <div class="col-6 col-md-2 mb-2 mb-md-0">Rp. {{ number_format($cart_product->product->price * $cart_product->quantity, 0, ',', '.') }}</div>
                         <div class="col-6 col-md-2">Action</div>
                     </div>
