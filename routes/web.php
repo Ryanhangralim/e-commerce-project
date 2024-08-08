@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\BusinessProfileController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
@@ -85,6 +86,10 @@ Route::middleware('auth')->group(function (){
 
     Route::post('/profile', [ProfileController::class, 'updateProfilePicture'])
     ->name('profile.update-profile-picture');
+
+    // Cart related routes
+    Route::get('/cart', [CartController::class, 'viewCart'])
+    ->name('cart.view');
 });
 
 // Customer middleware
