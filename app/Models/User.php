@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -67,8 +68,14 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->hasOne(Business::class, 'user_id');
     }
 
-    public function products()
+    public function products(): HasManyThrough
     {
         return $this->hasManyThrough(Product::class, Business::class, 'user_id', 'business_id');
+    }
+
+    // Define the relationship with the Cart model
+    public function carts(): HasMany
+    {
+        return $this->hasMany(Cart::class, 'user_id');
     }
 }
