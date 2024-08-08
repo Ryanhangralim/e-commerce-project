@@ -72,39 +72,48 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Alerts -->
+                        <!-- Nav Item - Cart -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="{{ route('cart.view') }}" id="cartDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="bi bi-cart-fill text-white"></i>                                
-                                <!-- Counter - Alerts -->
+                                <!-- Counter - Cart -->
                                 <span class="badge badge-danger badge-counter">{{ count(Auth()->user()->carts) }}</span>
                             </a>
-                            <!-- Dropdown - Alerts -->
+                            <!-- Dropdown - Cart -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="cartDropdown">
                                 <h6 class="dropdown-header">
                                     Cart
                                 </h6>
-                                @foreach(Auth()->user()->carts as $cart)
-                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('cart.view') }}">
-                                        <div class="mr-3">
-                                            <div class="icon-circle bg-primary">
-                                                @if($cart->product->image)
-                                                    <img class="img-profile rounded-circle" src="{{ asset(env('PRODUCT_PICTURE_PATH') . $cart->product->image) }}" alt="{{ $cart->product->name }} image" width="50">
-                                                @else
-                                                    <img class="img-profile rounded-circle" src="{{ asset(env('PRODUCT_PICTURE_PATH') . 'default.jpg') }}" alt="{{ $cart->product->name }} image" width="50">
-                                                @endif
+                                @if(count(Auth()->user()->carts) > 0)
+                                    @foreach(Auth()->user()->carts as $cart)
+                                        <a class="dropdown-item d-flex align-items-center" href="{{ route('cart.view') }}">
+                                            <div class="mr-3">
+                                                <div class="icon-circle bg-primary">
+                                                    @if($cart->product->image)
+                                                        <img class="img-profile rounded-circle" src="{{ asset(env('PRODUCT_PICTURE_PATH') . $cart->product->image) }}" alt="{{ $cart->product->name }} image" width="50">
+                                                    @else
+                                                        <img class="img-profile rounded-circle" src="{{ asset(env('PRODUCT_PICTURE_PATH') . 'default.jpg') }}" alt="{{ $cart->product->name }} image" width="50">
+                                                    @endif
+                                                </div>
                                             </div>
-                                        </div>
+                                            <div>
+                                                <div class="small text-gray-500">{{ $cart->product->business->name }} - {{ $cart->product->name }}</div>
+                                                Rp. {{ number_format($cart->product->price, 0, ',', '.') }}
+                                                <br>
+                                                Quantity : {{ $cart->quantity }}
+                                            </div>
+                                        </a>
+                                    @endforeach
+                                @else
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('cart.view') }}">
                                         <div>
-                                            <div class="small text-gray-500">{{ $cart->product->name }}</div>
-                                            <span class="font-weight-bold">Rp. {{ number_format($cart->product->price, 0, ',', '.') }}</span>
-                                            <br>
-                                            <span class="font-weight-bold">Quantity : {{ $cart->quantity }}</span>
+                                            <span class="font-weight-bold">No Items In Cart</span>
                                         </div>
                                     </a>
-                                @endforeach
+                                    
+                                @endif
                                 <a class="dropdown-item text-center small text-gray-500" href="{{ route('cart.view') }}">View Cart</a>
                             </div>
                         </li>
