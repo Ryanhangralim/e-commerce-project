@@ -124,8 +124,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $product->name }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ $product->brand }}</h6>
-                        <a href="#" class="card-link">View Details</a>
-                        <a href="#" class="card-link">Add to Cart</a>
+                        <a href="{{ route('product.customer-product-detail', ['product' => $product->id]) }}" class="card-link">View Details</a>
                     </div>
                 </div>
             @endforeach

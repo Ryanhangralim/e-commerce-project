@@ -30,6 +30,11 @@ class CartController extends Controller
         return view('cart.cart', $data);
     }
 
+    public function addProduct()
+    {
+        
+    }
+
     // Update quantity
     public function updateQuantity(Request $request)
     {

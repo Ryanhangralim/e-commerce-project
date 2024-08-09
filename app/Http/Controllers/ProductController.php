@@ -39,7 +39,7 @@ class ProductController extends Controller
         return view('dashboard.seller.product.product', $data);
     }
 
-    // View product detail
+    // View product detail for seller
     public function productDetail(Product $product)
     {
         $data = [
@@ -48,6 +48,16 @@ class ProductController extends Controller
         ];
 
         return view('dashboard.seller.product.product-detail', $data);
+    }
+
+    // View product detail for customer
+    public function customerProductDetail(Product $product)
+    {
+        $data = [
+            'product' => $product
+        ];
+
+        return view('business.business-product-detail', $data);
     }
 
     // Add product stock

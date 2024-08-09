@@ -48,7 +48,7 @@ class BusinessController extends Controller
             'product_picture_path' => $this->product_picture_path
         ];
 
-        return view('business.main', $data);
+        return view('business.business', $data);
     }
 
 }

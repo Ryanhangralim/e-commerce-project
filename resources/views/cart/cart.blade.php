@@ -49,7 +49,7 @@
             {{-- Product header --}}
             <div class="card mb-3">
                 <div class="card-body py-2">
-                    <h6 class="card-title my-0">{{ $cart[0]->product->business->name }}</h6>
+                    <a href="{{ route('business', ['business' => $cart[0]->product->business->slug ]) }}" class="text-secondary"><h6 class="card-title my-0">{{ $cart[0]->product->business->name }}</h6></a>
                 </div>
                 @foreach($cart as $cart_product)
                     {{-- Product content --}}
@@ -65,7 +65,7 @@
                                     @endif
                                 </div>
                                 <div class="ml-3">
-                                    {{ $cart_product->product->name }}
+                                    <a href="{{ route('product.customer-product-detail', ['product' => $cart_product->product->id]) }}" class="text-secondary">{{ $cart_product->product->name }}</a>
                                 </div>
                             </div>
                         </div>

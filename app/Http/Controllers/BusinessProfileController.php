@@ -30,7 +30,7 @@ class BusinessProfileController extends Controller
             'business_profile_path' => $this->business_profile_path
         ];
 
-        return view('business-profile.business-profile', $data);
+        return view('business.business-profile', $data);
     }
 
     // Update business profile picture
