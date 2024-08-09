@@ -67,7 +67,10 @@ class CartController extends Controller
         $cart = Cart::find($validatedData['cart_product_id']);
         if ($cart) {
             $cart->delete();
-            return response()->json(['success' => true]);
+            return response()->json([
+                'success' => true,
+                'count' => count(Auth()->user()->carts)
+            ]);
         }
     
         return response()->json(['success' => false]);

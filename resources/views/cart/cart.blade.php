@@ -155,6 +155,8 @@
                         productElements.forEach(element => {
                             element.remove();
                         });
+
+                        document.getElementById(`cart-badge`).innerHTML = data.count;
                     }
                     } else {
                         alert('Failed to delete product');

@@ -78,7 +78,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="bi bi-cart-fill text-white"></i>                                
                                 <!-- Counter - Cart -->
-                                <span class="badge badge-danger badge-counter">{{ count(Auth()->user()->carts) }}</span>
+                                <span class="badge badge-danger badge-counter" id="cart-badge">{{ count(Auth()->user()->carts) }}</span>
                             </a>
                             <!-- Dropdown - Cart -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -88,7 +88,7 @@
                                 </h6>
                                 @if(count(Auth()->user()->carts) > 0)
                                     @foreach(Auth()->user()->carts as $cart)
-                                        <a class="dropdown-item d-flex align-items-center" href="{{ route('cart.view') }}">
+                                        <a class="dropdown-item d-flex align-items-center cart-product-{{ $cart->id }}" href="{{ route('cart.view') }}">
                                             <div class="mr-3">
                                                 <div class="icon-circle bg-primary">
                                                     @if($cart->product->image)
