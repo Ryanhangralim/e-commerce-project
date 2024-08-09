@@ -1,14 +1,13 @@
 <x-user-layout title="Cart">
     <style>
         .quantity-input {
-            width: 30px !important; /* Ensure width is small */
+            width: 35px !important; /* Ensure width is small */
             height: 30px !important; /* Ensure height matches width */
             text-align: center !important; /* Center text horizontally */
             padding: 0 !important; /* Remove default padding */
             font-size: 14px; /* Adjust font size to fit */
             border-radius: 0; /* Remove border radius to avoid stretching */
             border: 1px solid #ced4da; /* Optional: Define border for better visibility */
-            box-sizing: border-box; /* Include padding and border in the element's total width and height */
         }
 
         .input-group .btn {
@@ -23,11 +22,12 @@
             align-items: center; /* Align items vertically */
         }
 
-        .input-group .form-control {
+        .input-group input[type="number"] {
             display: inline-block; /* Prevent stretching */
             flex: 0 0 auto; /* Prevent growing */
             width: 30px; /* Match input width */
         }
+
     </style>
 
     <div class="container-lg">
@@ -73,12 +73,11 @@
                         <div class="col-6 col-md-2 mb-2 mb-md-0">
                             <div class="input-group">
                                 <button class="btn bg-primary btn-sm text-white" type="button" onclick="updateQuantity('{{ $cart_product->id }}', -1)">-</button>
-                                <input type="number" class="form-control quantity-input" value="{{ $cart_product->quantity }}" readonly>
+                                <input type="number" class="form-control quantity-input" id="quantity-{{ $cart_product->id }}" value="{{ $cart_product->quantity }}" readonly>
                                 <button class="btn bg-primary btn-sm text-white" type="button" onclick="updateQuantity('{{ $cart_product->id }}', 1)">+</button>
                             </div>
                         </div>                        
-                        <div class="col-6 col-md-2 mb-2 mb-md-0">Rp. {{ number_format($cart_product->product->price * $cart_product->quantity, 0, ',', '.') }}</div>
-                        <div class="col-6 col-md-2">Action</div>
+                        <div class="col-6 col-md-2 mb-2 mb-md-0" id="total-{{ $cart_product->id }}">Rp. {{ number_format($cart_product->product->price * $cart_product->quantity, 0, ',', '.') }}</div>                        <div class="col-6 col-md-2">Action</div>
                     </div>
                 @endforeach
             </div>
@@ -89,4 +88,46 @@
             </div>
         @endif
     </div>
+
+    <script>
+        function updateQuantity(cartProductId, change) {
+            const quantityInput = document.getElementById(`quantity-${cartProductId}`);
+            let newQuantity = parseInt(quantityInput.value) + change;
+
+            if (newQuantity < 1) {
+                newQuantity = 1;
+            }
+
+            // Update quantity input field
+            quantityInput.value = newQuantity;
+
+            // Make an AJAX request to update the quantity in the backend
+            fetch(`{{ route('cart.update-quantity') }}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    cart_product_id: cartProductId,
+                    quantity: newQuantity
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                if (data.success) {
+                    // Update the total price in the UI & Alert
+                    document.getElementById(`total-${cartProductId}`).innerHTML = `Rp. ${data.newTotalFormatted}`;
+                    document.getElementById(`alert-quantity-${cartProductId}`).innerHTML = `Quantity: ${newQuantity}`;
+                } else {
+                    alert('Failed to update quantity');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        }
+    </script>
 </x-user-layout>

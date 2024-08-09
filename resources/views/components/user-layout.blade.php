@@ -102,7 +102,7 @@
                                                 <div class="small text-gray-500">{{ $cart->product->business->name }} - {{ $cart->product->name }}</div>
                                                 Rp. {{ number_format($cart->product->price, 0, ',', '.') }}
                                                 <br>
-                                                Quantity : {{ $cart->quantity }}
+                                                <div id="alert-quantity-{{ $cart->id }}">Quantity : {{ $cart->quantity }}</div>
                                             </div>
                                         </a>
                                     @endforeach

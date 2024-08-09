@@ -90,6 +90,9 @@ Route::middleware('auth')->group(function (){
     // Cart related routes
     Route::get('/cart', [CartController::class, 'viewCart'])
     ->name('cart.view');
+
+    Route::post('/cart', [CartController::class, 'updateQuantity'])
+    ->name('cart.update-quantity');
 });
 
 // Customer middleware

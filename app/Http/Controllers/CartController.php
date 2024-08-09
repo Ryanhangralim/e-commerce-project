@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -27,5 +28,32 @@ class CartController extends Controller
         ];
 
         return view('cart.cart', $data);
+    }
+
+    // Update quantity
+    public function updateQuantity(Request $request)
+    {
+        // Validate the request
+        $validatedData = $request->validate([
+            'cart_product_id' => ['required', 'integer', 'min:1', 'exists:carts,id'],
+            'quantity' => ['required', 'integer', 'min:1']
+        ]);
+
+        // Find the cart
+        $cart = Cart::find($validatedData['cart_product_id']);
+
+        // Update to new quantity
+        $cart->quantity = $validatedData['quantity'];
+        $cart->save();
+
+        // Calculate new total price
+        $newTotal = $cart->product->price * $cart->quantity;
+        $newTotalFormatted = number_format($newTotal, 0, ',', '.');
+
+        // Return JSON response
+        return response()->json([
+            'success' => true,
+            'newTotalFormatted' => $newTotalFormatted
+        ]);
     }
 }
