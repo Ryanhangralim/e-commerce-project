@@ -93,6 +93,9 @@ Route::middleware('auth')->group(function (){
 
     Route::post('/cart', [CartController::class, 'updateQuantity'])
     ->name('cart.update-quantity');
+
+    Route::post('/cart/delete-product', [CartController::class, 'deleteProduct'])
+    ->name('cart.delete-product');
 });
 
 // Customer middleware

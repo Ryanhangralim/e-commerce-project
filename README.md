@@ -24,6 +24,9 @@
     -   Add product
     -   Product details (Edit, add stock, set discount)
     -   View business profile and update business profile picture
+-   User
+    -   View Cart
+    -   Add & subtract product quantity
 
 ### TODO Features
 
@@ -33,6 +36,5 @@
 -   User
     -   Homepage
     -   Search products
-    -   Cart
     -   Order history
     -   Chat

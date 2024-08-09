@@ -53,8 +53,8 @@
                 </div>
                 @foreach($cart as $cart_product)
                     {{-- Product content --}}
-                    <hr class="mb-0 mt-0">
-                    <div class="row px-3 py-2 align-items-center">
+                    <hr class="mb-0 mt-0 cart-product-{{ $cart_product->id }}">
+                    <div class="row px-3 py-2 align-items-center cart-product-{{ $cart_product->id }}">
                         <div class="col-12 col-md-4 mb-2 mb-md-0">
                             <div class="d-flex align-items-center">
                                 <div class="icon-circle bg-primary">
@@ -77,7 +77,8 @@
                                 <button class="btn bg-primary btn-sm text-white" type="button" onclick="updateQuantity('{{ $cart_product->id }}', 1)">+</button>
                             </div>
                         </div>                        
-                        <div class="col-6 col-md-2 mb-2 mb-md-0" id="total-{{ $cart_product->id }}">Rp. {{ number_format($cart_product->product->price * $cart_product->quantity, 0, ',', '.') }}</div>                        <div class="col-6 col-md-2">Action</div>
+                        <div class="col-6 col-md-2 mb-2 mb-md-0" id="total-{{ $cart_product->id }}">Rp. {{ number_format($cart_product->product->price * $cart_product->quantity, 0, ',', '.') }}</div>                        
+                        <button class="btn btn-danger" type="button" onclick="deleteProduct('{{ $cart_product->id }}')"><i class="bi bi-trash"></i> Delete</button>
                     </div>
                 @endforeach
             </div>
@@ -90,6 +91,7 @@
     </div>
 
     <script>
+        // Update quantity function
         function updateQuantity(cartProductId, change) {
             const quantityInput = document.getElementById(`quantity-${cartProductId}`);
             let newQuantity = parseInt(quantityInput.value) + change;
@@ -115,7 +117,6 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 if (data.success) {
                     // Update the total price in the UI & Alert
                     document.getElementById(`total-${cartProductId}`).innerHTML = `Rp. ${data.newTotalFormatted}`;
@@ -128,6 +129,41 @@
                 console.error('Error:', error);
                 alert('An error occurred. Please try again.');
             });
+        }
+
+        // Delete product
+        function deleteProduct(cartProductId) {
+            // Make an AJAX request to delete the product
+            fetch(`{{ route('cart.delete-product') }}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    cart_product_id: cartProductId
+                })
+            })
+            .then(response=> response.json())
+            .then(data => {
+                if (data.success) {
+                    // Remove the element from the DOM
+                    const productElement = document.querySelectorAll(`cart-product-${cartProductId}`);
+                    if (productElement) {
+                        // Remove the elements with the specific class
+                        const productElements = document.querySelectorAll(`.cart-product-${cartProductId}`);
+                        productElements.forEach(element => {
+                            element.remove();
+                        });
+                    }
+                    } else {
+                        alert('Failed to delete product');
+                    }
+                })
+            .catch(error => {
+                console.log('Error:', error);
+                alert('An error occurred. Please try again.');
+            })
         }
     </script>
 </x-user-layout>

@@ -56,4 +56,21 @@ class CartController extends Controller
             'newTotalFormatted' => $newTotalFormatted
         ]);
     }
+
+    // delete product function
+    public function deleteProduct(Request $request)
+    {
+        $validatedData = $request->validate([
+            'cart_product_id' => ['required', 'integer', 'exists:carts,id']
+        ]);
+    
+        $cart = Cart::find($validatedData['cart_product_id']);
+        if ($cart) {
+            $cart->delete();
+            return response()->json(['success' => true]);
+        }
+    
+        return response()->json(['success' => false]);
+
+    }
 }
