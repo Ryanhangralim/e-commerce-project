@@ -12,12 +12,13 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 class ProductController extends Controller
 {
-    protected $product_picture_path;
+    protected $product_picture_path, $business_profile_path;
     
     // constructor
     public function __construct()
     {
         $this->product_picture_path = env('PRODUCT_PICTURE_PATH');
+        $this->business_profile_path = env('BUSINESS_PROFILE_PATH');
     }
 
     // View product
@@ -54,7 +55,10 @@ class ProductController extends Controller
     public function customerProductDetail(Product $product)
     {
         $data = [
-            'product' => $product
+            'product' => $product,
+            'business' => $product->business,
+            'product_picture_path' => $this->product_picture_path,
+            'business_profile_path' => $this->business_profile_path
         ];
 
         return view('business.business-product-detail', $data);
