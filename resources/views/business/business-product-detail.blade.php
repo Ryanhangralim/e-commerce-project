@@ -148,13 +148,16 @@
                                 <label for="quantity" class="form-label">Quantity:</label>
                                 <div class="input-group quantity-input-group">
                                     <button class="btn bg-primary btn-sm text-white" type="button" onclick="updateQuantity(-1)">-</button>
-                                    <input type="number" name="quantity" id="quantity" class="form-control quantity-input" value="1" min="1">
+                                    <input type="number" name="quantity" id="quantity" class="form-control quantity-input" value="1" min="1" readonly>
                                     <button class="btn bg-primary btn-sm text-white" type="button" onclick="updateQuantity(1)">+</button>
                                 </div>
                                 <small class="text-muted">{{ $product->stock }} left</small>
                             </div>
-                            <div class="d-grid gap-2 d-md-block">
-                                <button class="btn btn-primary">Add To Cart</button>
+                            <div class="d-grid gap-2 d-md-block {{ $product->stock == 0 ? 'disabled' : '' }}">
+                                @if( $product->stock == 0 )
+                                    <h5 class="text-danger">Out of Stock!</h5>
+                                @endif
+                                <button class="btn btn-primary"  {{ $product->stock == 0 ? 'disabled' : '' }}>Add To Cart</button>
                             </div>
                         </form>
                     </div>
