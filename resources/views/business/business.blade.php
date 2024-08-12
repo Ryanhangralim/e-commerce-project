@@ -78,6 +78,10 @@
         .search-bar button {
             margin-left: 10px;
         }
+        a:hover {
+            text-decoration: none; /* Ensures the underline is not shown on hover */
+        }
+
     </style>
 
     <div class="container-fluid">
@@ -115,6 +119,7 @@
         <!-- Products Grid -->
         <div class="row product-grid p-0 p-lg-5">
             @foreach($business->products as $product)
+            <a href="{{ route('product.customer-product-detail', ['product' => $product->id]) }}">
                 <div class="card product-card">
                     @if($product->image)
                         <img src="{{ asset($product_picture_path . $product->image) }}" class="card-img-top" alt="{{ $product->name }} Image">
@@ -124,9 +129,10 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $product->name }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ $product->brand }}</h6>
-                        <a href="{{ route('product.customer-product-detail', ['product' => $product->id]) }}" class="card-link">View Details</a>
+                        <h6 class="card-subtitle mb-2 text-muted">Rp. {{ formatNumber(calculateDiscount($product)) }}</h6>
                     </div>
                 </div>
+            </a>
             @endforeach
         </div>
     </div>

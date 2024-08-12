@@ -100,7 +100,7 @@
                                             </div>
                                             <div>
                                                 <div class="small text-gray-500">{{ $cart->product->business->name }} - {{ $cart->product->name }}</div>
-                                                Rp. {{ number_format($cart->product->price, 0, ',', '.') }}
+                                                Rp. {{ formatNumber(calculateDiscount($cart->product) * $cart->quantity) }}
                                                 <br>
                                                 <div id="alert-quantity-{{ $cart->id }}">Quantity : {{ $cart->quantity }}</div>
                                             </div>
