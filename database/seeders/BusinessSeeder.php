@@ -20,5 +20,11 @@ class BusinessSeeder extends Seeder
             'slug' => 'best-business',
             'description' => 'Best business description'
         ]);
+        Business::create([
+            'user_id' => 3,
+            'name' => 'dummy2',
+            'slug' => 'dummy2',
+            'description' => 'dummy description 2'
+        ]);
     }
 }

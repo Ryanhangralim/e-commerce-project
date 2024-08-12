@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('12345'),
             'phone_number' => '081808083811',
-            'role_id' => 1
+            'role_id' => 2
         ]);
         User::create([
             'username' => 'ryanseller',

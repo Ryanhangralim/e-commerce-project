@@ -24,7 +24,7 @@ class SellerApplicationSeeder extends Seeder
             'user_id' => 3,
             'business_name' => 'dummy2',
             'business_description' => 'dummy description 2',
-            'application_status' => 'pending',
+            'application_status' => 'approved',
         ]);
         SellerApplication::create([
             'user_id' => 4,

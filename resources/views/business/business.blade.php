@@ -81,14 +81,13 @@
         a:hover {
             text-decoration: none; /* Ensures the underline is not shown on hover */
         }
-
     </style>
 
-    <div class="container-fluid">
+    <div class="container">
         <!-- Store Info -->
         <div class="store-info-container">
             <div class="store-logo">
-                @if( $business->image)
+                @if($business->image)
                     <img src="{{ asset($business_profile_path . $business->image) }}" alt="Store Image">
                 @else
                     <img src="{{ asset($business_profile_path . 'default.jpg') }}" alt="Store Image">
@@ -118,7 +117,7 @@
 
         <!-- Products Grid -->
         <div class="row product-grid p-0 p-lg-5">
-            @foreach($business->products as $product)
+            @foreach($products as $product)
             <a href="{{ route('product.customer-product-detail', ['product' => $product->id]) }}">
                 <div class="card product-card">
                     @if($product->image)
@@ -135,5 +134,9 @@
             </a>
             @endforeach
         </div>
+        <!-- Add Pagination Links -->
+        <div class="d-flex justify-content-end">
+            {{ $products->links() }}
+        </div>    
     </div>
 </x-user-layout>

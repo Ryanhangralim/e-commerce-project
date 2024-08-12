@@ -29,5 +29,7 @@ class ProductSeeder extends Seeder
             'category_id' => 1,
             'price' => 2499000
         ]);
+
+        Product::factory(50)->create();
     }
 }
