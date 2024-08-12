@@ -88,8 +88,8 @@ class CartController extends Controller
         $cart->save();
 
         // Calculate new total price
-        $newTotal = $cart->product->price * $cart->quantity;
-        $newTotalFormatted = number_format($newTotal, 0, ',', '.');
+        $newTotal = calculateDiscount($cart->product) * $cart->quantity;
+        $newTotalFormatted = formatNumber($newTotal);
 
         // Return JSON response
         return response()->json([

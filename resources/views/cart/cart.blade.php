@@ -69,15 +69,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-md-2 mb-2 mb-md-0">Rp. {{ number_format($cart_product->product->price, 0, ',', '.') }}</div>
+                        <div class="col-6 col-md-2 mb-2 mb-md-0">Rp. {{ formatNumber(calculateDiscount($cart_product->product)) }}</div>
                         <div class="col-6 col-md-2 mb-2 mb-md-0">
                             <div class="input-group">
-                                <button class="btn bg-primary btn-sm text-white" type="button" onclick="updateQuantity('{{ $cart_product->id }}', -1)">-</button>
+                                <button class="btn bg-primary btn-sm text-white" type="button" onclick="updateQuantity('{{ $cart_product->id }}', -1, '{{ $cart_product->product->stock }}')">-</button>
                                 <input type="number" class="form-control quantity-input" id="quantity-{{ $cart_product->id }}" value="{{ $cart_product->quantity }}" readonly>
-                                <button class="btn bg-primary btn-sm text-white" type="button" onclick="updateQuantity('{{ $cart_product->id }}', 1)">+</button>
+                                <button class="btn bg-primary btn-sm text-white" type="button" onclick="updateQuantity('{{ $cart_product->id }}', 1, '{{ $cart_product->product->stock }}')">+</button>
                             </div>
+                            <small>Stock: {{ $cart_product->product->stock }}</small>
                         </div>                        
-                        <div class="col-6 col-md-2 mb-2 mb-md-0" id="total-{{ $cart_product->id }}">Rp. {{ number_format($cart_product->product->price * $cart_product->quantity, 0, ',', '.') }}</div>                        
+                        <div class="col-6 col-md-2 mb-2 mb-md-0" id="total-{{ $cart_product->id }}">Rp. {{ formatNumber(calculateDiscount($cart_product->product) * $cart_product->quantity, 0, ',', '.') }}</div>                        
                         <button class="btn btn-danger" type="button" onclick="deleteProduct('{{ $cart_product->id }}')"><i class="bi bi-trash"></i> Delete</button>
                     </div>
                 @endforeach
@@ -92,13 +93,17 @@
 
     <script>
         // Update quantity function
-        function updateQuantity(cartProductId, change) {
+        function updateQuantity(cartProductId, change, stock) {
             const quantityInput = document.getElementById(`quantity-${cartProductId}`);
             let newQuantity = parseInt(quantityInput.value) + change;
 
             if (newQuantity < 1) {
                 newQuantity = 1;
             }
+            else if (newQuantity > stock) {
+                newQuantity = stock;
+            }
+
 
             // Update quantity input field
             quantityInput.value = newQuantity;

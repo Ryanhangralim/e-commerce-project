@@ -132,13 +132,13 @@
                         </div>
                         @if($product->discount > 0)
                             <p>
-                                <span class="price-discount">Rp. {{ number_format($product->price, 0, ',', '.') }}</span>
-                                <span class="price-current text-primary">Rp. {{ number_format($product->price - ($product->price * ($product->discount / 100)), 0, ',', '.') }}</span>
+                                <span class="price-discount">Rp. {{ formatNumber($product->price) }}</span>
+                                <span class="price-current text-primary">Rp. {{ formatNumber(calculateDiscount($product)) }}</span>
                                 <span class="badge bg-primary text-white">{{ $product->discount }}% OFF</span>
                             </p>
                         @else
                             <p>
-                                <span class="price-current text-primary">Rp. {{ number_format($product->price, 0, ',', '.') }}</span>
+                                <span class="price-current text-primary">Rp. {{ formatNumber($product->price) }}</span>
                             </p>
                         @endif
         
