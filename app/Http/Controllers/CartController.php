@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -30,9 +32,43 @@ class CartController extends Controller
         return view('cart.cart', $data);
     }
 
-    public function addProduct()
+    // Add Product to cart
+    public function addProduct(Request $request, Product $product)
     {
+        $product_id = $product->id;
+        $user_id = Auth()->user()->id;
+
+        // Validate quantity input
+        $validatedData = $request->validate([
+            'quantity' => ['required', 'integer', 'min:1']
+        ]);
+
+        // Check stock
+        if($validatedData['quantity'] > $product->stock)
+        {
+            return back()->with('error', 'Stock unavailable');
+        }
+
+        // Add additional information
+        $validatedData['user_id'] = $user_id;
+        $validatedData['product_id'] = $product_id;
         
+        // Check if product is in cart
+        if($existing_cart = Cart::where('user_id', $user_id)
+               ->where('product_Id', $product_id)
+               ->first()){
+                if($validatedData['quantity'] + $existing_cart->quantity > $product->stock)
+                {
+                    return back()->with('error', 'Stock unavailable');     
+                }
+            $existing_cart->quantity += $validatedData['quantity'];
+            $existing_cart->save();
+        } else {
+            // Add product to cart
+            Cart::create($validatedData);
+        }
+
+        return back()->with('success', $product->name . 'Successfully Added!');
     }
 
     // Update quantity

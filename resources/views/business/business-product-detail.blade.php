@@ -97,8 +97,19 @@
         }
     </style>
 
-    <div class="container mt-2">
-        {{-- Product main --}}
+
+<div class="container mt-2">
+    @session('success')
+    <div class="alert alert-success col-lg-12" role="alert">
+        {{ $value }}
+    </div>
+    @endsession
+    @session('error')
+    <div class="alert alert-danger col-lg-12" role="alert">
+        {{ $value }}
+    </div>
+    @endsession
+    {{-- Product main --}}
         <div class="card mb-3">
             <div class="card-body py-2">
                 <div class="row mt-2">
@@ -131,19 +142,21 @@
                             </p>
                         @endif
         
-                        <div class="mb-3">
-                            <label for="quantity" class="form-label">Quantity:</label>
-                            <div class="input-group quantity-input-group">
-                                <button class="btn bg-primary btn-sm text-white" type="button" onclick="updateQuantity(-1)">-</button>
-                                <input type="number" id="quantity" class="form-control quantity-input" value="1" min="1">
-                                <button class="btn bg-primary btn-sm text-white" type="button" onclick="updateQuantity(1)">+</button>
+                        <form action="{{ route('cart.add-product', ['product' => $product]) }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="quantity" class="form-label">Quantity:</label>
+                                <div class="input-group quantity-input-group">
+                                    <button class="btn bg-primary btn-sm text-white" type="button" onclick="updateQuantity(-1)">-</button>
+                                    <input type="number" name="quantity" id="quantity" class="form-control quantity-input" value="1" min="1">
+                                    <button class="btn bg-primary btn-sm text-white" type="button" onclick="updateQuantity(1)">+</button>
+                                </div>
+                                <small class="text-muted">{{ $product->stock }} left</small>
                             </div>
-                            <small class="text-muted">{{ $product->stock }} left</small>
-                        </div>
-        
-                        <div class="d-grid gap-2 d-md-block">
-                            <button class="btn btn-primary">Add To Cart</button>
-                        </div>
+                            <div class="d-grid gap-2 d-md-block">
+                                <button class="btn btn-primary">Add To Cart</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -206,7 +219,7 @@
                 </div>
             </div>
         </div>
-        
+
     <script>
         function updateQuantity(amount) {
             var quantityInput = document.getElementById('quantity');

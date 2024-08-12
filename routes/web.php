@@ -223,4 +223,7 @@ Route::prefix('/business')->group(function(){
 Route::prefix('/product')->group(function(){
     Route::get('/{product:id}', [ProductController::class, 'customerProductDetail'])
     ->name('product.customer-product-detail');
+
+    Route::post('/{product:id}', [CartController::class, 'addProduct'])
+    ->name('cart.add-product');
 });
