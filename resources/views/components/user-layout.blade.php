@@ -26,9 +26,9 @@
                     <!-- Topbar - Brand -->
                     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
                         <div class="sidebar-brand-icon rotate-n-15">
-                            <i class="fas fa-laugh-wink text-white"></i>
+                            <i class="bi bi-basket2 text-white"></i>
                         </div>
-                        <div class="brand-text mx-3 text-white" style="font-weight: bold">SB Admin <sup>2</sup></div>
+                        <div class="brand-text mx-3 text-white" style="font-weight: bold">e-comm</div>
                     </a>
 
                     <!-- Topbar Search -->

@@ -26,13 +26,16 @@
     -   View business profile and update business profile picture
 -   User
     -   View Cart
-    -   Add & subtract product quantity
+    -   Add & subtract product quantity in cart
+    -   View product detail
+    -   Add & delete product to/from cart
+    -
 
 ### TODO Features
 
 -   Seller Dashboard
     -   Update business information
-    -   Delete products
+    -   View transactions
 -   User
     -   Homepage
     -   Search products

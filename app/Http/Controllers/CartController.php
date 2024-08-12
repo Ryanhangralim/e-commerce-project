@@ -68,7 +68,7 @@ class CartController extends Controller
             Cart::create($validatedData);
         }
 
-        return back()->with('success', $product->name . 'Successfully Added!');
+        return back()->with('success', $product->name . ' Successfully Added!');
     }
 
     // Update quantity
