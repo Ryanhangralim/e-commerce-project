@@ -29,7 +29,9 @@
     -   Add & subtract product quantity in cart
     -   View product detail
     -   Add & delete product to/from cart
-    -
+    -   View review
+-   Seller
+    -   Reply to review
 
 ### TODO Features
 
