@@ -30,4 +30,10 @@ class Product extends Model
     {
         return $this->hasMany(Cart::class, 'product_id');
     }
+
+    // Relationship with review model
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class, 'product_id');
+    }
 }
