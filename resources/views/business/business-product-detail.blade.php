@@ -223,6 +223,59 @@
             </div>
         </div>
 
+        <!-- Product Reviews -->
+        <div class="card mb-3">
+            <div class="card-body py-2">
+                <div class="product-specifications mt-4">
+                    <h4>Reviews</h4>
+                     
+                     {{-- Review card --}}
+                     <div class="card mb-2">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <img src="https://via.placeholder.com/50" alt="User Avatar" class="rounded-circle mr-2">
+                                <div>
+                                    <h6 class="mb-0">username</h6>
+                                    <small class="text-muted">2024-06-21 15:59</small>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <div class="mb-2">
+                                    <span class="text-warning">
+                                        ★★★★★
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae et accusamus nam aliquam expedita praesentium, veniam ad eligendi dignissimos, itaque aut illum consectetur sapiente distinctio.</p>
+                            </div>
+                        </div>
+                        
+                     {{-- Review card --}}
+                     <div class="card mb-2">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <img src="https://via.placeholder.com/50" alt="User Avatar" class="rounded-circle mr-2">
+                                <div>
+                                    <h6 class="mb-0">username</h6>
+                                    <small class="text-muted">2024-06-21 15:59</small>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <div class="mb-2">
+                                    <span class="text-warning">
+                                        ★★★★★
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae et accusamus nam aliquam expedita praesentium, veniam ad eligendi dignissimos, itaque aut illum consectetur sapiente distinctio.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <script>
         function updateQuantity(amount) {
             var quantityInput = document.getElementById('quantity');

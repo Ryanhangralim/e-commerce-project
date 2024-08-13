@@ -22,6 +22,7 @@
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand bg-primary topbar mb-4 static-top shadow">
+                    <div class="container">
 
                     <!-- Topbar - Brand -->
                     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
@@ -298,6 +299,7 @@
                             </div>
                         </li>
                     </ul>
+                </div>
                 </nav>
                 <!-- End of Topbar -->
 

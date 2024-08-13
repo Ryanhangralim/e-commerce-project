@@ -111,12 +111,12 @@
         
         <!-- Search Bar -->
         <div class="row search-bar">
-            <input type="text" class="form-control col-md-8" placeholder="Search in this store">
-            <button class="btn btn-primary col-md-1 ml-2">Search</button>
+            <input type="text" class="form-control col-md" placeholder="Search in this store">
+            <button class="btn btn-primary">Search</button>
         </div>
 
         <!-- Products Grid -->
-        <div class="row product-grid p-0 p-lg-5">
+        <div class="row product-grid p-0 px-lg-5">
             @foreach($products as $product)
             <a href="{{ route('product.customer-product-detail', ['product' => $product->id]) }}">
                 <div class="card product-card">
@@ -135,7 +135,7 @@
             @endforeach
         </div>
         <!-- Add Pagination Links -->
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end mt-2">
             {{ $products->links() }}
         </div>    
     </div>

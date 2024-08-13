@@ -17,8 +17,6 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenerateReportController;
 use App\Http\Controllers\SellerApplicationController;
-use App\Models\Business;
-use App\Models\Category;
 use GuzzleHttp\Middleware;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
