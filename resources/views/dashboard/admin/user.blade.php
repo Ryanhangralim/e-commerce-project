@@ -145,7 +145,6 @@
     <script>
         $(document).ready(function(){
             $(document).on('click', '.update-role', function(){
-                console.log("users");
                 var data = $(this).data('user');
                 var route = $(this).data('route');
 

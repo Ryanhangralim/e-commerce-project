@@ -1,23 +1,24 @@
 <?php
 
+use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BusinessController;
-use App\Http\Controllers\BusinessProfileController;
-use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenerateReportController;
+use App\Http\Controllers\BusinessProfileController;
 use App\Http\Controllers\SellerApplicationController;
-use GuzzleHttp\Middleware;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -224,4 +225,9 @@ Route::prefix('/product')->middleware('auth')->group(function(){
 
     Route::post('/{product:id}', [CartController::class, 'addProduct'])
     ->name('cart.add-product');
+
+    Route::post('/{review:id}/reply', [ReviewController::class, 'addReply'])
+    ->whereNumber('review')
+    ->name('review.add-reply');
+
 });

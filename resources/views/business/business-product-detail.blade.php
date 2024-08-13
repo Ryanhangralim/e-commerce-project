@@ -97,6 +97,36 @@
         }
     </style>
 
+<!-- Add reply modal -->
+<div class="modal fade" id="reply-modal" tabindex="-1" aria-labelledby="replyModal" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Review Reply</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="review-content" class="mb-3"></div>
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST" id="replyForm" class="mx-auto">
+                            @csrf
+                            <label for="name">Reply Message</label>
+                            <div class="form-group">
+                                <input id="seller_reply" type="text" name="seller_reply" class="form-control" required>
+                            </div>
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-primary" id="modalButton">Reply</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container mt-2">
     @session('success')
@@ -204,7 +234,7 @@
         <div class="card mb-3">
             <div class="card-body py-2">
                 <div class="product-specifications mt-4">
-                    <h4>Product Specification</h4>
+                    <h4><strong>Product Specification</strong></h4>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex">
                             <strong class="col-md-3">Category:</strong> 
@@ -227,7 +257,7 @@
         <div class="card mb-3">
             <div class="card-body py-2">
                 <div class="product-specifications mt-4">
-                    <h4 class="mb-3">Reviews ({{ count($reviews) }})</h4>
+                    <h4 class="mb-3"><strong>Reviews ({{ count($reviews) }}) </strong></h4>
                      
                     {{-- Review card --}}
                         @foreach($reviews as $review)
@@ -236,9 +266,9 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
                                         @if ($review->user->profile_picture)
-                                            <img src="{{ asset($profile_picture_path . $review->user->profile_picture) }}" alt="Profile Picture" class="rounded-circle mr-2" width="50">
+                                            <img src="{{ asset($profile_picture_path . $review->user->profile_picture) }}" alt="Profile Picture" class="rounded-circle mr-3" width="50">
                                         @else
-                                            <img src="{{ asset($profile_picture_path . 'default.jpg') }}" alt="Profile Picture" class="rounded-circle mr-2" width="50">
+                                            <img src="{{ asset($profile_picture_path . 'default.jpg') }}" alt="Profile Picture" class="rounded-circle mr-3" width="50">
                                         @endif 
                                         <div>
                                             <h6 class="mb-0">{{ $review->user->username }}</h6>
@@ -249,9 +279,11 @@
                                     {{-- Check if business owner and no reply yet --}}
                                     @if(isBusinessOwner($product->business->user_id) && !$review->seller_reply) 
                                         <div>   
-                                            <a href="#" class="text-muted text-gray-500">
+                                            <button type="button" class="btn btn-link text-muted text-gray-500 reply-review p-0" 
+                                                data-route="{{ route('review.add-reply', ['review' => $review]) }}" 
+                                                data-review="{{ json_encode($review) }}">
                                                 <i class="fas fa-reply text-gray-500"></i> Reply
-                                            </a>
+                                            </button>
                                         </div>
                                     @endif
                                 </div>
@@ -259,7 +291,7 @@
                                     <p class="mt-3">{{ $review->content }}</p>
                                 @endif
                                 @if ($review->seller_reply)
-                                    <div class="bg-gray-200 p-3"> {{-- Add padding here --}}
+                                    <div class="bg-gray-200 p-3 mt-3"> {{-- Add padding here --}}
                                         <strong class="text-gray-800">Seller Reply:</strong>
                                         <p class="text-gray-800 mb-0">{{ $review->seller_reply }}</p>
                                     </div>
@@ -273,6 +305,7 @@
         </div>
 
     <script>
+        // Update quantity function
         function updateQuantity(amount) {
             var quantityInput = document.getElementById('quantity');
             var currentQuantity = parseInt(quantityInput.value);
@@ -282,5 +315,22 @@
                 quantityInput.value = newQuantity;
             }
         }
+    </script>
+    {{-- Script for modal --}}
+    <script>
+        $(document).ready(function(){
+            @error("seller_reply")
+                alert("{{ $message }}");
+            @enderror
+
+            $(document).on('click', '.reply-review', function(){
+                var data = $(this).data('review');
+                var route = $(this).data('route');
+
+                $('#reply-modal').modal('show');
+                $('#review-content').text("Review Message : " + data.content);
+                $('#replyForm').attr('action', route);
+            });
+        });
     </script>
 </x-user-layout>
