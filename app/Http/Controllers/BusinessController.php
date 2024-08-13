@@ -48,7 +48,7 @@ class BusinessController extends Controller
             'business' => $business,
             'products' => $products,
             'business_profile_path' => $this->business_profile_path,
-            'product_picture_path' => $this->product_picture_path
+            'product_picture_path' => $this->product_picture_path,
         ];
 
         return view('business.business', $data);

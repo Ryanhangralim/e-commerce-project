@@ -227,51 +227,37 @@
         <div class="card mb-3">
             <div class="card-body py-2">
                 <div class="product-specifications mt-4">
-                    <h4>Reviews</h4>
+                    <h4 class="mb-3">Reviews ({{ count($reviews) }})</h4>
                      
-                     {{-- Review card --}}
-                     <div class="card mb-2">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <img src="https://via.placeholder.com/50" alt="User Avatar" class="rounded-circle mr-2">
-                                <div>
-                                    <h6 class="mb-0">username</h6>
-                                    <small class="text-muted">2024-06-21 15:59</small>
+                    {{-- Review card --}}
+                        @foreach($reviews as $review)
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    @if ( $review->user->profile_picture )
+                                        <img src="{{ asset($profile_picture_path . $review->user->profile_picture) }}" alt="Profile Picture" class="rounded-circle mr-2" width="50">
+                                    @else
+                                        <img src="{{ asset($profile_picture_path . 'default.jpg') }}" alt="Profile Picture" class="rounded-circle mr-2" width="50">
+                                    @endif 
+                                    <div>
+                                        <h6 class="mb-0">{{ $review->user->username }}</h6>
+                                        <h6 class="text-warning mb-0">{{ printRating($review->rating) }}</h6>
+                                        <small class="text-muted">{{ $review->created_at }}</small>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mt-3">
-                                <div class="mb-2">
-                                    <span class="text-warning">
-                                        ★★★★★
-                                    </span>
-                                </div>
-                            </div>
-                            <p class="mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae et accusamus nam aliquam expedita praesentium, veniam ad eligendi dignissimos, itaque aut illum consectetur sapiente distinctio.</p>
+                                @if( $review->content )
+                                    <p class="mt-3">{{ $review->content }}</p>
+                                @endif
+                                @if( $review->seller_reply)
+                                    <div class="bg-gray-200 p-3"> {{-- Add padding here --}}
+                                        <strong class="text-gray-800">Seller Reply: </strong>
+                                        <p class="text-gray-800 mb-0">{{ $review->seller_reply }}</p>
+                                    </div>
+                                @endif
                             </div>
                         </div>
-                        
-                     {{-- Review card --}}
-                     <div class="card mb-2">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <img src="https://via.placeholder.com/50" alt="User Avatar" class="rounded-circle mr-2">
-                                <div>
-                                    <h6 class="mb-0">username</h6>
-                                    <small class="text-muted">2024-06-21 15:59</small>
-                                </div>
-                            </div>
-                            <div class="mt-3">
-                                <div class="mb-2">
-                                    <span class="text-warning">
-                                        ★★★★★
-                                    </span>
-                                </div>
-                            </div>
-                            <p class="mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae et accusamus nam aliquam expedita praesentium, veniam ad eligendi dignissimos, itaque aut illum consectetur sapiente distinctio.</p>
-                            </div>
-                        </div>
+                        @endforeach
 
-                    </div>
                 </div>
             </div>
         </div>

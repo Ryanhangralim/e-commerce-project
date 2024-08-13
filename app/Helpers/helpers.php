@@ -23,3 +23,16 @@ if (!function_exists('formatNumber')) {
         return number_format($string, 0, ',', '.');
     }
 }
+
+if (!function_exists('printRating')) {
+    function printRating($score)
+    {
+        $rating = "";
+        for($i = 0; $i < $score; $i++)
+        {
+            $rating .= '★';
+        }
+        
+        return $rating;
+    }
+}
