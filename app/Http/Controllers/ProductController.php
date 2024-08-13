@@ -57,7 +57,7 @@ class ProductController extends Controller
     {
         $data = [
             'product' => $product,
-            'reviews' => $product->reviews,
+            'reviews' => $product->reviews()->paginate(10),
             'business' => $product->business,
             'product_picture_path' => $this->product_picture_path,
             'business_profile_path' => $this->business_profile_path,

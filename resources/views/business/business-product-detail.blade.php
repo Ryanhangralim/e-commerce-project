@@ -257,7 +257,7 @@
         <div class="card mb-3">
             <div class="card-body py-2">
                 <div class="product-specifications mt-4">
-                    <h4 class="mb-3"><strong>Reviews ({{ count($reviews) }}) </strong></h4>
+                    <h4 class="mb-3"><strong>Reviews ({{ count($product->reviews) }}) </strong></h4>
                      
                     {{-- Review card --}}
                         @foreach($reviews as $review)
@@ -301,6 +301,10 @@
                         @endforeach
 
                 </div>
+                <!-- Add Pagination Links -->
+                <div>
+                    {{ ($reviews->links()) }}
+                </div> 
             </div>
         </div>
 

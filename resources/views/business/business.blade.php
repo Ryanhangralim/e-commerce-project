@@ -135,7 +135,7 @@
             @endforeach
         </div>
         <!-- Add Pagination Links -->
-        <div class="d-flex justify-content-end mt-2">
+        <div class="mt-3">
             {{ $products->links() }}
         </div>    
     </div>
