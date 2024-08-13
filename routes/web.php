@@ -212,13 +212,13 @@ Route::prefix('/admin/dashboard')->middleware('role:admin')->group(function (){
 });
 
 // Business related routes
-Route::prefix('/business')->group(function(){
+Route::prefix('/business')->middleware('auth')->group(function(){
     Route::get('/{business:slug}', [BusinessController::class, 'main'])
     ->name('business');
 });
 
 // View product detail
-Route::prefix('/product')->group(function(){
+Route::prefix('/product')->middleware('auth')->group(function(){
     Route::get('/{product:id}', [ProductController::class, 'customerProductDetail'])
     ->name('product.customer-product-detail');
 

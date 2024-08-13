@@ -231,26 +231,36 @@
                      
                     {{-- Review card --}}
                         @foreach($reviews as $review)
-                        <div class="card mb-2">
+                        <div class="card mb-2 position-relative">
                             <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    @if ( $review->user->profile_picture )
-                                        <img src="{{ asset($profile_picture_path . $review->user->profile_picture) }}" alt="Profile Picture" class="rounded-circle mr-2" width="50">
-                                    @else
-                                        <img src="{{ asset($profile_picture_path . 'default.jpg') }}" alt="Profile Picture" class="rounded-circle mr-2" width="50">
-                                    @endif 
-                                    <div>
-                                        <h6 class="mb-0">{{ $review->user->username }}</h6>
-                                        <h6 class="text-warning mb-0">{{ printRating($review->rating) }}</h6>
-                                        <small class="text-muted">{{ $review->created_at }}</small>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        @if ($review->user->profile_picture)
+                                            <img src="{{ asset($profile_picture_path . $review->user->profile_picture) }}" alt="Profile Picture" class="rounded-circle mr-2" width="50">
+                                        @else
+                                            <img src="{{ asset($profile_picture_path . 'default.jpg') }}" alt="Profile Picture" class="rounded-circle mr-2" width="50">
+                                        @endif 
+                                        <div>
+                                            <h6 class="mb-0">{{ $review->user->username }}</h6>
+                                            <h6 class="text-warning mb-0">{{ printRating($review->rating) }}</h6>
+                                            <small class="text-muted">{{ $review->created_at }}</small>
+                                        </div>
                                     </div>
+                                    {{-- Check if business owner and no reply yet --}}
+                                    @if(isBusinessOwner($product->business->user_id) && !$review->seller_reply) 
+                                        <div>   
+                                            <a href="#" class="text-muted text-gray-500">
+                                                <i class="fas fa-reply text-gray-500"></i> Reply
+                                            </a>
+                                        </div>
+                                    @endif
                                 </div>
-                                @if( $review->content )
+                                @if ($review->content)
                                     <p class="mt-3">{{ $review->content }}</p>
                                 @endif
-                                @if( $review->seller_reply)
+                                @if ($review->seller_reply)
                                     <div class="bg-gray-200 p-3"> {{-- Add padding here --}}
-                                        <strong class="text-gray-800">Seller Reply: </strong>
+                                        <strong class="text-gray-800">Seller Reply:</strong>
                                         <p class="text-gray-800 mb-0">{{ $review->seller_reply }}</p>
                                     </div>
                                 @endif

@@ -21,7 +21,7 @@ class CheckBusinessOwner
         // dd($product->business->user_id);
 
         if($product && $product->business->user_id !== auth()->user()->id) {
-            return redirect()->route('view-product')->with('error', 'You are not authorized to view this product.');
+            return redirect()->back()->with('error', 'You are not authorized to view this product.');
         }
 
         return $next($request);

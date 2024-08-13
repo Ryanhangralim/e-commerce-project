@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 if (!function_exists('create_slug')) {
@@ -34,5 +35,12 @@ if (!function_exists('printRating')) {
         }
         
         return $rating;
+    }
+}
+
+if (!function_exists('isBusinessOwner')) {
+    function isBusinessOwner($owner_id)
+    {
+        return Auth()->user()->id == $owner_id;
     }
 }

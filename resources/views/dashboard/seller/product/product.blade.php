@@ -60,7 +60,7 @@
                         @foreach($products as $product)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $product->name }}</td>
+                                <td><a href="{{ route('product.customer-product-detail', ['product' => $product->id]) }}">{{ $product->name }}</a></td>
                                 <td>{{ $product->category->name }}</td>
                                 <td>{{ $product->stock }}</td>
                                 <td>{{ $product->sold }}</td>
