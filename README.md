@@ -24,6 +24,7 @@
     -   Add product
     -   Product details (Edit, add stock, set discount)
     -   View business profile and update business profile picture
+    -   View and reply to reviews
 -   User
     -   View Cart
     -   Add & subtract product quantity in cart

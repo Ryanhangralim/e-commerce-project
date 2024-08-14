@@ -4,7 +4,6 @@
 <head>
     {{-- Custom title for every page --}}
     <title>{{ $title ?? 'Dashboard' }}</title>
-
     @include('includes.head')
 
 </head>
