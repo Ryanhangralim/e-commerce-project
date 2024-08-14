@@ -21,7 +21,7 @@ class ReviewController extends Controller
             $review['seller_reply'] = $validatedData['seller_reply'];
             $review->save();
 
-            return back();
+            return back()->with('success', 'Successfully Replied!');
         }
         else {
             return back()->with('error', 'You do not have access to reply');

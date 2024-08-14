@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -46,6 +47,7 @@ class ProductController extends Controller
     {
         $data = [
             'product' => $product,
+            'reviews' => $product->reviews,
             'product_picture_path' => $this->product_picture_path
         ];
 

@@ -6,12 +6,6 @@
             height: auto;
         }
 
-        .badge-custom {
-            background-color: #ff6f61;
-            color: white;
-            font-weight: bold;
-        }
-
         .quantity-input {
             width: 35px !important; /* Ensure width is small */
             height: 30px !important; /* Ensure height matches width */
