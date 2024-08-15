@@ -19,6 +19,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenerateReportController;
 use App\Http\Controllers\BusinessProfileController;
 use App\Http\Controllers\SellerApplicationController;
+use App\Http\Controllers\TransactionController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -95,6 +96,9 @@ Route::middleware('auth')->group(function (){
 
     Route::post('/cart/delete-product', [CartController::class, 'deleteProduct'])
     ->name('cart.delete-product');
+
+    Route::post('/cart/checkout', [TransactionController::class, 'checkout'])
+    ->name('cart.checkout');
 });
 
 // Customer middleware
