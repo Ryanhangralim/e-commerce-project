@@ -26,5 +26,11 @@ class OrderController extends Controller
 
         // Create order
         Order::create($orderData);
+
+        // Subtract stock
+        ProductController::subtractStock($cart->product, $cart->quantity);
+
+        // Remove cart
+        CartController::deleteCart($cart);
     }
 }

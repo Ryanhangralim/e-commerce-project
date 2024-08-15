@@ -83,6 +83,14 @@ class ProductController extends Controller
         return redirect()->back()->with('success', 'Stock successfully added!');
     }
 
+    // Subtract stock
+    public static function subtractStock(Product $product, $quantity)
+    {
+        // Subtract stock
+        $product->stock -= $quantity;
+        $product->save();
+    }
+
     // Set product dicount
     public function setDiscount(Product $product, Request $request)
     {

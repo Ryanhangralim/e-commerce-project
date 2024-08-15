@@ -115,6 +115,11 @@ class CartController extends Controller
         }
     
         return response()->json(['success' => false]);
+    }
 
+    // Remove cart
+    public static function deleteCart(Cart $cart)
+    {
+        $cart->delete();
     }
 }
