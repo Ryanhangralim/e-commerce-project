@@ -27,19 +27,41 @@
             flex: 0 0 auto; /* Prevent growing */
             width: 30px; /* Match input width */
         }
-        .sticky-footer {
-            position: -webkit-sticky; /* For Safari */
-            position: sticky;
+        .checkout {
+            position: fixed; /* Fixed position at the bottom */
             bottom: 0;
-            background-color: #f8f9fa;
-            padding: 10px;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
             border-top: 1px solid #e9ecef;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
             z-index: 1000;
+            padding: 15px;
         }
 
+        .checkout .card {
+            margin-bottom: 0; /* Remove default margin */
+        }
+
+        .checkout .btn-checkout {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .checkout .btn-checkout:hover {
+            background-color: #0056b3;
+        }
+        .content-padding {
+            padding-bottom: 80px;
+        }
     </style>
 
-    <div class="container-lg">
+    <div class="container-lg content-padding">
         
         @if(count($carts) > 0)
             <div class="card mb-2">
@@ -104,15 +126,18 @@
     </div>
 
     <!-- Sticky footer -->
-    <footer class="sticky-footer">
+    <div class="checkout card">
         <div class="container">
-            <div class="row">
-                <div class="col text-right">
+            <div class="row d-flix align-items-center">
+                <div class="col text-left">
                     <h4>Total: <span id="total-amount">Rp. 0</span></h4>
+                </div>
+                <div class="col text-right">
+                    <button class="btn-checkout bg-primary" onclick="checkout()">Checkout</button>
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
 
     <script>
         // Define the updateTotal function globally
