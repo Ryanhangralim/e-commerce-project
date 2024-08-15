@@ -27,6 +27,15 @@
             flex: 0 0 auto; /* Prevent growing */
             width: 30px; /* Match input width */
         }
+        .sticky-footer {
+            position: -webkit-sticky; /* For Safari */
+            position: sticky;
+            bottom: 0;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-top: 1px solid #e9ecef;
+            z-index: 1000;
+        }
 
     </style>
 
@@ -57,6 +66,9 @@
                     <div class="row px-3 py-2 align-items-center cart-product-{{ $cart_product->id }}">
                         <div class="col-12 col-md-4 mb-2 mb-md-0">
                             <div class="d-flex align-items-center">
+                                <div class="form-check mr-2 d-flex align-items-center">
+                                    <input class="form-check-input product-checkbox" type="checkbox" id="checkbox-{{ $cart_product->id }}" data-price="{{ calculateDiscount($cart_product->product) }}" data-id="{{ $cart_product->id }}">
+                                </div>
                                 <div class="icon-circle bg-primary">
                                     @if($cart_product->product->image)
                                         <img class="img-profile" src="{{ asset($product_picture_path . $cart_product->product->image) }}" alt="{{ $cart_product->product->name }} image" width="50">
@@ -91,24 +103,69 @@
         @endif
     </div>
 
+    <!-- Sticky footer -->
+    <footer class="sticky-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col text-right">
+                    <h4>Total: <span id="total-amount">Rp. 0</span></h4>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        // Update quantity function
+        // Define the updateTotal function globally
+        function updateTotal() {
+            const checkboxes = document.querySelectorAll('.product-checkbox');
+            let total = 0;
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    const cartProductId = checkbox.getAttribute('data-id');
+                    const quantityElement = document.getElementById(`quantity-${cartProductId}`);
+                    const quantity = quantityElement ? parseFloat(quantityElement.value) : 0;
+                    const price = parseFloat(checkbox.getAttribute('data-price'));
+                    total += (price * quantity);
+                }
+            });
+
+            document.getElementById('total-amount').textContent = formatNumber(total);
+        }
+
+        function formatNumber(number) {
+            return number.toLocaleString('id-ID', { 
+                style: 'currency', 
+                currency: 'IDR', 
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            });
+        }
+
+        // Define the initializeCart function
+        function initializeCart() {
+            const checkboxes = document.querySelectorAll('.product-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateTotal);
+            });
+
+            // Initial total update
+            updateTotal();
+        }
+
+        // Define the updateQuantity function globally
         function updateQuantity(cartProductId, change, stock) {
             const quantityInput = document.getElementById(`quantity-${cartProductId}`);
             let newQuantity = parseInt(quantityInput.value) + change;
 
             if (newQuantity < 1) {
                 newQuantity = 1;
-            }
-            else if (newQuantity > stock) {
+            } else if (newQuantity > stock) {
                 newQuantity = stock;
             }
 
-
-            // Update quantity input field
             quantityInput.value = newQuantity;
 
-            // Make an AJAX request to update the quantity in the backend
             fetch(`{{ route('cart.update-quantity') }}`, {
                 method: 'POST',
                 headers: {
@@ -123,9 +180,8 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Update the total price in the UI & Alert
                     document.getElementById(`total-${cartProductId}`).innerHTML = `Rp. ${data.newTotalFormatted}`;
-                    document.getElementById(`alert-quantity-${cartProductId}`).innerHTML = `Quantity: ${newQuantity}`;
+                    updateTotal(); // Call updateTotal after successful quantity update
                 } else {
                     alert('Failed to update quantity');
                 }
@@ -136,9 +192,8 @@
             });
         }
 
-        // Delete product
+        // Define the deleteProduct function globally
         function deleteProduct(cartProductId) {
-            // Make an AJAX request to delete the product
             fetch(`{{ route('cart.delete-product') }}`, {
                 method: 'POST',
                 headers: {
@@ -149,28 +204,27 @@
                     cart_product_id: cartProductId
                 })
             })
-            .then(response=> response.json())
+            .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Remove the element from the DOM
-                    const productElement = document.querySelectorAll(`cart-product-${cartProductId}`);
-                    if (productElement) {
-                        // Remove the elements with the specific class
-                        const productElements = document.querySelectorAll(`.cart-product-${cartProductId}`);
-                        productElements.forEach(element => {
-                            element.remove();
-                        });
+                    const productElements = document.querySelectorAll(`.cart-product-${cartProductId}`);
+                    productElements.forEach(element => {
+                        element.remove();
+                    });
 
-                        document.getElementById(`cart-badge`).innerHTML = data.count;
-                    }
-                    } else {
-                        alert('Failed to delete product');
-                    }
-                })
+                    document.getElementById(`cart-badge`).innerHTML = data.count;
+                    updateTotal(); // Call updateTotal after successful product deletion
+                } else {
+                    alert('Failed to delete product');
+                }
+            })
             .catch(error => {
                 console.log('Error:', error);
                 alert('An error occurred. Please try again.');
-            })
+            });
         }
+
+        // Initialize cart on page load
+        document.addEventListener('DOMContentLoaded', initializeCart);
     </script>
 </x-user-layout>

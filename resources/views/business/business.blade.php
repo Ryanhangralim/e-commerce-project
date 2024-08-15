@@ -104,7 +104,7 @@
             <div class="store-stats">
                 <div class="stat">Products: <span class="stat-value text-primary">{{ count($business->products) }}</span></div>
                 <div class="stat">Followers: <span class="stat-value text-primary">52.7k</span></div>
-                <div class="stat">Rating: <span class="stat-value text-primary">4.6 (194.9k Reviews)</span></div>
+                <div class="stat">Rating: <span class="stat-value text-primary">{{ number_format($business->reviews()->avg('rating'), 2, ',', '.') }} ({{ count($business->reviews) }} Reviews)</span></div>
                 <div class="stat">Joined: <span class="stat-value text-primary">6 Years Ago</span></div>
             </div>
         </div>
