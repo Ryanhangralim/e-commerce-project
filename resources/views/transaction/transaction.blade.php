@@ -74,7 +74,7 @@
                         {{ ucfirst($currentType) }} Transactions ({{ $transaction_count[$currentType] }})
                     </div>
                         @forelse($transactions as $transaction)
-                        <div class="card my-2">
+                        <div class="card my-2 mb-3">
                             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                                 <div>{{ $transaction->business->name }}</div>
                                 <div>

@@ -31,6 +31,7 @@
     -   View product detail
     -   Add & delete product to/from cart
     -   View review
+    -   View transactions
 -   Seller
     -   Reply to review
 
