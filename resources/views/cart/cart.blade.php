@@ -85,6 +85,7 @@
                 <div class="card mb-3">
                     <div class="card-body py-2">
                         <a href="{{ route('business', ['business' => $cart[0]->product->business->slug ]) }}" class="text-secondary"><h6 class="card-title my-0">{{ $cart[0]->product->business->name }}</h6></a>
+                        <input type="hidden" id="business_id">
                     </div>
                     @foreach($cart as $cart_product)
                         {{-- Product content --}}
@@ -93,7 +94,7 @@
                             <div class="col-12 col-md-4 mb-2 mb-md-0">
                                 <div class="d-flex align-items-center">
                                     <div class="form-check mr-2 d-flex align-items-center">
-                                        <input class="form-check-input product-checkbox" type="checkbox" id="checkbox-{{ $cart_product->id }}" data-price="{{ calculateDiscount($cart_product->product) }}" data-id="{{ $cart_product->id }}">
+                                        <input class="form-check-input product-checkbox" type="checkbox" id="checkbox-{{ $cart_product->id }}" data-price="{{ calculateDiscount($cart_product->product) }}" data-id="{{ $cart_product->id }}" data-business-id="{{ $cart_product->product->business_id }}">
                                     </div>
                                     <div class="icon-circle bg-primary">
                                         @if($cart_product->product->image)
@@ -103,7 +104,7 @@
                                         @endif
                                     </div>
                                     <div class="ml-3">
-                                        <a href="{{ route('product.customer-product-detail', ['product' => $cart_product->product->id]) }}" class="text-secondary">{{ $cart_product->product->name }}</a>
+                                        <a href="{{ route('product.customer-product-detail', ['product' => $cart_product->product->slug]) }}" class="text-secondary">{{ $cart_product->product->name }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -147,42 +148,77 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const cartForm = document.getElementById('cart-form');
-            const checkboxes = document.querySelectorAll('.product-checkbox');
-            
-            // Listen to checkbox changes
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', updateTotal);
-            });
+        let selectedBusinessId = null; // Track the business ID of selected products
+        const cartForm = document.getElementById('cart-form');
+        const checkboxes = document.querySelectorAll('.product-checkbox');
 
-            // Update hidden input before form submission
-            cartForm.addEventListener('submit', function (e) {
-                const selectedProducts = [];
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const businessId = this.getAttribute('data-business-id');
 
-                checkboxes.forEach(checkbox => {
-                    if (checkbox.checked) {
-                        selectedProducts.push(checkbox.getAttribute('data-id'));
+                if (this.checked) {
+                    if (!selectedBusinessId) {
+                        selectedBusinessId = businessId; // Set the business ID for the first selected product
+                        
+                        // Add hidden input for the business ID
+                        const businessInput = document.createElement('input');
+                        businessInput.type = 'hidden';
+                        businessInput.name = 'business_id';
+                        businessInput.value = businessId;
+                        businessInput.id = 'business-id-input';
+                        cartForm.appendChild(businessInput);
+
+                    } else if (selectedBusinessId !== businessId) {
+                        alert('You can only select products from one business at a time.');
+                        this.checked = false;
+                        return;
                     }
-                });
-
-                if (selectedProducts.length === 0) {
-                    e.preventDefault();
-                    alert('Please select at least one product to checkout.');
-                    return;
+                } else {
+                    // If no products are selected, reset the selectedBusinessId
+                    const checkedProducts = document.querySelectorAll('.product-checkbox:checked');
+                    if (checkedProducts.length === 0) {
+                        selectedBusinessId = null;
+                        
+                        // Remove the hidden input if all checkboxes are deselected
+                        const businessInput = document.getElementById('business-id-input');
+                        if (businessInput) {
+                            businessInput.remove();
+                        }
+                    }
                 }
 
-                // Create hidden inputs for each selected product
-                selectedProducts.forEach(productId => {
-                    const input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = 'selected_products[]';
-                    input.value = productId;
-                    cartForm.appendChild(input);
-                });
+                updateTotal();
             });
-
-            updateTotal(); // Initial total update
         });
+
+    cartForm.addEventListener('submit', function (e) {
+        const selectedProducts = [];
+
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                selectedProducts.push(checkbox.getAttribute('data-id'));
+            }
+        });
+
+        if (selectedProducts.length === 0) {
+            e.preventDefault();
+            alert('Please select at least one product to checkout.');
+            return;
+        }
+
+        selectedProducts.forEach(productId => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'selected_products[]';
+            input.value = productId;
+            cartForm.appendChild(input);
+        });
+    });
+
+    updateTotal(); // Initial total update
+});
+
+
 
         function updateTotal() {
             const checkboxes = document.querySelectorAll('.product-checkbox');

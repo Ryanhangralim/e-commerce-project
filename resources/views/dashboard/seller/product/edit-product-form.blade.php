@@ -1,14 +1,14 @@
 <x-dashboard-layout title="Edit Product">
 
     <div class="mb-2">
-        <a href="{{ route('product.detail', ['product' => $product->id]) }}" class="btn btn-primary"><i class="bi bi-arrow-return-left"></i> Back</a>
+        <a href="{{ route('product.detail', ['product' => $product->slug]) }}" class="btn btn-primary"><i class="bi bi-arrow-return-left"></i> Back</a>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold">Edit Product</h6>
         </div>
         <div class="card-body">
-            <form action="{{ route('product.update-product', ['product' => $product->id]) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('product.update-product', ['product' => $product->slug]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                     <label for="name" class="col-md-4 col-form-label text-md-end">Name</label>

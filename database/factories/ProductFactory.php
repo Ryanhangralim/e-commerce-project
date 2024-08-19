@@ -21,11 +21,14 @@ class ProductFactory extends Factory
         $price = range(1000, 100000000, 1000);
         $stock = range(0, 10);
         $discount = range(0, 10);
+        $name = implode(' ', fake()->unique()->words(mt_rand(1, 4)));
+        $selected_business_id = fake()->randomElement($business_id);
 
         return [
             //
-            'business_id' => fake()->randomElement($business_id),
-            'name' => implode(' ', fake()->unique()->words(mt_rand(1, 4))),
+            'business_id' => $selected_business_id,
+            'name' => $name,
+            'slug' => create_slug($name . " " . $selected_business_id),
             'description' => fake()->sentence(mt_rand(3, 9)),
             'brand' => ucwords(fake()->firstName()),
             'category_id' => fake()->randomElement($category_id),

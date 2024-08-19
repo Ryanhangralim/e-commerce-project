@@ -42,7 +42,7 @@
     @endsession
     <div class="mb-2">
         <a href="{{ route('view-product') }}" class="btn btn-primary "><i class="bi bi-arrow-return-left"></i> Back</a>
-        <a href="{{ route('product.edit-product', ['product' => $product->id]) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i> Edit</a>
+        <a href="{{ route('product.edit-product', ['product' => $product->slug]) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i> Edit</a>
     </div>
 
     <div class="row">
@@ -105,7 +105,7 @@
                     <h6 class="m-0 font-weight-bold">Add Stock</h6>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('product.add-stock', ['product' => $product->id]) }}" method="POST">
+                    <form action="{{ route('product.add-stock', ['product' => $product->slug]) }}" method="POST">
                         @csrf
                             <div class="form-group">
                                 <label for="numberOfProducts" class="form-label text-right">Number of product:</label>
@@ -130,7 +130,7 @@
                     <h6 class="m-0 font-weight-bold">Set discount</h6>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('product.set-discount', ['product' => $product->id]) }}" method="POST">
+                    <form action="{{ route('product.set-discount', ['product' => $product->slug]) }}" method="POST">
                         @csrf
                             <div class="form-group">
                                 <label for="discount" class="form-label text-right">Total discount:</label>

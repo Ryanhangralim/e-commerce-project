@@ -62,7 +62,7 @@
                         @foreach($products as $product)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td><a href="{{ route('product.customer-product-detail', ['product' => $product->id]) }}">{{ $product->name }}</a></td>
+                                <td><a href="{{ route('product.customer-product-detail', ['product' => $product->slug]) }}">{{ $product->name }}</a></td>
                                 <td>{{ $product->category->name }}</td>
                                 <td>{{ $product->stock }}</td>
                                 <td>{{ $product->sold }}</td>
@@ -72,7 +72,7 @@
                                 <td>
                                     <div class="d-inline-flex flex-wrap" style="gap: 0.25rem">
                                         <div class="flex-grow-1">
-                                            <a href="{{ route('product.detail', ['product' => $product->id]) }}"
+                                            <a href="{{ route('product.detail', ['product' => $product->slug]) }}"
                                                 class="btn btn-primary"><i class="bi bi-info-circle"></i>
                                                 Detail</a>
                                         </div>

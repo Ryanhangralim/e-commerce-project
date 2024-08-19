@@ -118,7 +118,7 @@
         <!-- Products Grid -->
         <div class="row product-grid p-0 px-lg-5">
             @foreach($products as $product)
-            <a href="{{ route('product.customer-product-detail', ['product' => $product->id]) }}">
+            <a href="{{ route('product.customer-product-detail', ['product' => $product->slug]) }}">
                 <div class="card product-card">
                     @if($product->image)
                         <img src="{{ asset($product_picture_path . $product->image) }}" class="card-img-top" alt="{{ $product->name }} Image">

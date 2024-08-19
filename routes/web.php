@@ -135,24 +135,19 @@ Route::prefix('/seller/dashboard')->middleware('role:seller')->group(function(){
 
 Route::prefix('/seller/dashboard')->middleware(['role:seller', 'check.business.owner'])->group(function(){
     // Product details routes
-    Route::get('/product/{product:id}', [ProductController::class, 'productDetail'])
-    ->whereNumber('product')
+    Route::get('/product/{product:slug}', [ProductController::class, 'productDetail'])
     ->name('product.detail');
 
-    Route::post('/product/{product:id}/add-stock', [ProductController::class, 'addStock'])
-    ->whereNumber('product')
+    Route::post('/product/{product:slug}/add-stock', [ProductController::class, 'addStock'])
     ->name('product.add-stock');
 
-    Route::post('/product/{product:id}/set-discount', [ProductController::class, 'setDiscount'])
-    ->whereNumber('product')
+    Route::post('/product/{product:slug}/set-discount', [ProductController::class, 'setDiscount'])
     ->name('product.set-discount');
 
-    Route::get('/product/{product:id}/edit', [ProductController::class, 'editProductForm'])
-    ->whereNumber('product')
+    Route::get('/product/{product:slug}/edit', [ProductController::class, 'editProductForm'])
     ->name('product.edit-product');
 
-    Route::post('/product/{product:id}/edit', [ProductController::class, 'updateProduct'])
-    ->whereNumber('product')
+    Route::post('/product/{product:slug}/edit', [ProductController::class, 'updateProduct'])
     ->name('product.update-product');
 
     // Generate report
@@ -224,10 +219,10 @@ Route::prefix('/business')->middleware('auth')->group(function(){
 
 // View product detail
 Route::prefix('/product')->middleware('auth')->group(function(){
-    Route::get('/{product:id}', [ProductController::class, 'customerProductDetail'])
+    Route::get('/{product:slug}', [ProductController::class, 'customerProductDetail'])
     ->name('product.customer-product-detail');
 
-    Route::post('/{product:id}', [CartController::class, 'addProduct'])
+    Route::post('/{product:slug}', [CartController::class, 'addProduct'])
     ->name('cart.add-product');
 
     Route::post('/{review:id}/reply', [ReviewController::class, 'addReply'])

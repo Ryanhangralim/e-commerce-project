@@ -73,7 +73,7 @@ class ProductController extends Controller
     public function addStock(Product $product, Request $request)
     {
         $request->validate([
-            'numberOfProducts' => ['required', 'min:1', 'integer']
+            'numberOfProducts' => ['required', 'min:1', 'integer', 'max:2147483647']
         ]);
 
         // Update stock
@@ -135,6 +135,7 @@ class ProductController extends Controller
         ]);
 
         $validatedData['business_id'] = $business->id;
+        $validatedData['slug'] = create_slug($validatedData['name'] . " " . $business->id);
 
         // Process and save image
         if ($request->hasFile('product_image')) {
@@ -183,6 +184,7 @@ class ProductController extends Controller
         ]);
 
         $validatedData['business_id'] = $product->business_id;
+        $validatedData['slug'] = create_slug($validatedData['name'] . " " . $product->business_id);
 
         // get old image path
         $oldProductPicture = $product->image;
@@ -211,6 +213,6 @@ class ProductController extends Controller
 
         $product->update($validatedData);
 
-        return redirect()->route('product.detail', ['product' => $product->id])->with('success', 'Product Successfully Updated');
+        return redirect()->route('product.detail', ['product' => $product->slug])->with('success', 'Product Successfully Updated');
     }
 }

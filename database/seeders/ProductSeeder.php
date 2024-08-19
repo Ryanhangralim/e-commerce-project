@@ -16,6 +16,7 @@ class ProductSeeder extends Seeder
         Product::create([
             'business_id' => 1,
             'name' => 'Uniqlo UT',
+            'slug' => create_slug('Uniqlo UT 1'),
             'description' => 'Uniqlo T-Shirt for everyone',
             'brand' => 'Uniqlo',
             'category_id' => 2,
@@ -24,6 +25,7 @@ class ProductSeeder extends Seeder
         Product::create([
             'business_id' => 1,
             'name' => 'Kindle Paperwhite',
+            'slug' => create_slug('Kindle Paperwhite 1'),
             'description' => 'Kindle paperwhite by amazon, e-reader',
             'brand' => 'Amazon',
             'category_id' => 1,

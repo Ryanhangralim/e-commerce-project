@@ -20,6 +20,7 @@ class TransactionController extends Controller
         // Create Transaction
         $transactionData['user_id'] = Auth()->user()->id;
         $transactionData['status'] = 'pending';
+        $transactionData['business_id'] = $request['business_id'];
         $transaction = Transaction::create($transactionData);
 
         // Create order for each product

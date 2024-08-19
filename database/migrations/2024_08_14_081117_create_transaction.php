@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('business_id')->constrained('businesses');
             $table->enum('status', ['pending', 'processing', 'delivered', 'received', 'completed', 'canceled'])->default('pending');
             $table->timestamps();
         });
