@@ -99,6 +99,10 @@ Route::middleware('auth')->group(function (){
 
     Route::post('/cart/checkout', [TransactionController::class, 'checkout'])
     ->name('cart.checkout');
+
+    // View transactions
+    Route::get('/transaction', [TransactionController::class, 'viewTransactions'])
+    ->name('transaction.view');
 });
 
 // Customer middleware

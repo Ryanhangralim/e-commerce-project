@@ -266,6 +266,11 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
+                                {{-- Transaction --}}
+                                <a class="dropdown-item" href="{{ route('transaction.view') }}">
+                                    <i class="bi bi-card-checklist mr-2 text-gray-400"></i></i>
+                                    Transaction List
+                                </a>
                                 @role('admin')
                                 <a class="dropdown-item" href="{{ route('admin-dashboard') }}">
                                     <i class="fas fa-fw fa-tachometer-alt mr-2 text-gray-400"></i>

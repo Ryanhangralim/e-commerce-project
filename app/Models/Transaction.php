@@ -24,4 +24,14 @@ class Transaction extends Model
     {
         return $this->hasMany(Order::class, 'transaction_id');
     }
+
+    public function getTotalPriceAttribute()
+    {
+        return $this->orders()->sum('total_price');
+    }
+
+    public function business(): BelongsTo
+    {
+        return $this->belongsTo(Business::class, 'business_id');
+    }
 }

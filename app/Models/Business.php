@@ -30,4 +30,9 @@ class Business extends Model
     {
         return $this->hasManyThrough(Review::class, Product::class, 'business_id', 'product_id');
     }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'business_id');
+    }
 }
