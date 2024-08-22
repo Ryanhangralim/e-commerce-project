@@ -110,6 +110,12 @@
                         <span>Products</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('transaction-dashboard.view') }}">
+                        <i class="bi bi-card-checklist"></i>
+                        <span>Transactions</span>
+                    </a>
+                </li>
             @endrole
 
             <!-- Nav Item - Utilities Collapse Menu -->

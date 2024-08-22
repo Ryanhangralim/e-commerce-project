@@ -45,3 +45,7 @@
     -   Search products
     -   Order history
     -   Chat
+
+BUG
+
+-   Check stock before creating order

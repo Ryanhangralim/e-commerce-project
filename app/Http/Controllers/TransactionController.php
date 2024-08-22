@@ -89,4 +89,41 @@ class TransactionController extends Controller
 
         return redirect()->route('home');
     }
+
+    // Seller dashboard routes
+    public function viewTransactionDashboard()
+    {
+        // Ensure the user has a business
+        if (Auth::user()->business) {
+            // Retrieve the products of the user's business
+            $transactions = Auth::user()->business->transactions;
+        } else {
+            // Handle the case where the user does not have a business
+            $transactions = collect(); // Empty collection
+        }
+
+        $data = [
+            'transactions' => $transactions,
+        ];
+
+        return view('dashboard.seller.transaction.transaction', $data);
+    }
+
+    public function fetchTransactions(Request $request)
+    {
+        $status = $request->get('status');
+        $business_id = Auth::user()->business->id;
+
+        if($status === "all"){
+            $transactions = Transaction::with('user')->where('business_id', $business_id)->get();
+        } else {
+            $transactions = Transaction::with('user')->where(['status' => $status, 'business_id' => $business_id])->get();
+        }
+        return response()->json(['transactions' => $transactions]);
+    }
+
+    public function viewTransactionDashboardDetail(Transaction $transaction)
+    {
+        return $transaction;
+    }
 }

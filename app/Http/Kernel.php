@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'role' => \App\Http\Middleware\CheckRole::class,
         'check.business.owner' => \App\Http\Middleware\CheckBusinessOwner::class,
+        'check.transaction.business.owner' => \App\Http\Middleware\CheckTransactionBusinessOwner::class,
     ];
 }

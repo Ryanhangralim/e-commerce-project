@@ -23,6 +23,15 @@
     @role('seller')
     <p>THIS IS ONLY VISIBLE FOR SELLER</p>
     <a href="{{ route('seller-dashboard') }}"><button>Dashboard</button></a>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <p></p>
     @endrole
     @role('admin')

@@ -137,26 +137,41 @@ Route::prefix('/seller/dashboard')->middleware('role:seller')->group(function(){
     ->name('business-profile.update-profile-picture');
 });
 
-Route::prefix('/seller/dashboard')->middleware(['role:seller', 'check.business.owner'])->group(function(){
-    // Product details routes
-    Route::get('/product/{product:slug}', [ProductController::class, 'productDetail'])
-    ->name('product.detail');
+Route::prefix('/seller/dashboard')->middleware('role:seller')->group(function(){
+    Route::middleware('check.business.owner')->group(function(){
+        // Product details routes
+        Route::get('/product/{product:slug}', [ProductController::class, 'productDetail'])
+        ->name('product.detail');
+    
+        Route::post('/product/{product:slug}/add-stock', [ProductController::class, 'addStock'])
+        ->name('product.add-stock');
+    
+        Route::post('/product/{product:slug}/set-discount', [ProductController::class, 'setDiscount'])
+        ->name('product.set-discount');
+    
+        Route::get('/product/{product:slug}/edit', [ProductController::class, 'editProductForm'])
+        ->name('product.edit-product');
+    
+        Route::post('/product/{product:slug}/edit', [ProductController::class, 'updateProduct'])
+        ->name('product.update-product');
+    
+        // Generate product report
+        Route::get('/user/generate-product-report', [GenerateReportController::class, 'generateProductReport'])
+        ->name('product.generate-product-report');
+    });
 
-    Route::post('/product/{product:slug}/add-stock', [ProductController::class, 'addStock'])
-    ->name('product.add-stock');
-
-    Route::post('/product/{product:slug}/set-discount', [ProductController::class, 'setDiscount'])
-    ->name('product.set-discount');
-
-    Route::get('/product/{product:slug}/edit', [ProductController::class, 'editProductForm'])
-    ->name('product.edit-product');
-
-    Route::post('/product/{product:slug}/edit', [ProductController::class, 'updateProduct'])
-    ->name('product.update-product');
-
-    // Generate report
-    Route::get('/user/generate-product-report', [GenerateReportController::class, 'generateProductReport'])
-    ->name('product.generate-product-report');
+    Route::middleware('check.transaction.business.owner')->group(function(){
+        // Business transaction routes
+        Route::get('/transactions', [TransactionController::class, 'viewTransactionDashboard'])
+        ->name('transaction-dashboard.view');
+    
+        Route::get('/transactions/fetch-transactions', [TransactionController::class, 'fetchTransactions'])
+        ->name('transaction-dashboard.fetch-transactions');
+    
+        Route::get('/transactions/{transaction:id}', [TransactionController::class, 'viewTransactionDashboardDetail'])
+        ->whereNumber('transaction')
+        ->name('transaction-dashboard.view-detail');
+    });
 });
 
 // Admin middleware
@@ -176,7 +191,6 @@ Route::prefix('/admin/dashboard')->middleware('role:admin')->group(function (){
     
     Route::get('/user/generate-user-report', [GenerateReportController::class, 'generateUserReport'])
     ->name('dashboard.generate-user-report');
-
 
     // Seller application related routes
     Route::get('/seller-application', [SellerApplicationController::class, 'viewSellerApplication'])
@@ -232,5 +246,4 @@ Route::prefix('/product')->middleware('auth')->group(function(){
     Route::post('/{review:id}/reply', [ReviewController::class, 'addReply'])
     ->whereNumber('review')
     ->name('review.add-reply');
-
 });
