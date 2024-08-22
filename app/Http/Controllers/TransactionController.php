@@ -35,7 +35,7 @@ class TransactionController extends Controller
         // Get the filtered transactions
         $transactions = $query->get();
         $transaction_count = $this->getTransactionCount();
-        $transaction_count['all'] = Transaction::count();
+        $transaction_count['all'] = Transaction::where('user_id', Auth::user()->id)->count();
 
         // Pass the transactions and the current type to the view
         $data = [

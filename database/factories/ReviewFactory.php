@@ -19,9 +19,11 @@ class ReviewFactory extends Factory
         $product_id = range(1, 2);
         $user_id = range(1,55);
         $rating = range(1, 5);
+        $order_id = range(1, 52);
 
         return [
             //
+            'order_id' => fake()->randomElement($order_id),
             'product_id' => fake()->randomElement($product_id),
             'user_id' => fake()->randomElement($user_id),
             'content' => fake()->sentence(mt_rand(3, 9)),
