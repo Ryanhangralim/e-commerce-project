@@ -30,7 +30,7 @@
     -   Add & subtract product quantity in cart
     -   View product detail
     -   Add & delete product to/from cart
-    -   View review
+    -   View & add review
     -   View transactions
 -   Seller
     -   Reply to review
@@ -40,11 +40,9 @@
 
 -   Seller Dashboard
     -   Update business information
-    -   View transactions
 -   User
     -   Homepage
     -   Search products
-    -   Order history
     -   Chat
 
 BUG

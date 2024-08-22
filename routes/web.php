@@ -108,6 +108,10 @@ Route::middleware('auth')->group(function (){
     Route::post('/transactions/update-status', [TransactionController::class, 'updateTransactionStatus'])
     ->whereNumber('transaction')
     ->name('transaction.complete-transaction');
+
+    // Add review
+    Route::post('/transactions/add-review', [ReviewController::class, 'addReview'])
+    ->name('transaction.add-review');
 });
 
 // Customer middleware
