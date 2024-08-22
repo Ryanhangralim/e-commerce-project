@@ -124,6 +124,11 @@ class TransactionController extends Controller
 
     public function viewTransactionDashboardDetail(Transaction $transaction)
     {
-        return $transaction;
+        $data = [
+            'transaction' => $transaction,
+            'product_picture_path' => $this->product_picture_path
+        ];
+
+        return view('dashboard.seller.transaction.transaction-detail', $data);
     }
 }

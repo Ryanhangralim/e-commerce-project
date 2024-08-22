@@ -37,43 +37,6 @@
         </style>
     @endsection
 
-
-    <!-- View Details Modal -->
-    <div class="modal fade" id="viewDetailsModal" tabindex="-1" aria-labelledby="viewDetailsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="viewDetailsModalLabel">Details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p id="userName">User Name: </p>
-                    <p id="userEmail">Email: </p>
-                    <p id="phoneNumber">Phone Number: </p>
-                    <p id="businessName">Business Name: </p>
-                    <p id="businessDescription">Business Description: </p>
-                    <p id="transactionDate">Date: </p>
-                    <p id="transactionstatus">Status: </p>
-                    <div id="actionButtons" class="d-flex justify-content-end hidden">
-                        <form method="POST" id="verifyForm">
-                            @csrf
-                            <input type="hidden" id="verifytransactionID" name="transactionID">
-                            <button type="submit" class="btn btn-primary">Verify</button>
-                        </form>
-                        <form method="POST" id="rejectForm">
-                            @csrf
-                            <input type="hidden" id="rejecttransactionID" name="transactionID">
-                            <button type="submit" class="btn btn-danger ml-2">Reject</button>
-                        </form>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-
     {{-- Alert/flash message --}}
     @if (session('status'))
     <div class="alert alert-success">
@@ -146,40 +109,6 @@
     <!-- Page level plugins -->
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-
-    {{-- Script for detail modal --}}
-    {{-- <script>
-        $(document).ready(function() {
-            $(document).on('click', '.view-details', function(){
-                var data = $(this).data('detail');
-                var verifyRoute = $(this).data('verify-route');
-                var rejectRoute = $(this).data('reject-route');
-
-                var date = new Date(data.created_at);
-
-                $('#userName').text('User Name: ' + data.user.username);
-                $('#userEmail').text('Email: ' + data.user.email);
-                $('#phoneNumber').text('Phone Number: ' + data.user.phone_number);
-                $('#businessName').text('Business Name: ' + data.business_name);
-                $('#businessDescription').text('Business Description: ' + data.business_description);
-                $('#transactionDate').text('Date: ' + date);
-                $('#transactionstatus').text('Status: ' + data.transaction_status);
-                
-                // hide verify and reject button if status is not pending
-                if (data.transaction_status === 'pending') {
-                    $('#actionButtons').removeClass('hidden');
-                    $('#verifytransactionID').val(data.id);
-                    $('#rejecttransactionID').val(data.id);
-                    $('#verifyForm').attr('action', verifyRoute);
-                    $('#rejectForm').attr('action', rejectRoute);
-                } else {
-                    $('#actionButtons').addClass('hidden');
-                }
-
-                $('#viewDetailsModal').modal('show');
-            });
-        });
-    </script> --}}
 
     {{-- Table for script --}}
     <script type="text/javascript">
