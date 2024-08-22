@@ -3,6 +3,11 @@
         <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     @endsection
 
+    @session('success')
+    <div class="alert alert-success col-lg-12" role="alert">
+        {{ $value }}
+    </div>
+    @endsession
 
     <div class="row justify-content-between align-items-center  mb-3">
         <div class="col-auto">
@@ -29,6 +34,7 @@
                             <th>User Name</th>
                             <th>Status</th>
                             <th>Total</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,6 +44,28 @@
                             <td>{{ $transaction->user->username }}</td>
                             <td>{{ $transaction->status }}</td>
                             <td>Rp. {{ formatNumber($transaction->total_price) }}</td>
+                            <td>
+                                <form action="{{ route('transaction-dashboard.updated-status') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" value="{{ $transaction->id }}" name="transaction_id">
+                                    @switch($transaction->status)
+                                        @case('pending')
+                                            <input type="hidden" value="processing" name="action">
+                                            <button class="btn btn-primary" type="submit"><i class="bi bi-check-lg"></i> Approve</button>
+                                                @break
+                                        @case('processing')
+                                            <input type="hidden" value="delivered" name="action">
+                                            <button class="btn btn-primary" type="submit"><i class="bi bi-truck"></i> Deliver</button>
+                                                @break
+                                        @case('delivered')
+                                            <input type="hidden" value="received" name="action">
+                                            <button class="btn btn-primary" type="submit"><i class="bi bi-box2"></i> Arrived</button>
+                                                @break
+                                        @default
+                                            No Action
+                                    @endswitch   
+                                </form>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

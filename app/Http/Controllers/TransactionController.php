@@ -131,4 +131,18 @@ class TransactionController extends Controller
 
         return view('dashboard.seller.transaction.transaction-detail', $data);
     }
+
+    // Update transaction status
+    public function updateSellerTransactionStatus(Request $request)
+    {
+        // get attributes
+        $action = $request['action'];
+        $transaction_id = $request['transaction_id'];
+
+        // update transaction
+        Transaction::where('id', $transaction_id)->update(['status' => $action]);
+
+        // Redirect
+        return redirect()->back()->with('success', 'Transaction status has been updated!');
+    }
 }

@@ -171,6 +171,10 @@ Route::prefix('/seller/dashboard')->middleware('role:seller')->group(function(){
         Route::get('/transactions/{transaction:id}', [TransactionController::class, 'viewTransactionDashboardDetail'])
         ->whereNumber('transaction')
         ->name('transaction-dashboard.view-detail');
+
+        Route::post('/transactions/update-staus', [TransactionController::class, 'updateSellerTransactionStatus'])
+        ->whereNumber('transaction')
+        ->name('transaction-dashboard.updated-status');
     });
 });
 
