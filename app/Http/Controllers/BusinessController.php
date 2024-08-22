@@ -42,7 +42,11 @@ class BusinessController extends Controller
     // business home page
     public function main(Business $business)
     {
-        $products = $business->products()->paginate(12);
+        $products = $business->products()
+        ->withCount('reviews') // Adds a 'reviews_count' column to the results
+        ->orderBy('reviews_count', 'desc') // Orders by the review count
+        ->paginate(12);
+    
 
         $data = [
             'business' => $business,
