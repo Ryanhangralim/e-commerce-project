@@ -103,6 +103,11 @@ Route::middleware('auth')->group(function (){
     // View transactions
     Route::get('/transaction', [TransactionController::class, 'viewTransactions'])
     ->name('transaction.view');
+
+    // Complete Transaction
+    Route::post('/transactions/update-status', [TransactionController::class, 'updateTransactionStatus'])
+    ->whereNumber('transaction')
+    ->name('transaction.complete-transaction');
 });
 
 // Customer middleware
@@ -172,9 +177,9 @@ Route::prefix('/seller/dashboard')->middleware('role:seller')->group(function(){
         ->whereNumber('transaction')
         ->name('transaction-dashboard.view-detail');
 
-        Route::post('/transactions/update-staus', [TransactionController::class, 'updateSellerTransactionStatus'])
+        Route::post('/transactions/update-status', [TransactionController::class, 'updateTransactionStatus'])
         ->whereNumber('transaction')
-        ->name('transaction-dashboard.updated-status');
+        ->name('transaction-dashboard.update-status');
     });
 });
 

@@ -34,6 +34,7 @@
     -   View transactions
 -   Seller
     -   Reply to review
+    -   View transactions & Update status
 
 ### TODO Features
 

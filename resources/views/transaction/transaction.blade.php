@@ -83,10 +83,10 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="card-body pt-0">
+                            <div class="card-body pt-0 pb-2">
                                 @foreach($transaction->orders as $order)
                                     <div class="row px-3 py-2 align-items-center">
-                                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                                        <div class="col-12 col-md-5 mb-2 mb-md-0">
                                             <div class="d-flex align-items-center">
                                                 <div class="icon-circle bg-primary">
                                                     @if($order->product->image)
@@ -102,21 +102,34 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-6 col-md-3 mb-2 mb-md-0">x{{ $order->quantity }}</div>
+                                        <div class="col-6 col-md-4 mb-2 mb-md-0">Quantity: {{ $order->quantity }}</div>
                                         <div class="col-6 col-md-3 mb-2 mb-md-0">Rp. {{ formatNumber($order->total_price) }}</div>
                                     </div>
                                     <hr class="mb-0 mt-0">
                                     {{-- @if(!$loop->last)
                                     @endif --}}
-                                @endforeach
-                                <div class="row px-3 py-2 align-items-center">
-                                    <div class="col text-left">
-                                        <strong>Last Updated: </strong> {{ $transaction->updated_at }}
+                                    @endforeach
+                                    <div class="row px-3 py-2 align-items-center">
+                                        <div class="col text-left">
+                                            <strong>Last Updated: </strong> {{ $transaction->updated_at }}
+                                        </div>
+                                        <div class="col text-right">
+                                            <strong>Total price:</strong> Rp. {{ formatNumber($transaction->total_price) }}
+                                        </div>
                                     </div>
-                                    <div class="col text-right">
-                                        <strong>Total price:</strong> Rp. {{ formatNumber($transaction->total_price) }}
-                                    </div>
-                                </div>
+                                    @if( $transaction->status === "received")
+                                        <hr class="mb-0 mt-0">
+                                        <form action="{{ route('transaction.complete-transaction') }}" method="POST">
+                                            @csrf
+                                            <div class="row px-3 pt-2 align-items-center">
+                                                <div class="col text-right">
+                                                    <input type="hidden" value="{{ $transaction->id }}" name="transaction_id">
+                                                    <input type="hidden" value="completed" name="action">
+                                                    <button class="btn btn-primary" type="submit" onclick="return confirm('Do you want to complete the transaction?');"><i class="bi bi-check-lg"></i> Transaction Done</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    @endif
                             </div>
                         </div>                        
                         @empty

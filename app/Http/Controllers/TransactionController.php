@@ -35,7 +35,7 @@ class TransactionController extends Controller
         // Get the filtered transactions
         $transactions = $query->get();
         $transaction_count = $this->getTransactionCount();
-        $transaction_count['all'] = count($transactions);
+        $transaction_count['all'] = Transaction::count();
 
         // Pass the transactions and the current type to the view
         $data = [
@@ -74,6 +74,15 @@ class TransactionController extends Controller
         $selectedProductCartIds = $request['selected_products'];
         // Find product
         $selectedProductCarts = Cart::whereIn('id', $selectedProductCartIds)->get();
+
+        // Check if stock is available for all products
+        foreach( $selectedProductCarts as $productCart)
+        {
+            if($productCart->quantity > $productCart->product->stock)
+            {
+                return redirect()->back()->with('error', 'Stock unavailable');
+            }
+        }
         
         // Create Transaction
         $transactionData['user_id'] = Auth()->user()->id;
@@ -133,7 +142,7 @@ class TransactionController extends Controller
     }
 
     // Update transaction status
-    public function updateSellerTransactionStatus(Request $request)
+    public function updateTransactionStatus(Request $request)
     {
         // get attributes
         $action = $request['action'];

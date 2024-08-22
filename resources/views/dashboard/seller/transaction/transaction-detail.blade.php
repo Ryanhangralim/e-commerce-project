@@ -45,7 +45,7 @@
                             <td>{{ $transaction->status }}</td>
                             <td>Rp. {{ formatNumber($transaction->total_price) }}</td>
                             <td>
-                                <form action="{{ route('transaction-dashboard.updated-status') }}" method="POST">
+                                <form action="{{ route('transaction-dashboard.update-status') }}" method="POST">
                                     @csrf
                                     <input type="hidden" value="{{ $transaction->id }}" name="transaction_id">
                                     @switch($transaction->status)

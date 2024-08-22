@@ -64,9 +64,15 @@
         }
     </style>
 
-    <form id="cart-form" action="{{ route('cart.checkout') }}" method="POST">
-        @csrf
-        <div class="container-lg content-padding">
+
+<form id="cart-form" action="{{ route('cart.checkout') }}" method="POST">
+    @csrf
+    <div class="container-lg content-padding">
+            @session('error')
+            <div class="alert alert-danger col-lg-12" role="alert">
+                {{ $value }}
+            </div>
+            @endsession
             @if(count($carts) > 0)
                 <div class="card mb-2">
                     <div class="card-header py-3">
