@@ -35,11 +35,6 @@
             font-size: 2rem;
             font-weight: bold;
         }
-        .store-status {
-            margin-top: 5px;
-            font-size: 1rem;
-            color: #666;
-        }
         .store-actions {
             display: flex;
             gap: 10px;
@@ -95,17 +90,10 @@
             </div>
             <div class="store-details">
                 <div class="store-name text-primary">{{ $business->name }}</div>
-                <div class="store-status">Active 2 minutes ago</div>
-                <div class="store-actions">
-                    <button class="btn btn-outline-primary">Follow</button>
-                    <button class="btn btn-outline-secondary">Chat</button>
-                </div>
             </div>
             <div class="store-stats">
                 <div class="stat">Products: <span class="stat-value text-primary">{{ count($business->products) }}</span></div>
-                <div class="stat">Followers: <span class="stat-value text-primary">52.7k</span></div>
                 <div class="stat">Rating: <span class="stat-value text-primary">{{ number_format($business->reviews()->avg('rating'), 2, ',', '.') }} ({{ count($business->reviews) }} Reviews)</span></div>
-                <div class="stat">Joined: <span class="stat-value text-primary">6 Years Ago</span></div>
             </div>
         </div>
         

@@ -38,7 +38,6 @@
                             <th>Name</th>
                             <th>Category</th>
                             <th>Stock</th>
-                            <th>Items Sold</th>
                             <th>Review</th>
                             <th>Price</th>
                             <th>Date Added</th>
@@ -51,7 +50,6 @@
                             <th>Name</th>
                             <th>Category</th>
                             <th>Stock</th>
-                            <th>Items Sold</th>
                             <th>Review</th>
                             <th>Price</th>
                             <th>Date Added</th>
@@ -65,7 +63,6 @@
                                 <td><a href="{{ route('product.customer-product-detail', ['product' => $product->slug]) }}">{{ $product->name }}</a></td>
                                 <td>{{ $product->category->name }}</td>
                                 <td>{{ $product->stock }}</td>
-                                <td>{{ $product->sold }}</td>
                                 <td>{{ count($product->reviews) }}</td>
                                 <td>Rp. {{ number_format($product->price, 0, ',', '.') }}</td>
                                 <td>{{ $product->created_at }}</td>

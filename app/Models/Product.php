@@ -37,8 +37,17 @@ class Product extends Model
         return $this->hasMany(Review::class, 'product_id');
     }
 
-    public function transactions(): HasMany
+    public function orders(): HasMany
     {
-        return $this->hasMany(Transaction::class, 'product_id');
+        return $this->hasMany(Order::class, 'product_id');
+    }
+
+    public function sold()
+    {
+        return $this->orders()
+                    ->whereHas('transaction', function ($query) {
+                        $query->where('status', 'completed');
+                    })
+                    ->sum('quantity');
     }
 }

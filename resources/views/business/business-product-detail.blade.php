@@ -151,8 +151,8 @@
                     <div class="col-md-7">
                         <h1 class="product-title">{{ $product->name }}</h1>
                         <div class="product-rating mb-3">
-                            <span class="badge bg-warning text-dark">5.0</span>
-                            <span class="text-muted">0 Reviews | {{ $product->sold }} Sold</span>
+                            <span class="badge bg-warning text-dark">{{ number_format($product->reviews()->avg('rating'), 1, '.', '.') }}</span>
+                            <span class="text-muted">{{ count($product->reviews) }} Reviews | {{ $product->sold() }} Sold</span>
                         </div>
                         @if($product->discount > 0)
                             <p>
@@ -210,13 +210,12 @@
                         <!-- Column 2: Seller Information -->
                         <div class="col-md-4">
                             <div class="seller-info">
-                                <p>Rating: 875</p>
                                 <p>Products: {{ count($business->products) }}</p>
+                                <p>Business Rating: {{ number_format($business->reviews()->avg('rating'), 2, ',', '.') }}</p>
                             </div>
                         </div>
                         <!-- Column 3: Action Buttons -->
                         <div class="col-md-4 text-center">
-                            <button class="btn btn-outline-primary btn-sm w-100 mb-2">Chat</button>
                             <a href="{{ route('business', ['business' => $business->slug ]) }}" class="btn btn-outline-secondary btn-sm w-100">Visit Store</a>
                         </div>
                     </div>

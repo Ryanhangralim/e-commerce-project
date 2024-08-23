@@ -77,10 +77,6 @@
                             <p class="col-md-9 col-form-label text-md-end">: {{ $product->discount }}%</p>
                         </div>
                         <div class="row mb-2">
-                            <label class="col-md-3 col-form-label text-md-end">Items sold</label>
-                            <p class="col-md-9 col-form-label text-md-end">: {{ $product->sold }}</p>
-                        </div>
-                        <div class="row mb-2">
                             <label class="col-md-3 col-form-label text-md-end">Stock</label>
                             <p class="col-md-9 col-form-label text-md-end">: {{ $product->stock }}</p>
                         </div>
