@@ -50,4 +50,20 @@ class Product extends Model
                     })
                     ->sum('quantity');
     }
+
+    //scope query
+    public function scopeFilter($query, array $filters){
+        $query->when($filters['search'] ?? false, function($query, $search) {
+            return $query->where(function($query) use ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+            });
+        });
+    }
+    public function scopeFilterBusiness($query, array $filters){
+        $query->when($filters['business-search'] ?? false, function($query, $search) {
+            return $query->where(function($query) use ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+            });
+        });
+    }
 }

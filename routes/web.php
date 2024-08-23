@@ -18,6 +18,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenerateReportController;
 use App\Http\Controllers\BusinessProfileController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\SellerApplicationController;
 use App\Http\Controllers\TransactionController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -33,9 +34,8 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('role:customer,admin,seller')->name('home');
+Route::get('/', [LandingController::class, 'landing'])
+->middleware('role:customer,admin,seller')->name('home');
 
 
 // Guest middleware

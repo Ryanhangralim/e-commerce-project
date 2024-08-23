@@ -1,4 +1,4 @@
-<x-user-layout title="{{ $business->name }}">
+<x-user-layout title="e-comm">
     <style>
         .container-fluid {
             padding: 0;
@@ -79,33 +79,6 @@
     </style>
 
     <div class="container">
-        <!-- Store Info -->
-        <div class="store-info-container">
-            <div class="store-logo">
-                @if($business->image)
-                    <img src="{{ asset($business_profile_path . $business->image) }}" alt="Store Image">
-                @else
-                    <img src="{{ asset($business_profile_path . 'default.jpg') }}" alt="Store Image">
-                @endif
-            </div>
-            <div class="store-details">
-                <div class="store-name text-primary">{{ $business->name }}</div>
-            </div>
-            <div class="store-stats">
-                <div class="stat">Products: <span class="stat-value text-primary">{{ count($business->products) }}</span></div>
-                <div class="stat">Rating: <span class="stat-value text-primary">{{ number_format($business->reviews()->avg('rating'), 2, '.', '.') }} ({{ count($business->reviews) }} Reviews)</span></div>
-            </div>
-        </div>
-        
-        <!-- Search Bar -->
-        <form action="{{ route('business', ['business' => $business->slug]) }}" method="GET">
-            <div class="row search-bar">
-                <input type="text" class="form-control col-md" placeholder="Search in this store" name="business-search" autocomplete="off" value="{{ request('business-search') }}">
-                <button class="btn btn-primary" type="submit">Search</button>
-            </div>
-        </form>
-        
-
         <!-- Products Grid -->
         <div class="row product-grid p-0 px-lg-5">
             @if($products->count())
@@ -121,12 +94,13 @@
                             <h5 class="card-title">{{ $product->name }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">{{ $product->brand }}</h6>
                             <h6 class="card-subtitle mb-2 text-muted">Rp. {{ formatNumber(calculateDiscount($product)) }}</h6>
+                            <a href="{{ route('business', ['business' => $product->business->slug ]) }}">{{ $product->business->name }}</a>
                         </div>
                     </div>
                 </a>
                 @endforeach
-            @else
-                <p class="text-center fs-4">No product found</p>         
+            @else 
+                <p class="text-center fs-4">No product found</p>
             @endif
         </div>
         <!-- Add Pagination Links -->

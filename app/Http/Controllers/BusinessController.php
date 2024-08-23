@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Business;
 use Illuminate\Http\Request;
 
@@ -40,13 +41,17 @@ class BusinessController extends Controller
     }
 
     // business home page
-    public function main(Business $business)
+    public function main(Business $business, Request $request)
     {
-        $products = $business->products()
-        ->withCount('reviews') // Adds a 'reviews_count' column to the results
-        ->orderBy('reviews_count', 'desc') // Orders by the review count
-        ->paginate(12);
-    
+        if($request->query('business-search'))
+        {
+            $products = $business->products()->filterBusiness(request(['business-search']))->paginate(12);   
+        } else {
+            $products = $business->products()
+                ->withCount('reviews') // Adds a 'reviews_count' column to the results
+                ->orderBy('reviews_count', 'desc') // Orders by the review count
+                ->paginate(12);
+        }    
 
         $data = [
             'business' => $business,
