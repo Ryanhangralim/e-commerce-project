@@ -125,7 +125,7 @@ Route::middleware('role:customer')->group(function (){
 
 // Seller middleware
 Route::prefix('/seller/dashboard')->middleware('role:seller')->group(function(){
-    Route::get('/', [DashboardController::class, 'dashboard'])
+    Route::get('/', [DashboardController::class, 'sellerDashboard'])
     ->name('seller-dashboard');
 
     // Product related routes
@@ -189,7 +189,7 @@ Route::prefix('/seller/dashboard')->middleware('role:seller')->group(function(){
 
 // Admin middleware
 Route::prefix('/admin/dashboard')->middleware('role:admin')->group(function (){
-    Route::get('/', [DashboardController::class, 'dashboard'])
+    Route::get('/', [DashboardController::class, 'adminDashboard'])
     ->name('admin-dashboard');
 
     // User related routes
