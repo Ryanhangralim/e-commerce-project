@@ -126,7 +126,7 @@
                         @forelse($transactions as $transaction)
                         <div class="card my-2 mb-3">
                             <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                                <div>{{ $transaction->business->name }}</div>
+                                <div><a href="{{ route('business', ['business' => $transaction->business->slug]) }}" class="text-secondary">{{ $transaction->business->name }}</a></div>
                                 <div>
                                     <span class="badge badge-status {{ strtolower($transaction->status) }}">
                                         {{ $transaction->status }}
@@ -196,6 +196,7 @@
                                             <strong>Total price:</strong> Rp. {{ formatNumber($transaction->total_price) }}
                                         </div>
                                     </div>
+                                    {{-- Add special action button when needed --}}
                                     @if( $transaction->status === "received")
                                         <hr class="mb-0 mt-0">
                                         <form action="{{ route('transaction.complete-transaction') }}" method="POST">
@@ -205,6 +206,18 @@
                                                     <input type="hidden" value="{{ $transaction->id }}" name="transaction_id">
                                                     <input type="hidden" value="completed" name="action">
                                                     <button class="btn btn-primary" type="submit" onclick="return confirm('Do you want to complete the transaction?');"><i class="bi bi-check-lg"></i> Transaction Done</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    @elseif( $transaction->status === "pending" )
+                                        <hr class="mb-0 mt-0">
+                                        <form action="{{ route('transaction.complete-transaction') }}" method="POST">
+                                            @csrf
+                                            <div class="row px-3 pt-2 align-items-center">
+                                                <div class="col text-right">
+                                                    <input type="hidden" value="{{ $transaction->id }}" name="transaction_id">
+                                                    <input type="hidden" value="canceled" name="action">
+                                                    <button class="btn btn-danger" type="submit" onclick="return confirm('Do you want to cancel the transaction?');"><i class="bi bi-x-lg"></i> Cancel Transaction</button>
                                                 </div>
                                             </div>
                                         </form>

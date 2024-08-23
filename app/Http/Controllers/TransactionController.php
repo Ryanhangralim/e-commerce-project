@@ -96,7 +96,7 @@ class TransactionController extends Controller
             OrderController::newOrder($transaction, $productCart);
         }
 
-        return redirect()->route('home');
+        return redirect()->route('transaction.view')->with('success', 'Transaction checkout successfull!');
     }
 
     // Seller dashboard routes
