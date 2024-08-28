@@ -144,6 +144,12 @@
                                     <i class="bi bi-card-checklist mr-2 text-gray-400"></i></i>
                                     Transaction List
                                 </a>
+                                @role('customer')
+                                <a class="dropdown-item" href="{{ route('apply-seller') }}">
+                                    <i class="bi bi-shop mr-2 text-gray-400"></i>
+                                    Apply Seller
+                                </a>
+                                @endrole
                                 @role('admin')
                                 <a class="dropdown-item" href="{{ route('admin-dashboard') }}">
                                     <i class="fas fa-fw fa-tachometer-alt mr-2 text-gray-400"></i>
