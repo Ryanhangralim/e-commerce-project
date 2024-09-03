@@ -29,4 +29,9 @@ class Chat extends Model
     {
         return $this->belongsTo(Business::class, 'business_id');
     }
+
+    public function getLatestConversationAttribute()
+    {
+        return $this->conversations()->latest('created_at')->first()->message ?? null;
+    }
 }

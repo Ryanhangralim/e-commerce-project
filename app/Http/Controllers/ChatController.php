@@ -11,14 +11,14 @@ class ChatController extends Controller
     // ChatController.php
     public function viewChat($chatId)
     {
-        $chat = Chat::with('conversations')->find($chatId);
+        $chat = $chatId;
         $chats = Auth::user()->chats; // Or use the existing logic to retrieve the chat list
 
         if ($chat) {
             $data = [
                 "chat" => $chat,
                 "chats" => $chats,
-                "currentChat" => $chatId
+                "currentChat" => $chat->id
             ];
 
             return view('chat.show', $data);

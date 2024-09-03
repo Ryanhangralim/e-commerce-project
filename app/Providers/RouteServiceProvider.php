@@ -34,6 +34,14 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+
+        
+        parent::boot();
+
+        // Binding chat route 
+        \Illuminate\Support\Facades\Route::bind('chat', function ($value) {
+            return \App\Models\Chat::where('id', $value)->firstOrFail();
+        });
     }
 
     /**

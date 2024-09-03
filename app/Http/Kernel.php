@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'role' => \App\Http\Middleware\CheckRole::class,
         'check.business.owner' => \App\Http\Middleware\CheckBusinessOwner::class,
         'check.transaction.business.owner' => \App\Http\Middleware\CheckTransactionBusinessOwner::class,
+        'check.customer.chat.owner' => \App\Http\Middleware\CheckCustomerChatOwner::class
     ];
 }

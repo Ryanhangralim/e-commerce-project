@@ -115,8 +115,9 @@ Route::middleware('auth')->group(function (){
 
     // Chat system
     Route::get('/chat', [ChatController::class, 'show']);
-    Route::get('/chat/{chat}', [ChatController::class, 'viewChat'])
-    ->name('chat');
+    Route::get('/chat/{chat:id}', [ChatController::class, 'viewChat'])
+    ->name('chat')
+    ->middleware('check.customer.chat.owner');
 });
 
 // Customer middleware

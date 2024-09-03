@@ -98,7 +98,7 @@
                             <a href="{{ route('chat', $chatItem->id) }}" class="text-decoration-none">
                                 <div class="chat-list-item {{ $currentChat == $chatItem->id ? 'active' : '' }}">
                                     <strong>{{ $chatItem->business->name }}</strong>
-                                    <p class="text-muted small">Latest Message</p>
+                                    <p class="text-muted small">{{ $chatItem->latest_conversation }}</p>
                                 </div>
                             </a>
                         @empty
@@ -113,7 +113,7 @@
                 <div class="card">
                     <!-- Conversation Header -->
                     <div class="chat-header mt-2">
-                        <h6>{{ $chat->business->name }}</h6>
+                        <a href="{{ route('business', ['business' => $chat->business->slug]) }}"><h6>{{ $chat->business->name }}</h6></a>
                     </div>
 
                     <div class="chat-box">
