@@ -18,6 +18,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenerateReportController;
 use App\Http\Controllers\BusinessProfileController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\SellerApplicationController;
 use App\Http\Controllers\TransactionController;
@@ -106,12 +107,15 @@ Route::middleware('auth')->group(function (){
 
     // Complete Transaction
     Route::post('/transactions/update-status', [TransactionController::class, 'updateTransactionStatus'])
-    ->whereNumber('transaction')
     ->name('transaction.complete-transaction');
 
     // Add review
     Route::post('/transactions/add-review', [ReviewController::class, 'addReview'])
     ->name('transaction.add-review');
+
+    // Chat system
+    Route::get('/chat', [ChatController::class, 'viewChat'])
+    ->name('chat');
 });
 
 // Customer middleware
@@ -182,7 +186,6 @@ Route::prefix('/seller/dashboard')->middleware('role:seller')->group(function(){
         ->name('transaction-dashboard.view-detail');
 
         Route::post('/transactions/update-status', [TransactionController::class, 'updateTransactionStatus'])
-        ->whereNumber('transaction')
         ->name('transaction-dashboard.update-status');
     });
 });
