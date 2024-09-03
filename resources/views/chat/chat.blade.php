@@ -17,9 +17,10 @@
         .chat-message {
             margin-bottom: 20px;
             display: flex;
+            flex-direction: column;
         }
         .chat-message.sent {
-            justify-content: flex-end;
+            align-items: flex-end;
         }
         .chat-message .message {
             padding: 10px;
@@ -49,6 +50,13 @@
             border-style: solid;
             border-color: transparent transparent transparent #d4edda;
         }
+        .chat-message .message small {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.8em;
+            color: #888;
+            text-align: right;
+        }
         .chat-input {
             border-top: 1px solid #ddd;
             padding: 10px;
@@ -57,13 +65,12 @@
         .chat-header {
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
             background-color: #fff;
             padding: 10px 20px;
             border-bottom: 1px solid #ddd;
         }
     </style>
-    
 
     <div class="container">
         <div class="row">
@@ -94,67 +101,53 @@
                     </div>
 
                     <div class="chat-box">
-
                         <!-- Received Message -->
                         <div class="chat-message received">
                             <div class="message">
                                 <p>Kami akan segera mengirimkan paket...</p>
+                                <small>08-08-2024 19:42</small>
                             </div>
                         </div>
                         <div class="chat-message received">
                             <div class="message">
                                 <p>Kami akan segera mengirimkan paket...</p>
+                                <small>08-08-2024 19:45</small>
                             </div>
                         </div>
-                        <div class="chat-message received">
-                            <div class="message">
-                                <p>Kami akan segera mengirimkan paket...</p>
-                            </div>
-                        </div>
-                        <div class="chat-message received">
-                            <div class="message">
-                                <p>Kami akan segera mengirimkan paket...</p>
-                            </div>
-                        </div>
-                        <div class="chat-message received">
-                            <div class="message">
-                                <p>Kami akan segera mengirimkan paket...</p>
-                            </div>
-                        </div>
-                        <div class="chat-message received">
-                            <div class="message">
-                                <p>Kami akan segera mengirimkan paket...</p>
-                            </div>
-                        </div>
+                        <!-- Add more received messages with timestamps as needed -->
 
                         <!-- Sent Message -->
                         <div class="chat-message sent">
                             <div class="message">
                                 <p>Thank you! I'm looking forward to it.</p>
+                                <small>08-08-2024 19:50</small>
                             </div>
                         </div>
                         <div class="chat-message sent">
                             <div class="message">
-                                <p>Thank you! I'm looking forward to it.</p>
+                                <p>Thank you! I'm looking for ward to it         thhhhhhhhhhhhhhhhhhhhhhhhhh.</p>
+                                <small>08-08-2024 19:52</small>
                             </div>
                         </div>
                         <div class="chat-message sent">
                             <div class="message">
-                                <p>Thank you! I'm looking forward to it.</p>
+                                <p>Thank you! I'm looking for ward to it         thhhhhhhhhhhhhhhhhhhhhhhhhh.</p>
+                                <small>08-08-2024 19:52</small>
                             </div>
                         </div>
                         <div class="chat-message sent">
                             <div class="message">
-                                <p>Thank you! I'm looking forward to it.</p>
+                                <p>Thank you! I'm looking for ward to it         thhhhhhhhhhhhhhhhhhhhhhhhhh.</p>
+                                <small>08-08-2024 19:52</small>
                             </div>
                         </div>
                         <div class="chat-message sent">
                             <div class="message">
-                                <p>Thank you! I'm looking forward to it.</p>
+                                <p>Thank you! I'm looking for ward to it         thhhhhhhhhhhhhhhhhhhhhhhhhh. gfdsgdsfgdfgsdgfsdfgsdffgdgsdfgfsgfgsdgdg dfgsdg sdg sdgf sdg sdgfsf</p>
+                                <small>08-08-2024 19:52</small>
                             </div>
                         </div>
-
-                        <!-- Add more messages as needed -->
+                        <!-- Add more sent messages with timestamps as needed -->
                     </div>
                 </div>
 

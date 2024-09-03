@@ -73,6 +73,15 @@
                             </div>
                         </li>
 
+                        {{-- Chat icon --}}
+                        <li class="nav-item mx-1">
+                            <a class="nav-link" href="{{ route('chat') }}">
+                                <i class="bi bi-chat-fill text-white"></i>                               
+                                <!-- Counter - chat -->
+                                <span class="badge badge-danger badge-counter" id="chat-badge">88</span>
+                            </a>
+                        </li>
+
                         <!-- Nav Item - Cart -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="{{ route('cart.view') }}" id="cartDropdown" role="button"
