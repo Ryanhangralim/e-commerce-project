@@ -11,6 +11,10 @@ class Chat extends Model
 {
     use HasFactory;
 
+    protected $guarded = [
+        'id'
+    ];
+
     public function conversations(): HasMany
     {
         return $this->hasMany(Conversation::class, 'chat_id');
@@ -23,6 +27,6 @@ class Chat extends Model
 
     public function business(): BelongsTo
     {
-        return $this->belongsTo(Business::class, 'businesss_id');
+        return $this->belongsTo(Business::class, 'business_id');
     }
 }

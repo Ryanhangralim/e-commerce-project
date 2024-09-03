@@ -96,4 +96,9 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     {
         return $this->hasMany(Chat::class, 'user_id');
     }
+
+    public function getLatestChatIdAttribute()
+    {
+        return $this->chats()->latest('updated_at')->first()->id ?? null;
+    }
 }

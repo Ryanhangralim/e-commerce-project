@@ -114,7 +114,8 @@ Route::middleware('auth')->group(function (){
     ->name('transaction.add-review');
 
     // Chat system
-    Route::get('/chat', [ChatController::class, 'viewChat'])
+    Route::get('/chat', [ChatController::class, 'show']);
+    Route::get('/chat/{chat}', [ChatController::class, 'viewChat'])
     ->name('chat');
 });
 

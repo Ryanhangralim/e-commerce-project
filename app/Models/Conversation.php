@@ -10,6 +10,10 @@ class Conversation extends Model
 {
     use HasFactory;
 
+    protected $guarded = [
+        'id'
+    ];
+
     public function chat(): BelongsTo
     {
         return $this->belongsTo(Chat::class, 'chat_id');

@@ -75,7 +75,7 @@
 
                         {{-- Chat icon --}}
                         <li class="nav-item mx-1">
-                            <a class="nav-link" href="{{ route('chat') }}">
+                            <a class="nav-link" href="{{ route('chat', Auth::user()->latestChatId) }}">
                                 <i class="bi bi-chat-fill text-white"></i>                               
                                 <!-- Counter - chat -->
                                 <span class="badge badge-danger badge-counter" id="chat-badge">88</span>

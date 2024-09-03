@@ -2,12 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
-    public function viewChat()
+    // ChatController.php
+    public function viewChat($chatId)
     {
-        return view('chat.chat');
+        $chat = Chat::with('conversations')->find($chatId);
+        $chats = Auth::user()->chats; // Or use the existing logic to retrieve the chat list
+
+        if ($chat) {
+            $data = [
+                "chat" => $chat,
+                "chats" => $chats,
+                "currentChat" => $chatId
+            ];
+
+            return view('chat.show', $data);
+        }
+
+        return redirect()->route('chat', Auth::user()->latestChatId)->with('error', 'Chat not found');
     }
+
+    public function show()
+    {
+        return redirect()->route('chat', Auth::user()->latestChatId);
+    }
+
 }

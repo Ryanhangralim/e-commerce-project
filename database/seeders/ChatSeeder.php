@@ -13,11 +13,14 @@ class ChatSeeder extends Seeder
      */
     public function run(): void
     {
-        $data = [
+
+        Chat::create([
             "user_id" => 1,
             "business_id" => 1,
-        ];
-
-        Chat::create($data);
+        ]);
+        Chat::create([
+            "user_id" => 1,
+            "business_id" => 2,
+        ]);
     }
 }
