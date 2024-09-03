@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Conversation;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\SellerApplicationSeeder;
@@ -30,7 +31,9 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             TransactionSeeder::class,
             OrderSeeder::class,
-            ReviewSeeder::class
+            ReviewSeeder::class,
+            ChatSeeder::class,
+            ConversationSeeder::class
         ]);
     }
 }

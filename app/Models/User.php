@@ -91,4 +91,9 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     {
         return $this->hasMany(Transaction::class, 'user_id');
     }
+
+    public function chats(): HasMany
+    {
+        return $this->hasMany(Chat::class, 'user_id');
+    }
 }

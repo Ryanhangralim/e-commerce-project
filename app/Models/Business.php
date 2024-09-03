@@ -37,6 +37,11 @@ class Business extends Model
         return $this->hasMany(Transaction::class, 'business_id');
     }
 
+    public function chats(): HasMany
+    {
+        return $this->hasMany(Chat::class, 'business_id');
+    }
+
     public function getPendingTransactionsAttribute()
     {
         return $this->transactions()
