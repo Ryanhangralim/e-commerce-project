@@ -23,8 +23,14 @@
                                 <a href="{{ route('chat', $chatItem->id) }}" class="list-group-item list-group-item-action">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
-                                            <strong>{{ $chatItem->business->name }}</strong>
+                                            @role('seller')
+                                                <strong>{{ $chatItem->user->username }}</strong>
+                                            @endrole
+                                            @role('customer')
+                                                <strong>{{ $chatItem->business->name }}</strong>
+                                            @endrole
                                             <p class="text-muted small mb-0 text-truncate">{{ $chatItem->latest_conversation }}</p>
+                                            <small>{{ $chatItem->updated_at }}</small>
                                         </div>
                                     </div>
                                 </a>

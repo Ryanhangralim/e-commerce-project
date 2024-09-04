@@ -78,7 +78,12 @@
                             <a class="nav-link" href="{{ route('chat.list') }}">
                                 <i class="bi bi-chat-fill text-white"></i>                               
                                 <!-- Counter - chat -->
-                                <span class="badge badge-danger badge-counter" id="chat-badge">88</span>
+                                @role('customer')
+                                    <span class="badge badge-danger badge-counter" id="chat-badge">{{ count(Auth::user()->chats) }}</span>
+                                @endrole
+                                @role('seller')
+                                    <span class="badge badge-danger badge-counter" id="chat-badge">{{ count(Auth::user()->business->chats) }}</span>
+                                @endrole
                             </a>
                         </li>
 

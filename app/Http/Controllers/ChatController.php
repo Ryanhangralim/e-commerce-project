@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chat;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,8 +12,10 @@ class ChatController extends Controller
     // ChatController.php
     public function viewChat($chatId)
     {
+        $user = Auth::user();
+
         $chat = $chatId;
-        $chats = Auth::user()->chats; // Or use the existing logic to retrieve the chat list
+        $chats = $user->business ? Chat::where('business_id', $user->business->id)->get() : Auth::user()->chats;
 
         if ($chat) {
             $data = [
@@ -29,8 +32,11 @@ class ChatController extends Controller
 
     public function show()
     {
+        $user = Auth::user();
+        $chats = $user->business ? Chat::where('business_id', $user->business->id)->get() : Auth::user()->chats;
+
         $data = [
-            "chats" => Auth::user()->chats
+            "chats" => $chats
         ];
 
         return view('chat.chat', $data);
