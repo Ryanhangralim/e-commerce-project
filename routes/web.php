@@ -116,9 +116,15 @@ Route::middleware('auth')->group(function (){
     // Chat system
     Route::get('/chat', [ChatController::class, 'show'])
     ->name('chat.list');
-    Route::get('/chat/{chat:id}', [ChatController::class, 'viewChat'])
-    ->name('chat')
-    ->middleware('check.customer.chat.owner');
+    Route::post('/chat/new', [ChatController::class, 'newChat'])
+    ->name('chat.new');
+    
+    Route::middleware('check.customer.chat.owner')->group(function (){
+        Route::get('/chat/{chat:id}', [ChatController::class, 'viewChat'])
+        ->name('chat');
+        Route::post('/chat/{chat:id}/delete', [ChatController::class, 'deleteChat'])
+        ->name('chat.delete');
+    });
 });
 
 // Customer middleware

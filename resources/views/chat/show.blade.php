@@ -95,7 +95,7 @@
                 <div class="p-3">
                     <div class="chat-list">
                         @forelse($chats as $chatItem)
-                            <a href="{{ route('chat', $chatItem->id) }}" class="text-decoration-none">
+                            <a href="{{ route('chat', ['chat' => $chatItem->id]) }}" class="text-decoration-none">
                                 <div class="chat-list-item {{ $currentChat == $chatItem->id ? 'active' : '' }}">
                                     <strong>{{ $chatItem->business->name }}</strong>
                                     <p class="text-muted small">{{ $chatItem->latest_conversation }}</p>
@@ -112,8 +112,14 @@
             <div class="col-md-9">
                 <div class="card">
                     <!-- Conversation Header -->
-                    <div class="chat-header mt-2">
+                    <div class="chat-header mt-2 d-flex justify-content-between align-items-center">
                         <a href="{{ route('business', ['business' => $chat->business->slug]) }}"><h6>{{ $chat->business->name }}</h6></a>
+                        <form action="{{ route('chat.delete', ['chat' => $chat->id]) }}" method="POST">
+                            @csrf
+                            <button type="submit" onclick="return confirm('Do you want to delete the chat?')" class="btn">
+                                <i class="bi bi-trash-fill text-danger"></i>
+                            </button>
+                        </form>
                     </div>
 
                     <div class="chat-box">

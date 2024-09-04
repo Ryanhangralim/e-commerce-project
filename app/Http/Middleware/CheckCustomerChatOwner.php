@@ -19,7 +19,7 @@ class CheckCustomerChatOwner
         $chat = $request->route('chat');
 
         if($chat && $chat->user_id !== auth()->user()->id) {
-            return redirect()->back()->with('error', 'You are not authorized to view this chat.');
+            return redirect()->route('chat.list')->with('error', 'You are not authorized to view this chat.');
         }
 
         return $next($request);

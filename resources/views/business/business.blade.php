@@ -90,6 +90,11 @@
             </div>
             <div class="store-details">
                 <div class="store-name text-primary">{{ $business->name }}</div>
+                <form action="{{ route('chat.new') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="business_id" value="{{ $business->id }}">
+                    <button type="submit" class="btn btn-primary">Chat</button>
+                </form>
             </div>
             <div class="store-stats">
                 <div class="stat">Products: <span class="stat-value text-primary">{{ count($business->products) }}</span></div>
