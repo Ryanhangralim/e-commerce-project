@@ -29,7 +29,11 @@ class ChatController extends Controller
 
     public function show()
     {
-        return redirect()->route('chat', Auth::user()->latestChatId);
+        $data = [
+            "chats" => Auth::user()->chats
+        ];
+
+        return view('chat.chat', $data);
     }
 
 }
