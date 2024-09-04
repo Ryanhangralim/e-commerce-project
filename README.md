@@ -32,19 +32,10 @@
     -   Add & delete product to/from cart
     -   View & add review
     -   View transactions
+    -   Homepage
+    -   Search products
+    -   chat
 -   Seller
     -   Reply to review
     -   View transactions & Update status
-
-### TODO Features
-
--   Seller Dashboard
-    -   Update business information
--   User
-    -   Homepage
-    -   Search products
     -   Chat
-
-BUG
-
--   Check stock before creating order
