@@ -98,7 +98,8 @@
                             <a href="{{ route('chat', ['chat' => $chatItem->id]) }}" class="text-decoration-none">
                                 <div class="chat-list-item {{ $currentChat == $chatItem->id ? 'active' : '' }}">
                                     <strong>{{ $chatItem->business->name }}</strong>
-                                    <p class="text-muted small">{{ $chatItem->latest_conversation }}</p>
+                                    <p class="text-muted small mb-0">{{ $chatItem->latest_conversation }}</p>
+                                    <small>{{ $chatItem->updated_at }}</small>
                                 </div>
                             </a>
                         @empty
@@ -127,7 +128,7 @@
                         @forelse($chat->conversations as $conversation)
                             <div class="chat-message {{ $conversation->sender == Auth::user()->role->title ? 'sent' : 'received' }}">
                                 <div class="message">
-                                    <p>{{ $conversation->message }}</p>
+                                    <p class="mb-1">{{ $conversation->message }}</p>
                                     <small>{{ $conversation->created_at }}</small>
                                 </div>
                             </div>
@@ -138,12 +139,15 @@
                 </div>
 
                 <!-- Chat Input -->
-                <div class="chat-input">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Write a message">
-                        <button class="btn btn-primary ml-2" type="button">Send</button>
-                    </div>
-                </div>
+                <form action="{{ route('conversation.new', ['chat' => $chat->id]) }}" method="POST">
+                    @csrf
+                    <div class="chat-input">
+                        <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Write a message" name="message" autocomplete="off">
+                                <button class="btn btn-primary ml-2" type="submit">Send</button>
+                            </div>
+                        </div>
+                </form>
             </div>
         </div>
     </div>
